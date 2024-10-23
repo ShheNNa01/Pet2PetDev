@@ -9,13 +9,7 @@ from services.auth.app.models.schemas import UserCreate, UserUpdate, Token, User
 from shared.config.settings import settings
 
 class AuthService:
-    @staticmethod
-    async def authenticate_user(db: Session, email: str, password: str) -> Optional[User]:
-        user = db.query(User).filter(User.user_email == email).first()
-        if not user or not verify_password(password, user.password):
-            return None
-        return user
-
+    
     @staticmethod
     async def create_user(db: Session, user_data: UserCreate) -> User:
         # Verificar si el email ya existe
@@ -35,7 +29,8 @@ class AuthService:
             user_country=user_data.user_country,
             user_number=user_data.user_number,
             user_bio=user_data.user_bio,
-            password=hashed_password
+            password=hashed_password,
+            status=True
         )
         
         try:
@@ -47,14 +42,23 @@ class AuthService:
             db.rollback()
             raise HTTPException(
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                detail="Error creating user"
+                detail=f"Error creating user: {str(e)}"
             )
+        
+    @staticmethod
+    async def authenticate_user(db: Session, email: str, password: str) -> Optional[User]:
+        user = db.query(User).filter(User.user_email == email).first()
+        if not user:
+            return None
+        if not verify_password(password, user.password):
+            return None
+        return user
 
     @staticmethod
     async def create_token(user: User) -> Token:
         access_token_expires = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
         access_token = create_access_token(
-            data={"sub": str(user.user_id)},
+            subject=str(user.user_id),
             expires_delta=access_token_expires
         )
         

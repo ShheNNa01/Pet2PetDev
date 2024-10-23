@@ -21,7 +21,17 @@ async def register_user(
     db: Session = Depends(get_db),
     auth_service: AuthService = Depends(get_auth_service)
 ) -> Any:
-    return await auth_service.create_user(db, user_data)
+    """
+    Registro de nuevo usuario.
+    """
+    try:
+        result = await auth_service.create_user(db, user_data)
+        return result
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=str(e)
+        )
 
 @router.post("/login", response_model=Token)
 async def login(
@@ -39,6 +49,7 @@ async def login(
             detail="Incorrect email or password",
             headers={"WWW-Authenticate": "Bearer"},
         )
+    
     return await auth_service.create_token(user)
 
 @router.get("/me", response_model=UserResponse)

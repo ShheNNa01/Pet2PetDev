@@ -26,7 +26,7 @@ def get_password_hash(password: str) -> str:
     """
     return pwd_context.hash(password)
 
-def create_access_token(subject: Union[str, Any], expires_delta: timedelta = None) -> str:
+def create_access_token(subject: Union[str, Any], expires_delta: Optional[timedelta] = None) -> str:
     """
     Crea un token JWT
     """
