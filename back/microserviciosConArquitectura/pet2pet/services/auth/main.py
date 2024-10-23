@@ -1,15 +1,13 @@
-# services/auth/main.py
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import sys
-import os
 from pathlib import Path
 
 # Añadir el directorio raíz al PYTHONPATH
 ROOT_PATH = Path(__file__).resolve().parent.parent.parent
 sys.path.append(str(ROOT_PATH))
 
-from services.auth.api.routes import api_router
+from services.auth.app.api.routes import api_router
 from shared.config.settings import settings
 
 app = FastAPI(

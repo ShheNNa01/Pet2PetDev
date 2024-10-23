@@ -4,11 +4,11 @@ from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session
 from shared.database.session import get_db
 from shared.database.models import User
-from app.core.security import oauth2_scheme
+from services.auth.app.core.security import oauth2_scheme
 from jose import JWTError, jwt
 from shared.config.settings import settings
-from app.services.auth_service import AuthService
-from app.models.schemas import TokenData
+from services.auth.app.services.auth_service import AuthService
+from services.auth.app.models.schemas import TokenData
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="api/v1/auth/login")
 

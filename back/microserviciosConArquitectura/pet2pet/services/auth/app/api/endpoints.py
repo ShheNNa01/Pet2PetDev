@@ -3,13 +3,14 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 from typing import Any
-from shared.database.session import get_db
-from app.models.schemas import (
+
+from services.auth.app.models.schemas import (
     UserCreate, UserResponse, Token, UserUpdate,
     ChangePasswordRequest, RequestPasswordReset, ResetPassword
 )
-from app.services.auth_service import AuthService
-from app.api.dependencies import get_current_active_user, get_auth_service
+from services.auth.app.services.auth_service import AuthService
+from services.auth.app.api.dependencies import get_current_active_user, get_auth_service
+from shared.database.session import get_db
 from shared.database.models import User
 
 router = APIRouter()
@@ -20,9 +21,6 @@ async def register_user(
     db: Session = Depends(get_db),
     auth_service: AuthService = Depends(get_auth_service)
 ) -> Any:
-    """
-    Register a new user.
-    """
     return await auth_service.create_user(db, user_data)
 
 @router.post("/login", response_model=Token)

@@ -4,8 +4,8 @@ from typing import Optional
 from sqlalchemy.orm import Session
 from fastapi import HTTPException, status
 from shared.database.models import User
-from app.core.security import verify_password, get_password_hash, create_access_token
-from app.models.schemas import UserCreate, UserUpdate, Token, UserResponse
+from services.auth.app.core.security import verify_password, get_password_hash, create_access_token
+from services.auth.app.models.schemas import UserCreate, UserUpdate, Token, UserResponse
 from shared.config.settings import settings
 
 class AuthService:
