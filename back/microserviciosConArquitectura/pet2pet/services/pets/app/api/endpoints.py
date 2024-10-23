@@ -11,6 +11,8 @@ from services.pets.app.models.schemas import (
 from services.pets.app.services.pet_service import PetService
 from services.pets.app.api.dependencies import get_current_active_user, get_pet_service
 from fastapi import APIRouter, Depends, HTTPException, status, Query
+from fastapi import UploadFile, File
+from services.pets.app.services.file_service import FileService
 
 router = APIRouter()
 
@@ -33,6 +35,35 @@ async def create_pet(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Error creating pet: {str(e)}"
         )
+    
+@router.post("/{pet_id}/image", response_model=PetResponse)
+async def upload_pet_image(
+    pet_id: int,
+    file: UploadFile = File(...),
+    current_user: User = Depends(get_current_active_user),
+    db: Session = Depends(get_db),
+    pet_service: PetService = Depends(get_pet_service)
+):
+    """
+    Upload a pet image
+    """
+    # Verificar que la mascota existe y pertenece al usuario
+    pet = await pet_service.get_pet(db, pet_id)
+    if pet.user_id != current_user.user_id:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Not authorized to update this pet"
+        )
+
+    # Guardar la imagen
+    image_path = await FileService.save_pet_image(file, pet_id)
+
+    # Actualizar la ruta de la imagen en la mascota
+    pet.pet_picture = image_path
+    db.commit()
+    db.refresh(pet)
+
+    return pet
 
 @router.get("/", response_model=List[PetResponse])
 async def get_pets(

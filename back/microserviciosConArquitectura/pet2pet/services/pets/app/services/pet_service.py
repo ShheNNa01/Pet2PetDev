@@ -4,6 +4,7 @@ from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
 from datetime import datetime
 
+from services.pets.app.services.file_service import FileService
 from shared.database.models import Pet, User, PetType, Breed
 from services.pets.app.models.schemas import PetCreate, PetUpdate, PetFilter
 
@@ -145,6 +146,11 @@ class PetService:
             )
 
         try:
+            # Eliminar imagen si existe
+            if pet.pet_picture:
+                await FileService.delete_pet_image(pet.pet_picture)
+
+            # Eliminar mascota
             db.delete(pet)
             db.commit()
         except Exception as e:
