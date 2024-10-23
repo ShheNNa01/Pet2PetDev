@@ -1,0 +1,186 @@
+/* efectos por defecto */
+body {
+  font-family: 'Overpass', sans-serif;
+  font-weight: normal;
+  font-size: 100%;
+  color: #1a1a1a; /* Texto oscuro */
+
+  margin: 0;
+  background-color: #eeede8; /* Fondo claro */
+}
+
+/* efectos para el contenedor de pantalla completa */
+#contenedor {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url('../../assets/images/pexels-n-voitkevich-5122180.jpg'); /* Asegúrate de que la ruta sea correcta */
+  margin: 0;
+  padding: 0;
+  min-width: 100vw;
+  min-height: 100vh;
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  background-size: 100%; /* Cambia este valor según tus necesidades */
+  background-repeat: no-repeat; /* Esto evita que la imagen se repita */
+}
+
+
+/* contenedor del login a la izquierda */
+#contenedorcentrado {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+
+  min-width: 380px;
+  max-width: 900px;
+  width: 100%;
+
+  background-color: rgba(80, 156, 162, 0.7); /* Fondo del contenedor con opacidad */
+
+  border-radius: 10px;
+  box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.15);
+
+  padding: 30px;
+  box-sizing: border-box;
+}
+
+
+/* formulario de login */
+#login {
+  width: 100%;
+  max-width: 320px;
+  min-width: 320px;
+  padding: 30px 30px 50px 30px;
+  background-color: #d55b49; /* Fondo del formulario */
+
+  box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.15);
+
+  border-radius: 3px;
+  box-sizing: border-box;
+
+  opacity: 1;
+}
+
+#login label {
+  display: block;
+  font-family: 'Overpass', sans-serif;
+  font-size: 120%;
+  color: #1a1a1a; /* Color de las etiquetas */
+
+  margin-top: 15px;
+}
+
+#login input {
+  font-family: 'Overpass', sans-serif;
+  font-size: 110%;
+  color: #1a1a1a; /* Texto en los inputs */
+
+  display: block;
+  width: 100%;
+  height: 40px;
+
+  margin-bottom: 10px;
+  padding: 5px 5px 5px 10px;
+
+  box-sizing: border-box;
+
+  border: none;
+  border-radius: 3px;
+}
+
+#login input::placeholder {
+  font-family: 'Overpass', sans-serif;
+  color: #eeede8; /* Placeholder más claro */
+}
+
+#login button {
+  font-family: 'Overpass', sans-serif;
+  font-size: 110%;
+  color: #eeede8; /* Texto del botón */
+  width: 100%;
+  height: 40px;
+  border: none;
+
+  border-radius: 3px;
+  background-color: #1a1a1a; /* Fondo del botón */
+
+  margin-top: 10px;
+}
+
+#login button:hover {
+  background-color:rgba(80, 156, 162, 0.7); /* Fondo del botón al pasar el mouse */
+  color: #eeede8;
+}
+
+/* Sección derecha */
+#derecho {
+  text-align: center;
+  width: 90%;
+  background-color:white;
+  margin-left: 20px;
+  opacity: 0.70;
+  height: 400px;
+  padding: 95px 20px 20px 50px;
+  box-sizing: border-box;
+}
+
+.titulo {
+  font-size: 300%;
+  color: #eeede8; /* Títulos */
+}
+
+.logo-empresa img {
+  width: 60%;
+}
+
+hr {
+  border-top: 1px solid #8c8b8b;
+  border-bottom: 1px solid #eeede8; /* Color de la línea */
+}
+
+.pie-form {
+  font-size: 90%;
+  text-align: center;
+  margin-top: 15px;
+}
+
+.pie-form a {
+  display: block;
+  text-decoration: none;
+  color: #eeede8; /* Color de los links */
+  margin-bottom: 3px;
+}
+
+.pie-form a:hover {
+  color: #0a0a0a; /* Color de los links al pasar el mouse */
+}
+
+/* Ajuste para pantallas pequeñas */
+@media all and (max-width: 775px) {
+  #contenedorcentrado {
+      flex-direction: column-reverse;
+      min-width: 380px;
+      max-width: 900px;
+      width: 90%;
+      background-color: #509ca2;
+      border-radius: 10px;
+      box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.15);
+      padding: 30px;
+      box-sizing: border-box;
+  }
+
+  #login {
+      margin: 0 auto;
+  }
+
+  #derecho {
+      padding: 20px 20px 20px 20px;
+  }
+
+  #login label {
+      text-align: left;
+  }
+}
