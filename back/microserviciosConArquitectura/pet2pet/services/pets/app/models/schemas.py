@@ -35,8 +35,23 @@ class PetBase(BaseModel):
     gender: Optional[str] = Field(None, pattern="^(male|female)$")
     bio: Optional[str] = Field(None, max_length=200)
 
-class PetCreate(PetBase):
-    pass
+class PetCreate(BaseModel):
+    name: str = Field(..., min_length=2, max_length=50)
+    breed_id: Optional[int] = None
+    birthdate: Optional[date] = None
+    gender: Optional[str] = Field(None, pattern="^(male|female)$")
+    bio: Optional[str] = None
+
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "name": "Max",
+                "breed_id": 1,
+                "birthdate": "2023-01-01",
+                "gender": "male",
+                "bio": "Friendly dog"
+            }
+        }
 
 class PetUpdate(PetBase):
     name: Optional[str] = Field(None, min_length=2, max_length=50)
