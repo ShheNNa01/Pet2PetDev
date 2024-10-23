@@ -1,6 +1,6 @@
-# services/auth/main.py
+# services/pets/main.py
 from fastapi import FastAPI, APIRouter
-from services.auth.app.api.routes import api_router
+from services.pets.app.api.routes import api_router
 
 router = APIRouter()
 router.include_router(api_router)
