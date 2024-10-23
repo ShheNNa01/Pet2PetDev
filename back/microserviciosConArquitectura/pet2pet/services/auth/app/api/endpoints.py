@@ -71,7 +71,16 @@ async def update_user_me(
     """
     Update current user.
     """
-    return await auth_service.update_user(db, current_user, user_data)
+    try:
+        updated_user = await auth_service.update_user(db, current_user, user_data)
+        return updated_user
+    except HTTPException as e:
+        raise e
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Error updating user: {str(e)}"
+        )
 
 @router.post("/change-password", response_model=dict)
 async def change_password(

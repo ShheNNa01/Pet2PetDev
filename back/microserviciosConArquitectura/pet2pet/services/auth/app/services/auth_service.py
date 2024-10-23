@@ -1,5 +1,5 @@
 # services/auth/app/services/auth_service.py
-from datetime import timedelta
+from datetime import datetime, timedelta
 from typing import Optional
 from sqlalchemy.orm import Session
 from fastapi import HTTPException, status
@@ -70,22 +70,33 @@ class AuthService:
         )
 
     @staticmethod
-    async def update_user(db: Session, user: User, user_data: UserUpdate) -> User:
-        # Actualizar campos
-        for field, value in user_data.dict(exclude_unset=True).items():
-            if field == "password" and value:
-                value = get_password_hash(value)
-            setattr(user, field, value)
-        
+    async def update_user(db: Session, current_user: User, user_data: UserUpdate) -> User:
+        """
+        Actualiza los datos del usuario
+        """
+    # Si se está actualizando el email, verificar que no exista
+        if user_data.user_email != current_user.user_email:
+            if db.query(User).filter(User.user_email == user_data.user_email).first():
+                raise HTTPException(
+                    status_code=status.HTTP_400_BAD_REQUEST,
+                    detail="Email already registered"
+                )
+
+        # Actualizar los campos
+        for field, value in user_data.dict(exclude_unset=True, exclude={'password'}).items():
+            setattr(current_user, field, value)
+    
+        current_user.updated_at = datetime.utcnow()
+
         try:
             db.commit()
-            db.refresh(user)
-            return user
+            db.refresh(current_user)
+            return current_user
         except Exception as e:
             db.rollback()
             raise HTTPException(
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                detail="Error updating user"
+                detail=f"Error updating user: {str(e)}"
             )
 
     @staticmethod

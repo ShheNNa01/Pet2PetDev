@@ -1,5 +1,5 @@
 # services/auth/app/models/schemas.py
-from pydantic import BaseModel, EmailStr, constr
+from pydantic import BaseModel, EmailStr, constr, Field
 from typing import Optional
 from datetime import datetime
 
@@ -15,8 +15,27 @@ class UserBase(BaseModel):
 class UserCreate(UserBase):
     password: constr(min_length=8) # type: ignore
 
-class UserUpdate(UserBase):
-    password: Optional[constr(min_length=8)] = None # type: ignore
+class UserUpdate(BaseModel):
+    user_name: Optional[str] = Field(None, min_length=2, max_length=100)
+    user_last_name: Optional[str] = Field(None, min_length=2, max_length=100)
+    user_email: Optional[EmailStr] = None
+    user_city: Optional[str] = None
+    user_country: Optional[str] = None
+    user_number: Optional[str] = None
+    user_bio: Optional[str] = None
+
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "user_name": "John",
+                "user_last_name": "Doe",
+                "user_email": "johndoe@example.com",  
+                "user_city": "New York",
+                "user_country": "USA",
+                "user_number": "123456789",
+                "user_bio": "I love pets more dogs than cats!"
+            }
+        }
 
 class UserInDB(UserBase):
     user_id: int
