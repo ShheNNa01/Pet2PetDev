@@ -20,7 +20,7 @@ python-multipart==0.0.6
 
 # Configuración y Validación
 python-dotenv==1.0.0
-pydantic==2.25.0
+pydantic==2.9.2
 pydantic-settings==2.6.0
 setuptools==75.2.0
 
