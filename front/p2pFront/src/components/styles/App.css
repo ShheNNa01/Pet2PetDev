@@ -1,8 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Tamma+2:wght@400;500&display=swap');
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  font-family: 'Baloo Tamma 2', cursive;
+}
+
+body {
+  
+  font-weight: normal;
+  font-size: 100%;
+  color: #1a1a1a; /* Texto oscuro */
+  font-family: 'Baloo Tamma ', cursive;
+  margin: 0;
+  background-color: rgba(80, 156, 162, 0.7); /* Fondo claro */
 }
 
 .logo {

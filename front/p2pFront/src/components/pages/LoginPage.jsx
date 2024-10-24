@@ -12,11 +12,11 @@ const LoginPage = () => {
                 {/* Sección de login */}
                 <div id="login">
                     <h2 className="titulo">Iniciar Sesión</h2>
-                    <form>
-                        <label htmlFor="usuario">Usuario</label>
+                    <form className='form-login'>
+                        <label htmlFor="usuario">Usuario :</label>
                         <input type="text" id="usuario" placeholder="Introduce tu usuario" />
                         
-                        <label htmlFor="password">Contraseña</label>
+                        <label htmlFor="password">Contraseña :</label>
                         <input type="password" id="password" placeholder="Introduce tu contraseña" />
                         
                         <button type="submit">Ingresar</button>
@@ -34,7 +34,8 @@ const LoginPage = () => {
                     </div>
                     <hr />
                     <div className="pie-form">
-                        <p>Bienvenido a nuestra plataforma.</p>
+                    <p>¡Bienvenido!  <br />Aquí, las mejores conexiones entre mascotas y dueños comienzan. <br /> ¡Explora lo que tenemos para ti!</p>
+
                     </div>
                 </div>
             </div>
