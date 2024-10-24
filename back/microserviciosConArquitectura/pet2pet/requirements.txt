@@ -11,7 +11,7 @@ uvicorn==0.24.0
 # Base de datos y ORM
 sqlalchemy==2.0.23
 alembic==1.12.1
-psycopg2-binary==2.9.9
+psycopg2-binary==2.9.10
 
 # Autenticación y Seguridad
 python-jose[cryptography]==3.3.0
@@ -20,8 +20,8 @@ python-multipart==0.0.6
 
 # Configuración y Validación
 python-dotenv==1.0.0
-pydantic==2.4.2
-pydantic-settings==2.0.3
+pydantic==2.25.0
+pydantic-settings==2.6.0
 setuptools==75.2.0
 
 # Manejo de errores y reintentos
