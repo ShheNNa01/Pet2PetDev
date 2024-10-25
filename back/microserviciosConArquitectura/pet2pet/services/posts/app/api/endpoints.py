@@ -14,7 +14,8 @@ from services.posts.app.services.post_service import PostService
 from services.posts.app.services.media_service import MediaService
 from services.auth.app.api.dependencies import get_current_active_user
 
-router = APIRouter()
+# Cambiar esta línea para incluir el prefijo
+router = APIRouter(prefix="/posts")
 
 @router.post("/", response_model=PostResponse, status_code=status.HTTP_201_CREATED)
 async def create_post(
@@ -52,12 +53,11 @@ async def create_post(
                 with open(file_location, "wb") as buffer:
                     buffer.write(file.file.read())
 
-                
                 new_media = MediaFile(
                     post_id=new_post.post_id, 
                     media_url=file_location,
-                    user_id=current_user.user_id,  # Añadido
-                    media_type=file.content_type   # Añadido
+                    user_id=current_user.user_id,
+                    media_type=file.content_type
                 )
                 db.add(new_media)
                 db.commit()
@@ -162,15 +162,18 @@ async def add_media_to_post(
     """
     Add media to an existing post
     """
-    post = await PostService.get_post(db, post_id)
-    if post.user_id != current_user.user_id:
+    # Obtener el post
+    post_data = await PostService.get_post(db, post_id)
+    
+    # Verificar que el post existe y pertenece al usuario
+    if post_data["user_id"] != current_user.user_id:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Not authorized to modify this post"
         )
     
-    media_url = await MediaService.save_media(file, post_id)
-    post.media_urls.append(media_url)
-    db.commit()
+    # Guardar el archivo
+    await MediaService.save_media(file, post_id, db)
     
-    return post
+    # Retornar el post actualizado
+    return await PostService.get_post(db, post_id)

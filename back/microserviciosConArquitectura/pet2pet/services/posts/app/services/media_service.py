@@ -3,18 +3,21 @@ from PIL import Image
 import aiofiles
 import os
 import uuid
+from typing import Optional
 from datetime import datetime
+from sqlalchemy.orm import Session
+from shared.database.models import MediaFile
 
 class MediaService:
-    UPLOAD_DIR = "uploads/posts"
+    UPLOAD_DIR = "media/posts"
     ALLOWED_EXTENSIONS = {".jpg", ".jpeg", ".png"}
     ALLOWED_MIMETYPES = {"image/jpeg", "image/png"}
     MAX_FILE_SIZE = 5 * 1024 * 1024  # 5MB
 
     @classmethod
-    async def save_media(cls, file: UploadFile, post_id: int) -> str:
+    async def save_media(cls, file: UploadFile, post_id: int, db: Session) -> MediaFile:
         """
-        Guarda un archivo de medios para un post y retorna la URL
+        Guarda un archivo de medios y crea un registro en la base de datos
         """
         try:
             # Validar el archivo
@@ -33,13 +36,25 @@ class MediaService:
                 content = await file.read()
                 await out_file.write(content)
 
-            # Optimizar si es imagen
-            if file_extension in cls.ALLOWED_EXTENSIONS:
-                await cls._optimize_image(filepath)
+            # Optimizar imagen
+            await cls._optimize_image(filepath)
 
-            return filepath
+            # Crear registro en la base de datos
+            media_file = MediaFile(
+                post_id=post_id,
+                media_url=filepath,
+                media_type=file.content_type
+            )
+            
+            db.add(media_file)
+            db.commit()
+            db.refresh(media_file)
+
+            return media_file
 
         except Exception as e:
+            if 'filepath' in locals() and os.path.exists(filepath):
+                os.remove(filepath)
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail=f"Error saving file: {str(e)}"
@@ -50,9 +65,16 @@ class MediaService:
         """
         Valida el archivo
         """
-        # Validar extensión y tipo MIME
+        # Validar extensión
         file_extension = os.path.splitext(file.filename)[1].lower()
         if file_extension not in cls.ALLOWED_EXTENSIONS:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Invalid file extension"
+            )
+
+        # Validar tipo MIME
+        if file.content_type not in cls.ALLOWED_MIMETYPES:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail="Invalid file type"
@@ -71,7 +93,7 @@ class MediaService:
     @classmethod
     async def _optimize_image(cls, filepath: str):
         """
-        Optimiza una imagen
+        Optimiza la imagen
         """
         try:
             with Image.open(filepath) as img:
@@ -79,7 +101,8 @@ class MediaService:
                     img = img.convert('RGB')
                 
                 max_size = (1200, 1200)
-                img.thumbnail(max_size, Image.Resampling.LANCZOS)
+                if img.size[0] > max_size[0] or img.size[1] > max_size[1]:
+                    img.thumbnail(max_size, Image.Resampling.LANCZOS)
                 
                 img.save(filepath, 'JPEG', quality=85, optimize=True)
         
