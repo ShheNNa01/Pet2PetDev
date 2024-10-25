@@ -1,6 +1,6 @@
 # shared/database/models.py
 from datetime import datetime
-from sqlalchemy import Column, Integer, String, Text, DateTime, Boolean, Date, ForeignKey
+from sqlalchemy import JSON, Column, Integer, String, Text, DateTime, Boolean, Date, ForeignKey, func
 from sqlalchemy.orm import relationship
 from shared.database.base import Base
 
@@ -35,6 +35,7 @@ class User(Base):
     posts = relationship("Post", back_populates="user")
     comments = relationship("Comment", back_populates="user")
     user_roles = relationship("UserRole", back_populates="user")
+    notifications = relationship("Notification", back_populates="user", cascade="all, delete-orphan")
 
 class UserRole(Base):
     __tablename__ = "user_roles"
@@ -250,11 +251,19 @@ class Friendship(Base):
 
 class Notification(Base):
     __tablename__ = "notifications"
+    
     notification_id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, ForeignKey('users.user_id'))
+    user_id = Column(Integer, ForeignKey('users.user_id', ondelete="CASCADE"))
     type = Column(String(100), nullable=False)
-    related_id = Column(Integer)
+    related_id = Column(Integer, nullable=True)
+    message = Column(String(500), nullable=False)  # Añadido para el contenido del mensaje
     is_read = Column(Boolean, default=False)
-    created_at = Column(DateTime(timezone=True), server_default='CURRENT_TIMESTAMP')
+    additional_data = Column(JSON, nullable=True)  # Añadido para datos extras
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), onupdate=func.now())  # Añadido para tracking de actualizaciones
 
-    user = relationship("User")
+    # Relaciones
+    user = relationship("User", back_populates="notifications")
+
+    def __repr__(self):
+        return f"<Notification(id={self.notification_id}, type={self.type}, user_id={self.user_id})>"

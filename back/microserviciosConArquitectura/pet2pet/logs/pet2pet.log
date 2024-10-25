@@ -1716,3 +1716,356 @@ For further information visit https://errors.pydantic.dev/2.9/u/config-both
 2024-10-25 17:52:30,993 - api_gateway.app - INFO - Registered route: /api/v1/notifications/{notification_id}
 2024-10-25 17:52:30,993 - api_gateway.app - INFO - Registered route: /api/v1/notifications/internal/create
 2024-10-25 17:57:15,525 - api_gateway.app - INFO - Shutting down Pet2Pet API Gateway...
+2024-10-25 17:57:16,374 - api_gateway.app - INFO - PYTHONPATH: ['C:\\Users\\mares\\OneDrive\\Documentos\\Pet2Pet\\Pet2PetWeb\\Pet2PetDevWeb\\back\\microserviciosConArquitectura\\pet2pet', 'C:\\Users\\mares\\AppData\\Local\\Programs\\Python\\Python312\\python312.zip', 'C:\\Users\\mares\\AppData\\Local\\Programs\\Python\\Python312\\DLLs', 'C:\\Users\\mares\\AppData\\Local\\Programs\\Python\\Python312\\Lib', 'C:\\Users\\mares\\AppData\\Local\\Programs\\Python\\Python312', 'C:\\Users\\mares\\OneDrive\\Documentos\\Pet2Pet\\Pet2PetWeb\\Pet2PetDevWeb\\back\\microserviciosConArquitectura\\pet2pet\\venv', 'C:\\Users\\mares\\OneDrive\\Documentos\\Pet2Pet\\Pet2PetWeb\\Pet2PetDevWeb\\back\\microserviciosConArquitectura\\pet2pet\\venv\\Lib\\site-packages', 'C:\\Users\\mares\\OneDrive\\Documentos\\Pet2Pet\\Pet2PetWeb\\Pet2PetDevWeb\\back\\microserviciosConArquitectura\\pet2pet', 'C:\\Users\\mares\\OneDrive\\Documentos\\Pet2Pet\\Pet2PetWeb\\Pet2PetDevWeb\\back\\microserviciosConArquitectura\\pet2pet']
+2024-10-25 17:57:16,375 - api_gateway.app - INFO - Loading routes for auth service from services.auth.app.api.routes
+2024-10-25 17:57:16,802 - api_gateway.app - INFO - Successfully loaded routes for auth service
+2024-10-25 17:57:16,802 - api_gateway.app - INFO - Loading routes for pets service from services.pets.app.api.routes
+2024-10-25 17:57:16,950 - api_gateway.app - INFO - Successfully loaded routes for pets service
+2024-10-25 17:57:16,950 - api_gateway.app - INFO - Loading routes for posts service from services.posts.app.api.routes
+2024-10-25 17:57:17,001 - api_gateway.app - INFO - Successfully loaded routes for posts service
+2024-10-25 17:57:17,001 - api_gateway.app - INFO - Loading routes for messages service from services.messages.app.api.routes
+2024-10-25 17:57:17,031 - api_gateway.app - INFO - Successfully loaded routes for messages service
+2024-10-25 17:57:17,031 - api_gateway.app - INFO - Loading routes for notifications service from services.notifications.app.api.routes
+2024-10-25 17:57:17,048 - api_gateway.app - INFO - Successfully loaded routes for notifications service
+2024-10-25 17:57:17,050 - api_gateway.app - INFO - Starting Pet2Pet API Gateway...
+2024-10-25 17:57:17,050 - api_gateway.app - INFO - Registered route: /api/v1/openapi.json
+2024-10-25 17:57:17,050 - api_gateway.app - INFO - Registered route: /api/v1/docs
+2024-10-25 17:57:17,050 - api_gateway.app - INFO - Registered route: /docs/oauth2-redirect
+2024-10-25 17:57:17,051 - api_gateway.app - INFO - Registered route: /api/v1/redoc
+2024-10-25 17:57:17,051 - api_gateway.app - INFO - Registered route: /health
+2024-10-25 17:57:17,051 - api_gateway.app - INFO - Registered route: /api/v1/auth/register
+2024-10-25 17:57:17,051 - api_gateway.app - INFO - Registered route: /api/v1/auth/login
+2024-10-25 17:57:17,051 - api_gateway.app - INFO - Registered route: /api/v1/auth/me
+2024-10-25 17:57:17,051 - api_gateway.app - INFO - Registered route: /api/v1/auth/me
+2024-10-25 17:57:17,051 - api_gateway.app - INFO - Registered route: /api/v1/auth/change-password
+2024-10-25 17:57:17,051 - api_gateway.app - INFO - Registered route: /api/v1/auth/password-reset-request
+2024-10-25 17:57:17,051 - api_gateway.app - INFO - Registered route: /api/v1/auth/reset-password
+2024-10-25 17:57:17,051 - api_gateway.app - INFO - Registered route: /api/v1/pets/types
+2024-10-25 17:57:17,051 - api_gateway.app - INFO - Registered route: /api/v1/pets/breeds
+2024-10-25 17:57:17,051 - api_gateway.app - INFO - Registered route: /api/v1/pets/
+2024-10-25 17:57:17,051 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}/image
+2024-10-25 17:57:17,051 - api_gateway.app - INFO - Registered route: /api/v1/pets/
+2024-10-25 17:57:17,051 - api_gateway.app - INFO - Registered route: /api/v1/pets/my-pets
+2024-10-25 17:57:17,051 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}
+2024-10-25 17:57:17,051 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}
+2024-10-25 17:57:17,053 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}
+2024-10-25 17:57:17,053 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}/follow
+2024-10-25 17:57:17,053 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}/unfollow
+2024-10-25 17:57:17,053 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}/followers
+2024-10-25 17:57:17,053 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}/following
+2024-10-25 17:57:17,053 - api_gateway.app - INFO - Registered route: /api/v1/posts/
+2024-10-25 17:57:17,053 - api_gateway.app - INFO - Registered route: /api/v1/posts/
+2024-10-25 17:57:17,053 - api_gateway.app - INFO - Registered route: /api/v1/posts/my-posts
+2024-10-25 17:57:17,053 - api_gateway.app - INFO - Registered route: /api/v1/posts/{post_id}
+2024-10-25 17:57:17,053 - api_gateway.app - INFO - Registered route: /api/v1/posts/{post_id}
+2024-10-25 17:57:17,053 - api_gateway.app - INFO - Registered route: /api/v1/posts/{post_id}
+2024-10-25 17:57:17,053 - api_gateway.app - INFO - Registered route: /api/v1/posts/{post_id}/media
+2024-10-25 17:57:17,054 - api_gateway.app - INFO - Registered route: /api/v1/posts/{post_id}/comments
+2024-10-25 17:57:17,054 - api_gateway.app - INFO - Registered route: /api/v1/posts/comments/{comment_id}
+2024-10-25 17:57:17,054 - api_gateway.app - INFO - Registered route: /api/v1/posts/{post_id}/reactions
+2024-10-25 17:57:17,054 - api_gateway.app - INFO - Registered route: /api/v1/posts/reactions/{reaction_id}
+2024-10-25 17:57:17,054 - api_gateway.app - INFO - Registered route: /api/v1/messages/
+2024-10-25 17:57:17,054 - api_gateway.app - INFO - Registered route: /api/v1/messages/conversations
+2024-10-25 17:57:17,054 - api_gateway.app - INFO - Registered route: /api/v1/messages/conversation/{other_pet_id}
+2024-10-25 17:57:17,054 - api_gateway.app - INFO - Registered route: /api/v1/messages/conversation/{other_pet_id}/read
+2024-10-25 17:57:17,054 - api_gateway.app - INFO - Registered route: /api/v1/messages/unread/count
+2024-10-25 17:57:17,054 - api_gateway.app - INFO - Registered route: /api/v1/messages/conversation/{other_pet_id}
+2024-10-25 17:57:17,054 - api_gateway.app - INFO - Registered route: /api/v1/messages/search
+2024-10-25 17:57:17,054 - api_gateway.app - INFO - Registered route: /api/v1/notifications/
+2024-10-25 17:57:17,054 - api_gateway.app - INFO - Registered route: /api/v1/notifications/count
+2024-10-25 17:57:17,056 - api_gateway.app - INFO - Registered route: /api/v1/notifications/{notification_id}/read
+2024-10-25 17:57:17,056 - api_gateway.app - INFO - Registered route: /api/v1/notifications/read-all
+2024-10-25 17:57:17,056 - api_gateway.app - INFO - Registered route: /api/v1/notifications/{notification_id}
+2024-10-25 17:57:17,056 - api_gateway.app - INFO - Registered route: /api/v1/notifications/internal/create
+2024-10-25 18:34:41,451 - api_gateway.app - INFO - Shutting down Pet2Pet API Gateway...
+2024-10-25 18:34:42,266 - api_gateway.app - INFO - PYTHONPATH: ['C:\\Users\\mares\\OneDrive\\Documentos\\Pet2Pet\\Pet2PetWeb\\Pet2PetDevWeb\\back\\microserviciosConArquitectura\\pet2pet', 'C:\\Users\\mares\\AppData\\Local\\Programs\\Python\\Python312\\python312.zip', 'C:\\Users\\mares\\AppData\\Local\\Programs\\Python\\Python312\\DLLs', 'C:\\Users\\mares\\AppData\\Local\\Programs\\Python\\Python312\\Lib', 'C:\\Users\\mares\\AppData\\Local\\Programs\\Python\\Python312', 'C:\\Users\\mares\\OneDrive\\Documentos\\Pet2Pet\\Pet2PetWeb\\Pet2PetDevWeb\\back\\microserviciosConArquitectura\\pet2pet\\venv', 'C:\\Users\\mares\\OneDrive\\Documentos\\Pet2Pet\\Pet2PetWeb\\Pet2PetDevWeb\\back\\microserviciosConArquitectura\\pet2pet\\venv\\Lib\\site-packages', 'C:\\Users\\mares\\OneDrive\\Documentos\\Pet2Pet\\Pet2PetWeb\\Pet2PetDevWeb\\back\\microserviciosConArquitectura\\pet2pet', 'C:\\Users\\mares\\OneDrive\\Documentos\\Pet2Pet\\Pet2PetWeb\\Pet2PetDevWeb\\back\\microserviciosConArquitectura\\pet2pet']
+2024-10-25 18:34:42,267 - api_gateway.app - INFO - Loading routes for auth service from services.auth.app.api.routes
+2024-10-25 18:34:42,686 - api_gateway.app - INFO - Successfully loaded routes for auth service
+2024-10-25 18:34:42,686 - api_gateway.app - INFO - Loading routes for pets service from services.pets.app.api.routes
+2024-10-25 18:34:42,822 - api_gateway.app - INFO - Successfully loaded routes for pets service
+2024-10-25 18:34:42,822 - api_gateway.app - INFO - Loading routes for posts service from services.posts.app.api.routes
+2024-10-25 18:34:42,877 - api_gateway.app - INFO - Successfully loaded routes for posts service
+2024-10-25 18:34:42,877 - api_gateway.app - INFO - Loading routes for messages service from services.messages.app.api.routes
+2024-10-25 18:34:42,904 - api_gateway.app - INFO - Successfully loaded routes for messages service
+2024-10-25 18:34:42,905 - api_gateway.app - INFO - Loading routes for notifications service from services.notifications.app.api.routes
+2024-10-25 18:34:42,921 - api_gateway.app - INFO - Successfully loaded routes for notifications service
+2024-10-25 18:34:42,922 - api_gateway.app - INFO - Starting Pet2Pet API Gateway...
+2024-10-25 18:34:42,923 - api_gateway.app - INFO - Registered route: /api/v1/openapi.json
+2024-10-25 18:34:42,923 - api_gateway.app - INFO - Registered route: /api/v1/docs
+2024-10-25 18:34:42,923 - api_gateway.app - INFO - Registered route: /docs/oauth2-redirect
+2024-10-25 18:34:42,923 - api_gateway.app - INFO - Registered route: /api/v1/redoc
+2024-10-25 18:34:42,923 - api_gateway.app - INFO - Registered route: /health
+2024-10-25 18:34:42,923 - api_gateway.app - INFO - Registered route: /api/v1/auth/register
+2024-10-25 18:34:42,923 - api_gateway.app - INFO - Registered route: /api/v1/auth/login
+2024-10-25 18:34:42,923 - api_gateway.app - INFO - Registered route: /api/v1/auth/me
+2024-10-25 18:34:42,923 - api_gateway.app - INFO - Registered route: /api/v1/auth/me
+2024-10-25 18:34:42,924 - api_gateway.app - INFO - Registered route: /api/v1/auth/change-password
+2024-10-25 18:34:42,924 - api_gateway.app - INFO - Registered route: /api/v1/auth/password-reset-request
+2024-10-25 18:34:42,924 - api_gateway.app - INFO - Registered route: /api/v1/auth/reset-password
+2024-10-25 18:34:42,924 - api_gateway.app - INFO - Registered route: /api/v1/pets/types
+2024-10-25 18:34:42,924 - api_gateway.app - INFO - Registered route: /api/v1/pets/breeds
+2024-10-25 18:34:42,924 - api_gateway.app - INFO - Registered route: /api/v1/pets/
+2024-10-25 18:34:42,924 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}/image
+2024-10-25 18:34:42,924 - api_gateway.app - INFO - Registered route: /api/v1/pets/
+2024-10-25 18:34:42,924 - api_gateway.app - INFO - Registered route: /api/v1/pets/my-pets
+2024-10-25 18:34:42,924 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}
+2024-10-25 18:34:42,925 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}
+2024-10-25 18:34:42,925 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}
+2024-10-25 18:34:42,925 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}/follow
+2024-10-25 18:34:42,925 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}/unfollow
+2024-10-25 18:34:42,925 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}/followers
+2024-10-25 18:34:42,925 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}/following
+2024-10-25 18:34:42,925 - api_gateway.app - INFO - Registered route: /api/v1/posts/
+2024-10-25 18:34:42,925 - api_gateway.app - INFO - Registered route: /api/v1/posts/
+2024-10-25 18:34:42,925 - api_gateway.app - INFO - Registered route: /api/v1/posts/my-posts
+2024-10-25 18:34:42,926 - api_gateway.app - INFO - Registered route: /api/v1/posts/{post_id}
+2024-10-25 18:34:42,926 - api_gateway.app - INFO - Registered route: /api/v1/posts/{post_id}
+2024-10-25 18:34:42,926 - api_gateway.app - INFO - Registered route: /api/v1/posts/{post_id}
+2024-10-25 18:34:42,926 - api_gateway.app - INFO - Registered route: /api/v1/posts/{post_id}/media
+2024-10-25 18:34:42,926 - api_gateway.app - INFO - Registered route: /api/v1/posts/{post_id}/comments
+2024-10-25 18:34:42,926 - api_gateway.app - INFO - Registered route: /api/v1/posts/comments/{comment_id}
+2024-10-25 18:34:42,926 - api_gateway.app - INFO - Registered route: /api/v1/posts/{post_id}/reactions
+2024-10-25 18:34:42,926 - api_gateway.app - INFO - Registered route: /api/v1/posts/reactions/{reaction_id}
+2024-10-25 18:34:42,926 - api_gateway.app - INFO - Registered route: /api/v1/messages/
+2024-10-25 18:34:42,927 - api_gateway.app - INFO - Registered route: /api/v1/messages/conversations
+2024-10-25 18:34:42,927 - api_gateway.app - INFO - Registered route: /api/v1/messages/conversation/{other_pet_id}
+2024-10-25 18:34:42,927 - api_gateway.app - INFO - Registered route: /api/v1/messages/conversation/{other_pet_id}/read
+2024-10-25 18:34:42,927 - api_gateway.app - INFO - Registered route: /api/v1/messages/unread/count
+2024-10-25 18:34:42,927 - api_gateway.app - INFO - Registered route: /api/v1/messages/conversation/{other_pet_id}
+2024-10-25 18:34:42,927 - api_gateway.app - INFO - Registered route: /api/v1/messages/search
+2024-10-25 18:34:42,927 - api_gateway.app - INFO - Registered route: /api/v1/notifications/
+2024-10-25 18:34:42,927 - api_gateway.app - INFO - Registered route: /api/v1/notifications/count
+2024-10-25 18:34:42,927 - api_gateway.app - INFO - Registered route: /api/v1/notifications/{notification_id}/read
+2024-10-25 18:34:42,927 - api_gateway.app - INFO - Registered route: /api/v1/notifications/read-all
+2024-10-25 18:34:42,927 - api_gateway.app - INFO - Registered route: /api/v1/notifications/{notification_id}
+2024-10-25 18:34:42,927 - api_gateway.app - INFO - Registered route: /api/v1/notifications/internal/create
+2024-10-25 18:39:41,798 - api_gateway.app - INFO - Shutting down Pet2Pet API Gateway...
+2024-10-25 18:39:42,597 - api_gateway.app - INFO - PYTHONPATH: ['C:\\Users\\mares\\OneDrive\\Documentos\\Pet2Pet\\Pet2PetWeb\\Pet2PetDevWeb\\back\\microserviciosConArquitectura\\pet2pet', 'C:\\Users\\mares\\AppData\\Local\\Programs\\Python\\Python312\\python312.zip', 'C:\\Users\\mares\\AppData\\Local\\Programs\\Python\\Python312\\DLLs', 'C:\\Users\\mares\\AppData\\Local\\Programs\\Python\\Python312\\Lib', 'C:\\Users\\mares\\AppData\\Local\\Programs\\Python\\Python312', 'C:\\Users\\mares\\OneDrive\\Documentos\\Pet2Pet\\Pet2PetWeb\\Pet2PetDevWeb\\back\\microserviciosConArquitectura\\pet2pet\\venv', 'C:\\Users\\mares\\OneDrive\\Documentos\\Pet2Pet\\Pet2PetWeb\\Pet2PetDevWeb\\back\\microserviciosConArquitectura\\pet2pet\\venv\\Lib\\site-packages', 'C:\\Users\\mares\\OneDrive\\Documentos\\Pet2Pet\\Pet2PetWeb\\Pet2PetDevWeb\\back\\microserviciosConArquitectura\\pet2pet', 'C:\\Users\\mares\\OneDrive\\Documentos\\Pet2Pet\\Pet2PetWeb\\Pet2PetDevWeb\\back\\microserviciosConArquitectura\\pet2pet']
+2024-10-25 18:39:42,598 - api_gateway.app - INFO - Loading routes for auth service from services.auth.app.api.routes
+2024-10-25 18:39:42,867 - api_gateway.app - ERROR - Error loading auth service: name 'func' is not defined
+2024-10-25 18:39:42,867 - api_gateway.app - ERROR - name 'func' is not defined
+Traceback (most recent call last):
+  File "C:\Users\mares\OneDrive\Documentos\Pet2Pet\Pet2PetWeb\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\api_gateway\app.py", line 94, in create_app
+    module = __import__(service['module'], fromlist=['api_router'])
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mares\OneDrive\Documentos\Pet2Pet\Pet2PetWeb\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\services\auth\app\api\routes.py", line 2, in <module>
+    from services.auth.app.api.endpoints import router as auth_router
+  File "C:\Users\mares\OneDrive\Documentos\Pet2Pet\Pet2PetWeb\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\services\auth\app\api\endpoints.py", line 11, in <module>
+    from services.auth.app.services.auth_service import AuthService
+  File "C:\Users\mares\OneDrive\Documentos\Pet2Pet\Pet2PetWeb\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\services\auth\app\services\auth_service.py", line 6, in <module>
+    from shared.database.models import User
+  File "C:\Users\mares\OneDrive\Documentos\Pet2Pet\Pet2PetWeb\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\shared\database\models.py", line 251, in <module>
+    class Notification(Base):
+  File "C:\Users\mares\OneDrive\Documentos\Pet2Pet\Pet2PetWeb\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\shared\database\models.py", line 261, in Notification
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+                                                                ^^^^
+NameError: name 'func' is not defined
+2024-10-25 18:39:42,871 - api_gateway.app - INFO - Loading routes for pets service from services.pets.app.api.routes
+2024-10-25 18:39:42,927 - api_gateway.app - ERROR - Error loading pets service: Table 'roles' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+2024-10-25 18:39:42,927 - api_gateway.app - ERROR - Table 'roles' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+Traceback (most recent call last):
+  File "C:\Users\mares\OneDrive\Documentos\Pet2Pet\Pet2PetWeb\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\api_gateway\app.py", line 94, in create_app
+    module = __import__(service['module'], fromlist=['api_router'])
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mares\OneDrive\Documentos\Pet2Pet\Pet2PetWeb\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\services\pets\app\api\routes.py", line 2, in <module>
+    from services.pets.app.api.endpoints import (
+  File "C:\Users\mares\OneDrive\Documentos\Pet2Pet\Pet2PetWeb\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\services\pets\app\api\endpoints.py", line 9, in <module>
+    from shared.database.models import Pet, User
+  File "C:\Users\mares\OneDrive\Documentos\Pet2Pet\Pet2PetWeb\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\shared\database\models.py", line 7, in <module>
+    class Role(Base):
+  File "C:\Users\mares\OneDrive\Documentos\Pet2Pet\Pet2PetWeb\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\venv\Lib\site-packages\sqlalchemy\orm\decl_api.py", line 195, in __init__
+    _as_declarative(reg, cls, dict_)
+  File "C:\Users\mares\OneDrive\Documentos\Pet2Pet\Pet2PetWeb\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\venv\Lib\site-packages\sqlalchemy\orm\decl_base.py", line 247, in _as_declarative
+    return _MapperConfig.setup_mapping(registry, cls, dict_, None, {})
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mares\OneDrive\Documentos\Pet2Pet\Pet2PetWeb\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\venv\Lib\site-packages\sqlalchemy\orm\decl_base.py", line 328, in setup_mapping
+    return _ClassScanMapperConfig(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mares\OneDrive\Documentos\Pet2Pet\Pet2PetWeb\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\venv\Lib\site-packages\sqlalchemy\orm\decl_base.py", line 578, in __init__
+    self._setup_table(table)
+  File "C:\Users\mares\OneDrive\Documentos\Pet2Pet\Pet2PetWeb\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\venv\Lib\site-packages\sqlalchemy\orm\decl_base.py", line 1729, in _setup_table
+    table_cls(
+  File "<string>", line 2, in __new__
+  File "C:\Users\mares\OneDrive\Documentos\Pet2Pet\Pet2PetWeb\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\venv\Lib\site-packages\sqlalchemy\util\deprecations.py", line 281, in warned
+    return fn(*args, **kwargs)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mares\OneDrive\Documentos\Pet2Pet\Pet2PetWeb\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\venv\Lib\site-packages\sqlalchemy\sql\schema.py", line 436, in __new__
+    return cls._new(*args, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mares\OneDrive\Documentos\Pet2Pet\Pet2PetWeb\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\venv\Lib\site-packages\sqlalchemy\sql\schema.py", line 468, in _new
+    raise exc.InvalidRequestError(
+sqlalchemy.exc.InvalidRequestError: Table 'roles' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+2024-10-25 18:39:42,932 - api_gateway.app - INFO - Loading routes for posts service from services.posts.app.api.routes
+2024-10-25 18:39:42,936 - api_gateway.app - ERROR - Error loading posts service: Table 'roles' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+2024-10-25 18:39:42,937 - api_gateway.app - ERROR - Table 'roles' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+Traceback (most recent call last):
+  File "C:\Users\mares\OneDrive\Documentos\Pet2Pet\Pet2PetWeb\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\api_gateway\app.py", line 94, in create_app
+    module = __import__(service['module'], fromlist=['api_router'])
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mares\OneDrive\Documentos\Pet2Pet\Pet2PetWeb\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\services\posts\app\api\routes.py", line 2, in <module>
+    from services.posts.app.api.endpoints import router as posts_router
+  File "C:\Users\mares\OneDrive\Documentos\Pet2Pet\Pet2PetWeb\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\services\posts\app\api\endpoints.py", line 8, in <module>
+    from shared.database.models import Post, User, MediaFile
+  File "C:\Users\mares\OneDrive\Documentos\Pet2Pet\Pet2PetWeb\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\shared\database\models.py", line 7, in <module>
+    class Role(Base):
+  File "C:\Users\mares\OneDrive\Documentos\Pet2Pet\Pet2PetWeb\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\venv\Lib\site-packages\sqlalchemy\orm\decl_api.py", line 195, in __init__
+    _as_declarative(reg, cls, dict_)
+  File "C:\Users\mares\OneDrive\Documentos\Pet2Pet\Pet2PetWeb\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\venv\Lib\site-packages\sqlalchemy\orm\decl_base.py", line 247, in _as_declarative
+    return _MapperConfig.setup_mapping(registry, cls, dict_, None, {})
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mares\OneDrive\Documentos\Pet2Pet\Pet2PetWeb\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\venv\Lib\site-packages\sqlalchemy\orm\decl_base.py", line 328, in setup_mapping
+    return _ClassScanMapperConfig(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mares\OneDrive\Documentos\Pet2Pet\Pet2PetWeb\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\venv\Lib\site-packages\sqlalchemy\orm\decl_base.py", line 578, in __init__
+    self._setup_table(table)
+  File "C:\Users\mares\OneDrive\Documentos\Pet2Pet\Pet2PetWeb\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\venv\Lib\site-packages\sqlalchemy\orm\decl_base.py", line 1729, in _setup_table
+    table_cls(
+  File "<string>", line 2, in __new__
+  File "C:\Users\mares\OneDrive\Documentos\Pet2Pet\Pet2PetWeb\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\venv\Lib\site-packages\sqlalchemy\util\deprecations.py", line 281, in warned
+    return fn(*args, **kwargs)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mares\OneDrive\Documentos\Pet2Pet\Pet2PetWeb\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\venv\Lib\site-packages\sqlalchemy\sql\schema.py", line 436, in __new__
+    return cls._new(*args, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mares\OneDrive\Documentos\Pet2Pet\Pet2PetWeb\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\venv\Lib\site-packages\sqlalchemy\sql\schema.py", line 468, in _new
+    raise exc.InvalidRequestError(
+sqlalchemy.exc.InvalidRequestError: Table 'roles' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+2024-10-25 18:39:42,938 - api_gateway.app - INFO - Loading routes for messages service from services.messages.app.api.routes
+2024-10-25 18:39:42,943 - api_gateway.app - ERROR - Error loading messages service: Table 'roles' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+2024-10-25 18:39:42,943 - api_gateway.app - ERROR - Table 'roles' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+Traceback (most recent call last):
+  File "C:\Users\mares\OneDrive\Documentos\Pet2Pet\Pet2PetWeb\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\api_gateway\app.py", line 94, in create_app
+    module = __import__(service['module'], fromlist=['api_router'])
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mares\OneDrive\Documentos\Pet2Pet\Pet2PetWeb\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\services\messages\app\api\routes.py", line 2, in <module>
+    from services.messages.app.api.endpoints import router as messages_router
+  File "C:\Users\mares\OneDrive\Documentos\Pet2Pet\Pet2PetWeb\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\services\messages\app\api\endpoints.py", line 7, in <module>
+    from shared.database.models import User, Pet, PrivateMessage
+  File "C:\Users\mares\OneDrive\Documentos\Pet2Pet\Pet2PetWeb\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\shared\database\models.py", line 7, in <module>
+    class Role(Base):
+  File "C:\Users\mares\OneDrive\Documentos\Pet2Pet\Pet2PetWeb\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\venv\Lib\site-packages\sqlalchemy\orm\decl_api.py", line 195, in __init__
+    _as_declarative(reg, cls, dict_)
+  File "C:\Users\mares\OneDrive\Documentos\Pet2Pet\Pet2PetWeb\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\venv\Lib\site-packages\sqlalchemy\orm\decl_base.py", line 247, in _as_declarative
+    return _MapperConfig.setup_mapping(registry, cls, dict_, None, {})
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mares\OneDrive\Documentos\Pet2Pet\Pet2PetWeb\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\venv\Lib\site-packages\sqlalchemy\orm\decl_base.py", line 328, in setup_mapping
+    return _ClassScanMapperConfig(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mares\OneDrive\Documentos\Pet2Pet\Pet2PetWeb\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\venv\Lib\site-packages\sqlalchemy\orm\decl_base.py", line 578, in __init__
+    self._setup_table(table)
+  File "C:\Users\mares\OneDrive\Documentos\Pet2Pet\Pet2PetWeb\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\venv\Lib\site-packages\sqlalchemy\orm\decl_base.py", line 1729, in _setup_table
+    table_cls(
+  File "<string>", line 2, in __new__
+  File "C:\Users\mares\OneDrive\Documentos\Pet2Pet\Pet2PetWeb\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\venv\Lib\site-packages\sqlalchemy\util\deprecations.py", line 281, in warned
+    return fn(*args, **kwargs)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mares\OneDrive\Documentos\Pet2Pet\Pet2PetWeb\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\venv\Lib\site-packages\sqlalchemy\sql\schema.py", line 436, in __new__
+    return cls._new(*args, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mares\OneDrive\Documentos\Pet2Pet\Pet2PetWeb\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\venv\Lib\site-packages\sqlalchemy\sql\schema.py", line 468, in _new
+    raise exc.InvalidRequestError(
+sqlalchemy.exc.InvalidRequestError: Table 'roles' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+2024-10-25 18:39:42,946 - api_gateway.app - INFO - Loading routes for notifications service from services.notifications.app.api.routes
+2024-10-25 18:39:42,963 - api_gateway.app - ERROR - Error loading notifications service: Table 'roles' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+2024-10-25 18:39:42,963 - api_gateway.app - ERROR - Table 'roles' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+Traceback (most recent call last):
+  File "C:\Users\mares\OneDrive\Documentos\Pet2Pet\Pet2PetWeb\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\api_gateway\app.py", line 94, in create_app
+    module = __import__(service['module'], fromlist=['api_router'])
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mares\OneDrive\Documentos\Pet2Pet\Pet2PetWeb\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\services\notifications\app\api\routes.py", line 2, in <module>
+    from services.notifications.app.api.endpoints import router as notifications_router
+  File "C:\Users\mares\OneDrive\Documentos\Pet2Pet\Pet2PetWeb\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\services\notifications\app\api\endpoints.py", line 7, in <module>
+    from shared.database.models import User
+  File "C:\Users\mares\OneDrive\Documentos\Pet2Pet\Pet2PetWeb\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\shared\database\models.py", line 7, in <module>
+    class Role(Base):
+  File "C:\Users\mares\OneDrive\Documentos\Pet2Pet\Pet2PetWeb\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\venv\Lib\site-packages\sqlalchemy\orm\decl_api.py", line 195, in __init__
+    _as_declarative(reg, cls, dict_)
+  File "C:\Users\mares\OneDrive\Documentos\Pet2Pet\Pet2PetWeb\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\venv\Lib\site-packages\sqlalchemy\orm\decl_base.py", line 247, in _as_declarative
+    return _MapperConfig.setup_mapping(registry, cls, dict_, None, {})
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mares\OneDrive\Documentos\Pet2Pet\Pet2PetWeb\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\venv\Lib\site-packages\sqlalchemy\orm\decl_base.py", line 328, in setup_mapping
+    return _ClassScanMapperConfig(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mares\OneDrive\Documentos\Pet2Pet\Pet2PetWeb\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\venv\Lib\site-packages\sqlalchemy\orm\decl_base.py", line 578, in __init__
+    self._setup_table(table)
+  File "C:\Users\mares\OneDrive\Documentos\Pet2Pet\Pet2PetWeb\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\venv\Lib\site-packages\sqlalchemy\orm\decl_base.py", line 1729, in _setup_table
+    table_cls(
+  File "<string>", line 2, in __new__
+  File "C:\Users\mares\OneDrive\Documentos\Pet2Pet\Pet2PetWeb\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\venv\Lib\site-packages\sqlalchemy\util\deprecations.py", line 281, in warned
+    return fn(*args, **kwargs)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mares\OneDrive\Documentos\Pet2Pet\Pet2PetWeb\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\venv\Lib\site-packages\sqlalchemy\sql\schema.py", line 436, in __new__
+    return cls._new(*args, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mares\OneDrive\Documentos\Pet2Pet\Pet2PetWeb\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\venv\Lib\site-packages\sqlalchemy\sql\schema.py", line 468, in _new
+    raise exc.InvalidRequestError(
+sqlalchemy.exc.InvalidRequestError: Table 'roles' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+2024-10-25 18:39:42,965 - api_gateway.app - INFO - Starting Pet2Pet API Gateway...
+2024-10-25 18:39:42,965 - api_gateway.app - INFO - Registered route: /api/v1/openapi.json
+2024-10-25 18:39:42,965 - api_gateway.app - INFO - Registered route: /api/v1/docs
+2024-10-25 18:39:42,965 - api_gateway.app - INFO - Registered route: /docs/oauth2-redirect
+2024-10-25 18:39:42,966 - api_gateway.app - INFO - Registered route: /api/v1/redoc
+2024-10-25 18:39:42,966 - api_gateway.app - INFO - Registered route: /health
+2024-10-25 18:40:38,386 - api_gateway.app - INFO - Shutting down Pet2Pet API Gateway...
+2024-10-25 18:40:39,163 - api_gateway.app - INFO - PYTHONPATH: ['C:\\Users\\mares\\OneDrive\\Documentos\\Pet2Pet\\Pet2PetWeb\\Pet2PetDevWeb\\back\\microserviciosConArquitectura\\pet2pet', 'C:\\Users\\mares\\AppData\\Local\\Programs\\Python\\Python312\\python312.zip', 'C:\\Users\\mares\\AppData\\Local\\Programs\\Python\\Python312\\DLLs', 'C:\\Users\\mares\\AppData\\Local\\Programs\\Python\\Python312\\Lib', 'C:\\Users\\mares\\AppData\\Local\\Programs\\Python\\Python312', 'C:\\Users\\mares\\OneDrive\\Documentos\\Pet2Pet\\Pet2PetWeb\\Pet2PetDevWeb\\back\\microserviciosConArquitectura\\pet2pet\\venv', 'C:\\Users\\mares\\OneDrive\\Documentos\\Pet2Pet\\Pet2PetWeb\\Pet2PetDevWeb\\back\\microserviciosConArquitectura\\pet2pet\\venv\\Lib\\site-packages', 'C:\\Users\\mares\\OneDrive\\Documentos\\Pet2Pet\\Pet2PetWeb\\Pet2PetDevWeb\\back\\microserviciosConArquitectura\\pet2pet', 'C:\\Users\\mares\\OneDrive\\Documentos\\Pet2Pet\\Pet2PetWeb\\Pet2PetDevWeb\\back\\microserviciosConArquitectura\\pet2pet']
+2024-10-25 18:40:39,164 - api_gateway.app - INFO - Loading routes for auth service from services.auth.app.api.routes
+2024-10-25 18:40:39,577 - api_gateway.app - INFO - Successfully loaded routes for auth service
+2024-10-25 18:40:39,578 - api_gateway.app - INFO - Loading routes for pets service from services.pets.app.api.routes
+2024-10-25 18:40:39,720 - api_gateway.app - INFO - Successfully loaded routes for pets service
+2024-10-25 18:40:39,720 - api_gateway.app - INFO - Loading routes for posts service from services.posts.app.api.routes
+2024-10-25 18:40:39,775 - api_gateway.app - INFO - Successfully loaded routes for posts service
+2024-10-25 18:40:39,775 - api_gateway.app - INFO - Loading routes for messages service from services.messages.app.api.routes
+2024-10-25 18:40:39,805 - api_gateway.app - INFO - Successfully loaded routes for messages service
+2024-10-25 18:40:39,805 - api_gateway.app - INFO - Loading routes for notifications service from services.notifications.app.api.routes
+2024-10-25 18:40:39,821 - api_gateway.app - INFO - Successfully loaded routes for notifications service
+2024-10-25 18:40:39,822 - api_gateway.app - INFO - Starting Pet2Pet API Gateway...
+2024-10-25 18:40:39,822 - api_gateway.app - INFO - Registered route: /api/v1/openapi.json
+2024-10-25 18:40:39,822 - api_gateway.app - INFO - Registered route: /api/v1/docs
+2024-10-25 18:40:39,822 - api_gateway.app - INFO - Registered route: /docs/oauth2-redirect
+2024-10-25 18:40:39,822 - api_gateway.app - INFO - Registered route: /api/v1/redoc
+2024-10-25 18:40:39,822 - api_gateway.app - INFO - Registered route: /health
+2024-10-25 18:40:39,823 - api_gateway.app - INFO - Registered route: /api/v1/auth/register
+2024-10-25 18:40:39,823 - api_gateway.app - INFO - Registered route: /api/v1/auth/login
+2024-10-25 18:40:39,823 - api_gateway.app - INFO - Registered route: /api/v1/auth/me
+2024-10-25 18:40:39,823 - api_gateway.app - INFO - Registered route: /api/v1/auth/me
+2024-10-25 18:40:39,823 - api_gateway.app - INFO - Registered route: /api/v1/auth/change-password
+2024-10-25 18:40:39,823 - api_gateway.app - INFO - Registered route: /api/v1/auth/password-reset-request
+2024-10-25 18:40:39,823 - api_gateway.app - INFO - Registered route: /api/v1/auth/reset-password
+2024-10-25 18:40:39,823 - api_gateway.app - INFO - Registered route: /api/v1/pets/types
+2024-10-25 18:40:39,823 - api_gateway.app - INFO - Registered route: /api/v1/pets/breeds
+2024-10-25 18:40:39,823 - api_gateway.app - INFO - Registered route: /api/v1/pets/
+2024-10-25 18:40:39,823 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}/image
+2024-10-25 18:40:39,824 - api_gateway.app - INFO - Registered route: /api/v1/pets/
+2024-10-25 18:40:39,824 - api_gateway.app - INFO - Registered route: /api/v1/pets/my-pets
+2024-10-25 18:40:39,824 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}
+2024-10-25 18:40:39,824 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}
+2024-10-25 18:40:39,824 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}
+2024-10-25 18:40:39,824 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}/follow
+2024-10-25 18:40:39,824 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}/unfollow
+2024-10-25 18:40:39,824 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}/followers
+2024-10-25 18:40:39,825 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}/following
+2024-10-25 18:40:39,825 - api_gateway.app - INFO - Registered route: /api/v1/posts/
+2024-10-25 18:40:39,825 - api_gateway.app - INFO - Registered route: /api/v1/posts/
+2024-10-25 18:40:39,825 - api_gateway.app - INFO - Registered route: /api/v1/posts/my-posts
+2024-10-25 18:40:39,825 - api_gateway.app - INFO - Registered route: /api/v1/posts/{post_id}
+2024-10-25 18:40:39,825 - api_gateway.app - INFO - Registered route: /api/v1/posts/{post_id}
+2024-10-25 18:40:39,825 - api_gateway.app - INFO - Registered route: /api/v1/posts/{post_id}
+2024-10-25 18:40:39,825 - api_gateway.app - INFO - Registered route: /api/v1/posts/{post_id}/media
+2024-10-25 18:40:39,825 - api_gateway.app - INFO - Registered route: /api/v1/posts/{post_id}/comments
+2024-10-25 18:40:39,825 - api_gateway.app - INFO - Registered route: /api/v1/posts/comments/{comment_id}
+2024-10-25 18:40:39,825 - api_gateway.app - INFO - Registered route: /api/v1/posts/{post_id}/reactions
+2024-10-25 18:40:39,826 - api_gateway.app - INFO - Registered route: /api/v1/posts/reactions/{reaction_id}
+2024-10-25 18:40:39,826 - api_gateway.app - INFO - Registered route: /api/v1/messages/
+2024-10-25 18:40:39,826 - api_gateway.app - INFO - Registered route: /api/v1/messages/conversations
+2024-10-25 18:40:39,826 - api_gateway.app - INFO - Registered route: /api/v1/messages/conversation/{other_pet_id}
+2024-10-25 18:40:39,826 - api_gateway.app - INFO - Registered route: /api/v1/messages/conversation/{other_pet_id}/read
+2024-10-25 18:40:39,826 - api_gateway.app - INFO - Registered route: /api/v1/messages/unread/count
+2024-10-25 18:40:39,826 - api_gateway.app - INFO - Registered route: /api/v1/messages/conversation/{other_pet_id}
+2024-10-25 18:40:39,827 - api_gateway.app - INFO - Registered route: /api/v1/messages/search
+2024-10-25 18:40:39,827 - api_gateway.app - INFO - Registered route: /api/v1/notifications/
+2024-10-25 18:40:39,827 - api_gateway.app - INFO - Registered route: /api/v1/notifications/count
+2024-10-25 18:40:39,827 - api_gateway.app - INFO - Registered route: /api/v1/notifications/{notification_id}/read
+2024-10-25 18:40:39,827 - api_gateway.app - INFO - Registered route: /api/v1/notifications/read-all
+2024-10-25 18:40:39,827 - api_gateway.app - INFO - Registered route: /api/v1/notifications/{notification_id}
+2024-10-25 18:40:39,827 - api_gateway.app - INFO - Registered route: /api/v1/notifications/internal/create
+2024-10-25 18:40:42,125 - api_gateway.app - INFO - Shutting down Pet2Pet API Gateway...
