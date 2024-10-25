@@ -15,7 +15,7 @@ from services.posts.app.services.media_service import MediaService
 from services.auth.app.api.dependencies import get_current_active_user
 
 # Cambiar esta línea para incluir el prefijo
-router = APIRouter(prefix="/posts")
+router = APIRouter()
 
 @router.post("/", response_model=PostResponse, status_code=status.HTTP_201_CREATED)
 async def create_post(

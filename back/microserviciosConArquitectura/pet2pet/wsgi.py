@@ -30,12 +30,14 @@ app.add_middleware(
 # Importar las rutas de los servicios
 from services.auth.app.api.routes import api_router as auth_router
 from services.pets.app.api.routes import api_router as pets_router
-from services.posts.app.api.routes import api_router as posts_router  # Nueva línea
+from services.posts.app.api.routes import api_router as posts_router
+from services.messages.app.api.routes import api_router as message_router
 
 # Incluir las rutas
 app.include_router(auth_router, prefix="/api/v1")
 app.include_router(pets_router, prefix="/api/v1")
-app.include_router(posts_router, prefix="/api/v1")  # Nueva línea
+app.include_router(posts_router, prefix="/api/v1")
+app.include_router(message_router, prefix="/api/v1")
 
 if __name__ == "__main__":
     uvicorn.run("wsgi:app", host="0.0.0.0", port=8000, reload=True)
