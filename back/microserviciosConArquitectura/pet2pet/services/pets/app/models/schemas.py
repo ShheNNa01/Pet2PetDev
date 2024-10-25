@@ -9,11 +9,21 @@ class PetTypeBase(BaseModel):
 class PetTypeCreate(PetTypeBase):
     pass
 
-class PetTypeResponse(PetTypeBase):
+class PetTypeResponse(BaseModel):
     pet_type_id: int
+    type_name: str
     created_at: datetime
 
-    model_config = ConfigDict(from_attributes=True)
+    model_config = ConfigDict(
+        from_attributes=True,
+        json_schema_extra={
+            "example": {
+                "pet_type_id": 1,
+                "type_name": "Dog",
+                "created_at": "2024-10-25T14:30:00"
+            }
+        }
+    )
 
 class BreedBase(BaseModel):
     breed_name: str = Field(..., min_length=2, max_length=30)
@@ -22,11 +32,23 @@ class BreedBase(BaseModel):
 class BreedCreate(BreedBase):
     pass
 
-class BreedResponse(BreedBase):
+class BreedResponse(BaseModel):
     breed_id: int
+    breed_name: str
+    pet_type_id: int
     created_at: datetime
 
-    model_config = ConfigDict(from_attributes=True)
+    model_config = ConfigDict(
+        from_attributes=True,
+        json_schema_extra={
+            "example": {
+                "breed_id": 1,
+                "breed_name": "Labrador Retriever",
+                "pet_type_id": 1,
+                "created_at": "2024-10-25T14:30:00"
+            }
+        }
+    )
 
 class PetBase(BaseModel):
     name: str = Field(..., min_length=2, max_length=50)

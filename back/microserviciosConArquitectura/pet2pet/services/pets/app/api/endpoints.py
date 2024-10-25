@@ -13,11 +13,13 @@ from services.pets.app.models.schemas import (
 )
 from services.pets.app.services.pet_service import PetService
 from services.pets.app.api.dependencies import get_current_active_user, get_pet_service
-from fastapi import APIRouter, Depends, HTTPException, status, Query
 from fastapi import UploadFile, File
 from services.pets.app.services.file_service import FileService
 
+# Crear routers separados
 router = APIRouter()
+types_router = APIRouter()
+breeds_router = APIRouter()
 
 @router.post("/", response_model=PetResponse, status_code=status.HTTP_201_CREATED)
 async def create_pet(
@@ -99,6 +101,31 @@ async def upload_pet_image(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Error uploading image: {str(e)}"
         )
+    
+@types_router.get("/types", response_model=List[PetTypeResponse])
+async def get_pet_types(
+    skip: int = Query(0, ge=0),
+    limit: int = Query(10, ge=1, le=100),
+    db: Session = Depends(get_db),
+    pet_service: PetService = Depends(get_pet_service)
+):
+    """
+    Get all pet types.
+    """
+    return await pet_service.get_pet_types(db, skip, limit)
+
+@breeds_router.get("/breeds", response_model=List[BreedResponse])
+async def get_breeds(
+    pet_type_id: Optional[int] = None,
+    skip: int = Query(0, ge=0),
+    limit: int = Query(10, ge=1, le=100),
+    db: Session = Depends(get_db),
+    pet_service: PetService = Depends(get_pet_service)
+):
+    """
+    Get all breeds, optionally filtered by pet type.
+    """
+    return await pet_service.get_breeds(db, pet_type_id, skip, limit)
 
 @router.get("/", response_model=List[PetResponse])
 async def get_pets(
@@ -172,40 +199,21 @@ async def delete_pet(
     await pet_service.delete_pet(db, current_user.user_id, pet_id)
     return {"status": "success"}
 
-@router.get("/types", response_model=List[PetTypeResponse])
-async def get_pet_types(
-    skip: int = Query(0, ge=0),
-    limit: int = Query(10, ge=1, le=100),
-    db: Session = Depends(get_db),
-    pet_service: PetService = Depends(get_pet_service)
-):
-    """
-    Get all pet types.
-    """
-    return await pet_service.get_pet_types(db, skip, limit)
-
-@router.get("/breeds", response_model=List[BreedResponse])
-async def get_breeds(
-    pet_type_id: Optional[int] = None,
-    skip: int = Query(0, ge=0),
-    limit: int = Query(10, ge=1, le=100),
-    db: Session = Depends(get_db),
-    pet_service: PetService = Depends(get_pet_service)
-):
-    """
-    Get all breeds, optionally filtered by pet type.
-    """
-    return await pet_service.get_breeds(db, pet_type_id, skip, limit)
-
 @router.post("/{pet_id}/follow", response_model=dict)
 async def follow_pet(
     pet_id: int,
     follower_pet_id: int = Query(..., description="ID of the pet that will follow"),
     current_user: User = Depends(get_current_active_user),
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    pet_service: PetService = Depends(get_pet_service)
 ):
     """
     Seguir a una mascota
+    
+    Args:
+        pet_id: ID de la mascota a seguir
+        follower_pet_id: ID de la mascota que seguirá
+        current_user: Usuario autenticado
     """
     # Verificar que la mascota seguidora pertenece al usuario actual
     follower_pet = db.query(Pet).filter(
@@ -219,8 +227,7 @@ async def follow_pet(
             detail="Not authorized to follow with this pet"
         )
 
-    await PetService.follow_pet(db, follower_pet_id, pet_id)
-    return {"status": "success", "message": "Now following this pet"}
+    return await pet_service.follow_pet(db, follower_pet_id, pet_id)
 
 @router.post("/{pet_id}/unfollow", response_model=dict)
 async def unfollow_pet(

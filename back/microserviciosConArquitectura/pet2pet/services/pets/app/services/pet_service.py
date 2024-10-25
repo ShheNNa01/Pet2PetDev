@@ -178,19 +178,29 @@ class PetService:
             )
 
     @staticmethod
-    async def follow_pet(db: Session, follower_pet_id: int, followed_pet_id: int) -> Follower:
+    async def follow_pet(db: Session, follower_pet_id: int, followed_pet_id: int) -> dict:
         """
-        Seguir a una mascota
+        Crear una relación de seguimiento entre mascotas
+        
+        Args:
+            db: Sesión de base de datos
+            follower_pet_id: ID de la mascota que seguirá
+            followed_pet_id: ID de la mascota a seguir
         """
         try:
-            # Verificar que las mascotas existen
+            # Verificar que las mascotas existan
             follower_pet = db.query(Pet).filter(Pet.pet_id == follower_pet_id).first()
-            followed_pet = db.query(Pet).filter(Pet.pet_id == followed_pet_id).first()
-
-            if not follower_pet or not followed_pet:
+            if not follower_pet:
                 raise HTTPException(
                     status_code=status.HTTP_404_NOT_FOUND,
-                    detail="One or both pets not found"
+                    detail="Follower pet not found"
+                )
+
+            followed_pet = db.query(Pet).filter(Pet.pet_id == followed_pet_id).first()
+            if not followed_pet:
+                raise HTTPException(
+                    status_code=status.HTTP_404_NOT_FOUND,
+                    detail="Followed pet not found"
                 )
 
             # Verificar que no se está siguiendo a sí mismo
@@ -200,7 +210,7 @@ class PetService:
                     detail="Cannot follow yourself"
                 )
 
-            # Verificar si ya sigue a la mascota
+            # Verificar si ya existe el follow
             existing_follow = db.query(Follower).filter(
                 Follower.follower_pet_id == follower_pet_id,
                 Follower.followed_pet_id == followed_pet_id
@@ -212,30 +222,59 @@ class PetService:
                     detail="Already following this pet"
                 )
 
-            # Crear nuevo seguidor
-            new_follower = Follower(
+            # Crear nuevo follow
+            new_follow = Follower(
                 follower_pet_id=follower_pet_id,
-                followed_pet_id=followed_pet_id
+                followed_pet_id=followed_pet_id,
+                created_at=datetime.utcnow()
             )
             
-            db.add(new_follower)
+            try:
+                db.add(new_follow)
+                db.commit()
+                db.refresh(new_follow)
 
-            # Crear notificación para el dueño de la mascota seguida
-            await NotificationService.create_notification_for_event(
-                db=db,
-                event_type=NotificationType.NEW_FOLLOWER,
-                user_id=followed_pet.user_id,
-                related_id=follower_pet_id,
-                custom_message=f"{follower_pet.name} ha comenzado a seguir a {followed_pet.name}"
-            )
+                # Crear notificación
+                try:
+                    await NotificationService.create_notification_for_event(
+                        db=db,
+                        event_type=NotificationType.NEW_FOLLOWER,
+                        user_id=followed_pet.user_id,
+                        related_id=follower_pet_id,
+                        custom_message=f"{follower_pet.name} ha comenzado a seguir a {followed_pet.name}",
+                        additional_data={
+                            "follower_pet_id": follower_pet_id,
+                            "follower_pet_name": follower_pet.name,
+                            "follower_pet_picture": follower_pet.pet_picture,
+                            "followed_pet_id": followed_pet_id,
+                            "followed_pet_name": followed_pet.name
+                        }
+                    )
+                except Exception as notification_error:
+                    # Log el error pero no fallar el follow
+                    print(f"Error creating notification: {str(notification_error)}")
+                    # Continuar con el follow aunque falle la notificación
 
-            db.commit()
-            return new_follower
+                return {
+                    "status": "success",
+                    "message": f"Now following {followed_pet.name}",
+                    "data": {
+                        "follower_pet_id": follower_pet_id,
+                        "followed_pet_id": followed_pet_id,
+                        "created_at": new_follow.created_at
+                    }
+                }
 
-        except HTTPException as e:
-            raise e
+            except Exception as db_error:
+                db.rollback()
+                raise HTTPException(
+                    status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                    detail=f"Database error: {str(db_error)}"
+                )
+
+        except HTTPException:
+            raise
         except Exception as e:
-            db.rollback()
             raise HTTPException(
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                 detail=f"Error following pet: {str(e)}"
@@ -308,4 +347,113 @@ class PetService:
             raise HTTPException(
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                 detail=f"Error getting following: {str(e)}"
+            )
+        
+    @staticmethod
+    async def get_pet_types(db: Session, skip: int = 0, limit: int = 10) -> List[PetType]:
+        """
+        Obtener todos los tipos de mascotas
+        """
+        try:
+            return db.query(PetType)\
+                    .order_by(PetType.type_name)\
+                    .offset(skip)\
+                    .limit(limit)\
+                    .all()
+        except Exception as e:
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail=f"Error retrieving pet types: {str(e)}"
+            )
+        
+    @staticmethod
+    async def get_breeds(
+        db: Session,
+        pet_type_id: Optional[int] = None,
+        skip: int = 0,
+        limit: int = 10
+    ) -> List[Breed]:
+        """
+        Obtener todas las razas, opcionalmente filtradas por tipo de mascota
+        
+        Args:
+            db: Sesión de base de datos
+            pet_type_id: ID opcional del tipo de mascota para filtrar
+            skip: Número de registros a saltar
+            limit: Número máximo de registros a retornar
+            
+        Returns:
+            List[Breed]: Lista de razas
+            
+        Raises:
+            HTTPException: Si hay un error al obtener las razas
+        """
+        try:
+            query = db.query(Breed)
+            
+            # Aplicar filtro por tipo de mascota si se proporciona
+            if pet_type_id is not None:
+                # Verificar que el tipo de mascota existe
+                pet_type = db.query(PetType).filter(PetType.pet_type_id == pet_type_id).first()
+                if not pet_type:
+                    raise HTTPException(
+                        status_code=status.HTTP_404_NOT_FOUND,
+                        detail=f"Pet type with id {pet_type_id} not found"
+                    )
+                query = query.filter(Breed.pet_type_id == pet_type_id)
+            
+            # Ordenar por nombre y aplicar paginación
+            breeds = query\
+                .order_by(Breed.breed_name)\
+                .offset(skip)\
+                .limit(limit)\
+                .all()
+                
+            # Si no se encontraron razas con los filtros proporcionados
+            if not breeds and pet_type_id:
+                raise HTTPException(
+                    status_code=status.HTTP_404_NOT_FOUND,
+                    detail=f"No breeds found for pet type with id {pet_type_id}"
+                )
+                
+            return breeds
+            
+        except HTTPException:
+            raise
+        except Exception as e:
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail=f"Error retrieving breeds: {str(e)}"
+            )
+
+    @staticmethod
+    async def get_breed(db: Session, breed_id: int) -> Breed:
+        """
+        Obtener una raza específica por su ID
+        
+        Args:
+            db: Sesión de base de datos
+            breed_id: ID de la raza a obtener
+            
+        Returns:
+            Breed: Datos de la raza
+            
+        Raises:
+            HTTPException: Si la raza no existe o hay un error
+        """
+        try:
+            breed = db.query(Breed).filter(Breed.breed_id == breed_id).first()
+            if not breed:
+                raise HTTPException(
+                    status_code=status.HTTP_404_NOT_FOUND,
+                    detail=f"Breed with id {breed_id} not found"
+                )
+            return breed
+            
+        except HTTPException:
+            raise
+        except Exception as e:
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail=f"Error retrieving breed: {str(e)}"
             )
