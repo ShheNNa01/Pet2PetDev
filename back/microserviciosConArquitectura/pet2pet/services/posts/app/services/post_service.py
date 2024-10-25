@@ -1,12 +1,13 @@
 from fastapi import HTTPException, status
-from sqlalchemy.orm import Session
-from sqlalchemy import func
+from sqlalchemy.orm import Session, joinedload
+from sqlalchemy import func, and_, or_
 from datetime import datetime
 from typing import List, Optional
-from sqlalchemy.orm import joinedload
 
 from shared.database.models import Post, User, Pet, Comment, Reaction
-from services.posts.app.models.schemas import PostCreate, PostUpdate, PostFilter
+from services.posts.app.models.schemas import PostCreate, PostUpdate, PostFilter, CommentCreate, ReactionCreate
+from services.notifications.app.services.notification_service import NotificationService
+from services.notifications.app.models.schemas import NotificationType
 
 class PostService:
     @staticmethod
@@ -41,6 +42,112 @@ class PostService:
             raise HTTPException(
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                 detail=f"Error creating post: {str(e)}"
+            )
+
+    @staticmethod
+    async def create_comment(db: Session, user_id: int, post_id: int, comment_data: CommentCreate) -> Comment:
+        try:
+            # Verificar que el post existe
+            post = db.query(Post).filter(Post.post_id == post_id).first()
+            if not post:
+                raise HTTPException(
+                    status_code=status.HTTP_404_NOT_FOUND,
+                    detail="Post not found"
+                )
+
+            # Crear el comentario
+            db_comment = Comment(
+                post_id=post_id,
+                user_id=user_id,
+                pet_id=comment_data.pet_id,
+                comment=comment_data.comment
+            )
+
+            db.add(db_comment)
+
+            # Si el comentario no es del dueño del post, crear notificación
+            if post.user_id != user_id:
+                # Obtener información de las mascotas
+                commenter_pet = db.query(Pet).filter(Pet.pet_id == comment_data.pet_id).first()
+                post_pet = db.query(Pet).filter(Pet.pet_id == post.pet_id).first()
+
+                await NotificationService.create_notification_for_event(
+                    db=db,
+                    event_type=NotificationType.NEW_COMMENT,
+                    user_id=post.user_id,
+                    related_id=post_id,
+                    custom_message=f"{commenter_pet.name} ha comentado en la publicación de {post_pet.name}"
+                )
+
+            db.commit()
+            db.refresh(db_comment)
+            return db_comment
+
+        except Exception as e:
+            db.rollback()
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail=f"Error creating comment: {str(e)}"
+            )
+
+    @staticmethod
+    async def create_reaction(db: Session, user_id: int, post_id: int, reaction_data: ReactionCreate) -> Reaction:
+        try:
+            # Verificar que el post existe
+            post = db.query(Post).filter(Post.post_id == post_id).first()
+            if not post:
+                raise HTTPException(
+                    status_code=status.HTTP_404_NOT_FOUND,
+                    detail="Post not found"
+                )
+
+            # Verificar si ya existe una reacción
+            existing_reaction = db.query(Reaction).filter(
+                Reaction.post_id == post_id,
+                Reaction.user_id == user_id,
+                Reaction.pet_id == reaction_data.pet_id
+            ).first()
+
+            if existing_reaction:
+                # Actualizar tipo de reacción si es diferente
+                if existing_reaction.reaction_type != reaction_data.reaction_type:
+                    existing_reaction.reaction_type = reaction_data.reaction_type
+                    db.commit()
+                return existing_reaction
+
+            # Crear nueva reacción
+            db_reaction = Reaction(
+                post_id=post_id,
+                user_id=user_id,
+                pet_id=reaction_data.pet_id,
+                reaction_type=reaction_data.reaction_type
+            )
+
+            db.add(db_reaction)
+
+            # Si la reacción no es del dueño del post, crear notificación
+            if post.user_id != user_id:
+                # Obtener información de las mascotas
+                reactor_pet = db.query(Pet).filter(Pet.pet_id == reaction_data.pet_id).first()
+                post_pet = db.query(Pet).filter(Pet.pet_id == post.pet_id).first()
+
+                await NotificationService.create_notification_for_event(
+                    db=db,
+                    event_type=NotificationType.NEW_REACTION,
+                    user_id=post.user_id,
+                    related_id=post_id,
+                    custom_message=f"A {reactor_pet.name} le ha gustado la publicación de {post_pet.name}"
+                )
+
+            db.commit()
+            db.refresh(db_reaction)
+            return db_reaction
+
+        except Exception as e:
+            db.rollback()
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail=f"Error creating reaction: {str(e)}"
             )
 
     @staticmethod
@@ -211,4 +318,50 @@ class PostService:
             raise HTTPException(
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                 detail=f"Error deleting post: {str(e)}"
+            )
+
+    @staticmethod
+    async def delete_comment(db: Session, user_id: int, comment_id: int) -> None:
+        comment = db.query(Comment).filter(
+            Comment.comment_id == comment_id,
+            Comment.user_id == user_id
+        ).first()
+
+        if not comment:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="Comment not found or not authorized"
+            )
+
+        try:
+            db.delete(comment)
+            db.commit()
+        except Exception as e:
+            db.rollback()
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail=f"Error deleting comment: {str(e)}"
+            )
+
+    @staticmethod
+    async def delete_reaction(db: Session, user_id: int, reaction_id: int) -> None:
+        reaction = db.query(Reaction).filter(
+            Reaction.reaction_id == reaction_id,
+            Reaction.user_id == user_id
+        ).first()
+
+        if not reaction:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="Reaction not found or not authorized"
+            )
+
+        try:
+            db.delete(reaction)
+            db.commit()
+        except Exception as e:
+            db.rollback()
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail=f"Error deleting reaction: {str(e)}"
             )

@@ -1,12 +1,13 @@
-# services/pets/app/services/pet_service.py
 from typing import List, Optional
 from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
 from datetime import datetime
 
 from services.pets.app.services.file_service import FileService
-from shared.database.models import Pet, User, PetType, Breed
+from shared.database.models import Pet, User, PetType, Breed, Follower
 from services.pets.app.models.schemas import PetCreate, PetUpdate, PetFilter
+from services.notifications.app.services.notification_service import NotificationService
+from services.notifications.app.models.schemas import NotificationType
 
 class PetService:
     @staticmethod
@@ -40,8 +41,6 @@ class PetService:
                 status=True
             )
 
-            print(f"Creating pet with data: {db_pet.__dict__}")  # Para debugging
-
             # Añadir y guardar en la base de datos
             db.add(db_pet)
             db.commit()
@@ -51,7 +50,6 @@ class PetService:
 
         except Exception as e:
             db.rollback()
-            print(f"Error in create_pet: {str(e)}")  # Para debugging
             raise HTTPException(
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                 detail=f"Error creating pet: {str(e)}"
@@ -177,4 +175,137 @@ class PetService:
             raise HTTPException(
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                 detail=f"Error getting user pets: {str(e)}"
+            )
+
+    @staticmethod
+    async def follow_pet(db: Session, follower_pet_id: int, followed_pet_id: int) -> Follower:
+        """
+        Seguir a una mascota
+        """
+        try:
+            # Verificar que las mascotas existen
+            follower_pet = db.query(Pet).filter(Pet.pet_id == follower_pet_id).first()
+            followed_pet = db.query(Pet).filter(Pet.pet_id == followed_pet_id).first()
+
+            if not follower_pet or not followed_pet:
+                raise HTTPException(
+                    status_code=status.HTTP_404_NOT_FOUND,
+                    detail="One or both pets not found"
+                )
+
+            # Verificar que no se está siguiendo a sí mismo
+            if follower_pet_id == followed_pet_id:
+                raise HTTPException(
+                    status_code=status.HTTP_400_BAD_REQUEST,
+                    detail="Cannot follow yourself"
+                )
+
+            # Verificar si ya sigue a la mascota
+            existing_follow = db.query(Follower).filter(
+                Follower.follower_pet_id == follower_pet_id,
+                Follower.followed_pet_id == followed_pet_id
+            ).first()
+
+            if existing_follow:
+                raise HTTPException(
+                    status_code=status.HTTP_400_BAD_REQUEST,
+                    detail="Already following this pet"
+                )
+
+            # Crear nuevo seguidor
+            new_follower = Follower(
+                follower_pet_id=follower_pet_id,
+                followed_pet_id=followed_pet_id
+            )
+            
+            db.add(new_follower)
+
+            # Crear notificación para el dueño de la mascota seguida
+            await NotificationService.create_notification_for_event(
+                db=db,
+                event_type=NotificationType.NEW_FOLLOWER,
+                user_id=followed_pet.user_id,
+                related_id=follower_pet_id,
+                custom_message=f"{follower_pet.name} ha comenzado a seguir a {followed_pet.name}"
+            )
+
+            db.commit()
+            return new_follower
+
+        except HTTPException as e:
+            raise e
+        except Exception as e:
+            db.rollback()
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail=f"Error following pet: {str(e)}"
+            )
+
+    @staticmethod
+    async def unfollow_pet(db: Session, follower_pet_id: int, followed_pet_id: int) -> None:
+        """
+        Dejar de seguir a una mascota
+        """
+        try:
+            follow = db.query(Follower).filter(
+                Follower.follower_pet_id == follower_pet_id,
+                Follower.followed_pet_id == followed_pet_id
+            ).first()
+
+            if not follow:
+                raise HTTPException(
+                    status_code=status.HTTP_404_NOT_FOUND,
+                    detail="Not following this pet"
+                )
+
+            db.delete(follow)
+            db.commit()
+
+        except HTTPException as e:
+            raise e
+        except Exception as e:
+            db.rollback()
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail=f"Error unfollowing pet: {str(e)}"
+            )
+
+    @staticmethod
+    async def get_followers(db: Session, pet_id: int, skip: int = 0, limit: int = 100) -> List[Pet]:
+        """
+        Obtener todos los seguidores de una mascota
+        """
+        try:
+            followers = db.query(Pet).join(
+                Follower, Follower.follower_pet_id == Pet.pet_id
+            ).filter(
+                Follower.followed_pet_id == pet_id
+            ).offset(skip).limit(limit).all()
+
+            return followers
+
+        except Exception as e:
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail=f"Error getting followers: {str(e)}"
+            )
+
+    @staticmethod
+    async def get_following(db: Session, pet_id: int, skip: int = 0, limit: int = 100) -> List[Pet]:
+        """
+        Obtener todas las mascotas que sigue una mascota
+        """
+        try:
+            following = db.query(Pet).join(
+                Follower, Follower.followed_pet_id == Pet.pet_id
+            ).filter(
+                Follower.follower_pet_id == pet_id
+            ).offset(skip).limit(limit).all()
+
+            return following
+
+        except Exception as e:
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail=f"Error getting following: {str(e)}"
             )

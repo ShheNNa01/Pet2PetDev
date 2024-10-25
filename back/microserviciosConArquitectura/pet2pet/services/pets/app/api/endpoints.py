@@ -196,3 +196,77 @@ async def get_breeds(
     Get all breeds, optionally filtered by pet type.
     """
     return await pet_service.get_breeds(db, pet_type_id, skip, limit)
+
+@router.post("/{pet_id}/follow", response_model=dict)
+async def follow_pet(
+    pet_id: int,
+    follower_pet_id: int = Query(..., description="ID of the pet that will follow"),
+    current_user: User = Depends(get_current_active_user),
+    db: Session = Depends(get_db)
+):
+    """
+    Seguir a una mascota
+    """
+    # Verificar que la mascota seguidora pertenece al usuario actual
+    follower_pet = db.query(Pet).filter(
+        Pet.pet_id == follower_pet_id,
+        Pet.user_id == current_user.user_id
+    ).first()
+    
+    if not follower_pet:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Not authorized to follow with this pet"
+        )
+
+    await PetService.follow_pet(db, follower_pet_id, pet_id)
+    return {"status": "success", "message": "Now following this pet"}
+
+@router.post("/{pet_id}/unfollow", response_model=dict)
+async def unfollow_pet(
+    pet_id: int,
+    follower_pet_id: int = Query(..., description="ID of the pet that will unfollow"),
+    current_user: User = Depends(get_current_active_user),
+    db: Session = Depends(get_db)
+):
+    """
+    Dejar de seguir a una mascota
+    """
+    # Verificar que la mascota seguidora pertenece al usuario actual
+    follower_pet = db.query(Pet).filter(
+        Pet.pet_id == follower_pet_id,
+        Pet.user_id == current_user.user_id
+    ).first()
+    
+    if not follower_pet:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Not authorized to unfollow with this pet"
+        )
+
+    await PetService.unfollow_pet(db, follower_pet_id, pet_id)
+    return {"status": "success", "message": "Successfully unfollowed this pet"}
+
+@router.get("/{pet_id}/followers", response_model=List[PetResponse])
+async def get_followers(
+    pet_id: int,
+    skip: int = Query(0, ge=0),
+    limit: int = Query(10, ge=1, le=100),
+    db: Session = Depends(get_db)
+):
+    """
+    Obtener los seguidores de una mascota
+    """
+    return await PetService.get_followers(db, pet_id, skip, limit)
+
+@router.get("/{pet_id}/following", response_model=List[PetResponse])
+async def get_following(
+    pet_id: int,
+    skip: int = Query(0, ge=0),
+    limit: int = Query(10, ge=1, le=100),
+    db: Session = Depends(get_db)
+):
+    """
+    Obtener las mascotas que sigue una mascota
+    """
+    return await PetService.get_following(db, pet_id, skip, limit)

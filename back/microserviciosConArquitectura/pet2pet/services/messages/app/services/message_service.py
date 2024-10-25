@@ -1,12 +1,13 @@
 from fastapi import HTTPException, status
 from sqlalchemy.orm import Session, joinedload
 from sqlalchemy import case, func, or_, desc, asc, and_
-
 from datetime import datetime
 from typing import List, Optional
 
 from shared.database.models import PrivateMessage, Pet
 from services.messages.app.models.schemas import MessageCreate, MessageUpdate
+from services.notifications.app.services.notification_service import NotificationService
+from services.notifications.app.models.schemas import NotificationType
 
 class MessageService:
     @staticmethod
@@ -33,9 +34,23 @@ class MessageService:
 
         try:
             db.add(db_message)
+            
+            # Obtener información de la mascota emisora
+            sender_pet = db.query(Pet).filter(Pet.pet_id == sender_pet_id).first()
+            
+            # Crear notificación para el dueño de la mascota receptora
+            await NotificationService.create_notification_for_event(
+                db=db,
+                event_type=NotificationType.NEW_MESSAGE,
+                user_id=receiver_pet.user_id,
+                related_id=db_message.message_id,
+                custom_message=f"Tu mascota {receiver_pet.name} ha recibido un mensaje de {sender_pet.name}"
+            )
+
             db.commit()
             db.refresh(db_message)
             return db_message
+
         except Exception as e:
             db.rollback()
             raise HTTPException(
@@ -175,4 +190,35 @@ class MessageService:
             raise HTTPException(
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                 detail=f"Could not mark messages as read: {str(e)}"
+            )
+            
+    @staticmethod
+    async def delete_message(
+        db: Session,
+        message_id: int,
+        pet_id: int
+    ) -> None:
+        """Delete a message"""
+        try:
+            message = db.query(PrivateMessage).filter(
+                PrivateMessage.message_id == message_id,
+                or_(
+                    PrivateMessage.sender_pet_id == pet_id,
+                    PrivateMessage.receiver_pet_id == pet_id
+                )
+            ).first()
+
+            if not message:
+                raise HTTPException(
+                    status_code=status.HTTP_404_NOT_FOUND,
+                    detail="Message not found or you don't have permission to delete it"
+                )
+
+            db.delete(message)
+            db.commit()
+        except Exception as e:
+            db.rollback()
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail=f"Could not delete message: {str(e)}"
             )

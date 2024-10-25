@@ -8,7 +8,7 @@ from shared.database.session import get_db
 from shared.database.models import Post, User, MediaFile
 from services.posts.app.models.schemas import (
     PostCreate, PostResponse, PostUpdate, PostFilter,
-    CommentCreate, CommentResponse
+    CommentCreate, CommentResponse, ReactionCreate, ReactionResponse
 )
 from services.posts.app.services.post_service import PostService
 from services.posts.app.services.media_service import MediaService
@@ -177,3 +177,50 @@ async def add_media_to_post(
     
     # Retornar el post actualizado
     return await PostService.get_post(db, post_id)
+@router.post("/{post_id}/comments", response_model=CommentResponse)
+async def create_comment(
+    post_id: int,
+    comment: CommentCreate,
+    current_user: User = Depends(get_current_active_user),
+    db: Session = Depends(get_db)
+):
+    """
+    Crear un comentario en un post
+    """
+    return await PostService.create_comment(db, current_user.user_id, post_id, comment)
+
+@router.delete("/comments/{comment_id}", status_code=status.HTTP_204_NO_CONTENT)
+async def delete_comment(
+    comment_id: int,
+    current_user: User = Depends(get_current_active_user),
+    db: Session = Depends(get_db)
+):
+    """
+    Eliminar un comentario
+    """
+    await PostService.delete_comment(db, current_user.user_id, comment_id)
+    return {"status": "success"}
+
+@router.post("/{post_id}/reactions", response_model=ReactionResponse)
+async def create_reaction(
+    post_id: int,
+    reaction: ReactionCreate,
+    current_user: User = Depends(get_current_active_user),
+    db: Session = Depends(get_db)
+):
+    """
+    Crear o actualizar una reacción en un post
+    """
+    return await PostService.create_reaction(db, current_user.user_id, post_id, reaction)
+
+@router.delete("/reactions/{reaction_id}", status_code=status.HTTP_204_NO_CONTENT)
+async def delete_reaction(
+    reaction_id: int,
+    current_user: User = Depends(get_current_active_user),
+    db: Session = Depends(get_db)
+):
+    """
+    Eliminar una reacción
+    """
+    await PostService.delete_reaction(db, current_user.user_id, reaction_id)
+    return {"status": "success"}
