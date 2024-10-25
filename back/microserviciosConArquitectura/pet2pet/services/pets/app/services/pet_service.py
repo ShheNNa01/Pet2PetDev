@@ -159,3 +159,22 @@ class PetService:
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                 detail=f"Error deleting pet: {str(e)}"
             )
+        
+    @staticmethod
+    async def get_user_pets(db: Session, user_id: int, skip: int = 0, limit: int = 100) -> List[Pet]:
+        """
+        Obtener todas las mascotas de un usuario específico
+        """
+        try:
+            pets = db.query(Pet).filter(
+                Pet.user_id == user_id,
+                Pet.status == True  # Solo mascotas activas
+            ).offset(skip).limit(limit).all()
+            
+            return pets
+            
+        except Exception as e:
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail=f"Error getting user pets: {str(e)}"
+            )
