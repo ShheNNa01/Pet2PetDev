@@ -85,6 +85,11 @@ def create_app() -> FastAPI:
             'name': 'notifications',
             'module': 'services.notifications.app.api.routes',
             'prefix': '/notifications'
+        },
+        {
+            'name': 'groups',
+            'module': 'services.groups.app.api.routes',
+            'prefix': '/groups'
         }
     ]
 
