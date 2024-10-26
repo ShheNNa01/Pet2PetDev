@@ -281,58 +281,85 @@ class GroupService:
         member_data: GroupMemberCreate
     ) -> GroupMember:
         """Join a group"""
-        group = db.query(Group).filter(Group.group_id == group_id).first()
-        
-        if not group:
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail="Group not found"
-            )
-
-        # Check if already a member
-        existing_member = db.query(GroupMember).filter(
-            GroupMember.group_id == group_id,
-            GroupMember.user_id == user_id
-        ).first()
-        
-        if existing_member:
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail="Already a member of this group"
-            )
-
         try:
-            member = GroupMember(
-                group_id=group_id,
-                user_id=user_id,
-                pet_id=member_data.pet_id,
-                admin=False
-            )
-            
-            db.add(member)
-            
-            # Notify group owner
-            await NotificationService.create_notification_for_event(
-                db=db,
-                event_type=NotificationType.GROUP_MEMBER_JOINED,
-                user_id=group.owner_id,
-                related_id=group_id,
-                additional_data={
-                    "group_id": group_id,
-                    "group_name": group.name_group,
-                    "new_member_id": user_id
-                }
-            )
-            
-            db.commit()
-            db.refresh(member)
-            return member
+            # Verificar que el grupo existe
+            group = db.query(Group).filter(Group.group_id == group_id).first()
+            if not group:
+                raise HTTPException(
+                    status_code=status.HTTP_404_NOT_FOUND,
+                    detail="Group not found"
+                )
 
+            # Si la mascota fue especificada, verificar que existe y pertenece al usuario
+            if member_data.pet_id:
+                pet = db.query(Pet).filter(
+                    Pet.pet_id == member_data.pet_id,
+                    Pet.user_id == user_id,
+                    Pet.status == True
+                ).first()
+                
+                if not pet:
+                    raise HTTPException(
+                        status_code=status.HTTP_404_NOT_FOUND,
+                        detail="Pet not found or not owned by user"
+                    )
+
+            # Verificar si ya es miembro (usando una consulta más precisa)
+            existing_member = db.query(GroupMember).filter(
+                GroupMember.group_id == group_id,
+                GroupMember.user_id == user_id,
+                GroupMember.pet_id == member_data.pet_id if member_data.pet_id else None
+            ).first()
+
+            if existing_member:
+                raise HTTPException(
+                    status_code=status.HTTP_400_BAD_REQUEST,
+                    detail="Already a member of this group"
+                )
+
+            # Crear nuevo miembro
+            try:
+                member = GroupMember(
+                    group_id=group_id,
+                    user_id=user_id,
+                    pet_id=member_data.pet_id,
+                    admin=False  # Por defecto no es admin
+                )
+                
+                db.add(member)
+                
+                # Notificar al dueño del grupo
+                await NotificationService.create_notification_for_event(
+                    db=db,
+                    event_type=NotificationType.GROUP_MEMBER_JOINED,
+                    user_id=group.owner_id,
+                    related_id=group_id,
+                    custom_message=f"Nuevo miembro en el grupo: {group.name_group}",
+                    additional_data={
+                        "group_id": group_id,
+                        "group_name": group.name_group,
+                        "new_member_id": user_id,
+                        "pet_id": member_data.pet_id
+                    }
+                )
+                
+                db.commit()
+                db.refresh(member)
+                return member
+
+            except Exception as db_error:
+                db.rollback()
+                raise HTTPException(
+                    status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                    detail=f"Error joining group: {str(db_error)}"
+                )
+
+        except HTTPException:
+            raise
         except Exception as e:
-            db.rollback()
             raise HTTPException(
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                detail=f"Error joining group: {str(e)}"
+                detail=f"Error processing join request: {str(e)}"
             )
 
     @staticmethod

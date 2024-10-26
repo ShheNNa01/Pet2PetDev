@@ -38,13 +38,23 @@ class GroupMemberBase(BaseModel):
     pet_id: Optional[int] = None
     admin: bool = False
 
-class GroupMemberCreate(GroupMemberBase):
-    pass
+class GroupMemberCreate(BaseModel):
+    pet_id: Optional[int] = Field(None, description="ID de la mascota que se unirá al grupo (opcional)")
 
-class GroupMemberResponse(GroupMemberBase):
+    model_config = ConfigDict(
+        json_schema_extra={
+            "example": {
+                "pet_id": 1
+            }
+        }
+    )
+
+class GroupMemberResponse(BaseModel):
     member_id: int
-    user_id: int
     group_id: int
+    user_id: int
+    pet_id: Optional[int] = None
+    admin: bool
     joined_at: datetime
     pet_name: Optional[str] = None
     user_name: Optional[str] = None

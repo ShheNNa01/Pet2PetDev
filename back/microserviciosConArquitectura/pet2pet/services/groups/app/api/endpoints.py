@@ -130,6 +130,8 @@ async def join_group(
 ):
     """
     Unirse a un grupo.
+    - Se puede especificar una mascota opcional para unirse
+    - El usuario solo puede unir mascotas que le pertenezcan
     """
     return await GroupService.join_group(
         db,
