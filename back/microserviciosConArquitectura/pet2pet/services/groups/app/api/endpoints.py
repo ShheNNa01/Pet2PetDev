@@ -55,7 +55,7 @@ async def get_groups(
 async def get_my_groups(
     skip: int = Query(0, ge=0),
     limit: int = Query(10, ge=1, le=100),
-    admin_only: bool = False,
+    admin_only: bool = Query(False, description="Solo mostrar grupos donde soy admin"),
     current_user: User = Depends(get_current_active_user),
     db: Session = Depends(get_db)
 ):
@@ -78,7 +78,9 @@ async def get_group(
     db: Session = Depends(get_db)
 ):
     """
-    Obtener detalles de un grupo específico.
+    Get a specific group by ID.
+    - Public groups can be viewed by anyone
+    - Private groups can only be viewed by members
     """
     return await GroupService.get_group(db, group_id, current_user.user_id)
 

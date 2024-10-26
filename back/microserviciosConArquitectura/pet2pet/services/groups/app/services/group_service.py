@@ -26,6 +26,7 @@ class GroupService:
     ) -> Group:
         """Create a new group"""
         try:
+            # Crear el grupo
             db_group = Group(
                 name_group=group_data.name_group,
                 description=group_data.description,
@@ -47,15 +48,32 @@ class GroupService:
             db.commit()
             db.refresh(db_group)
 
+            # Enriquecer el objeto group con la información adicional requerida
+            setattr(db_group, 'member_count', 1)  # El propietario es el primer miembro
+            setattr(db_group, 'is_member', True)  # El propietario es miembro
+            setattr(db_group, 'is_admin', True)   # El propietario es admin
+            
+            # Obtener el nombre del propietario
+            owner = db.query(User).filter(User.user_id == owner_id).first()
+            if owner:
+                setattr(db_group, 'owner_name', f"{owner.user_name} {owner.user_last_name}")
+            
             # Notificar al owner
-            await NotificationService.create_notification_for_event(
-                db=db,
-                event_type=NotificationType.SYSTEM,
-                user_id=owner_id,
-                related_id=db_group.group_id,
-                custom_message=f"Has creado el grupo: {group_data.name_group}",
-                additional_data={"group_id": db_group.group_id, "group_name": group_data.name_group}
-            )
+            try:
+                await NotificationService.create_notification_for_event(
+                    db=db,
+                    event_type=NotificationType.SYSTEM,
+                    user_id=owner_id,
+                    related_id=db_group.group_id,
+                    custom_message=f"Has creado el grupo: {group_data.name_group}",
+                    additional_data={
+                        "group_id": db_group.group_id,
+                        "group_name": group_data.name_group
+                    }
+                )
+            except Exception as notification_error:
+                print(f"Error creating notification: {notification_error}")
+                # Continuamos aunque falle la notificación
             
             return db_group
             
@@ -65,6 +83,41 @@ class GroupService:
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                 detail=f"Error creating group: {str(e)}"
             )
+            
+        except Exception as e:
+            db.rollback()
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail=f"Error creating group: {str(e)}"
+            )
+        
+    @staticmethod
+    def enrich_group_response(db: Session, group: Group, user_id: int) -> Group:
+        """Enriquecer el objeto grupo con información adicional"""
+        # Contar miembros
+        member_count = db.query(GroupMember)\
+            .filter(GroupMember.group_id == group.group_id)\
+            .count()
+        setattr(group, 'member_count', member_count)
+
+        # Verificar si el usuario es miembro
+        member = db.query(GroupMember)\
+            .filter(
+                GroupMember.group_id == group.group_id,
+                GroupMember.user_id == user_id
+            ).first()
+        
+        setattr(group, 'is_member', member is not None)
+        setattr(group, 'is_admin', member.admin if member else False)
+
+        # Obtener nombre del propietario
+        owner = db.query(User)\
+            .filter(User.user_id == group.owner_id)\
+            .first()
+        if owner:
+            setattr(group, 'owner_name', f"{owner.user_name} {owner.user_last_name}")
+
+        return group
 
     @staticmethod
     async def get_group(
@@ -73,28 +126,68 @@ class GroupService:
         current_user_id: int
     ) -> Group:
         """Get group details with membership info"""
-        group = db.query(Group).filter(Group.group_id == group_id).first()
-        
-        if not group:
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail="Group not found"
-            )
+        try:
+            # Get the group
+            group = db.query(Group).filter(Group.group_id == group_id).first()
+            
+            if not group:
+                raise HTTPException(
+                    status_code=status.HTTP_404_NOT_FOUND,
+                    detail="Group not found"
+                )
 
-        # Check privacy and membership
-        if group.privacy:
-            membership = db.query(GroupMember).filter(
+            # Check privacy and membership
+            if group.privacy:
+                member = db.query(GroupMember).filter(
+                    GroupMember.group_id == group_id,
+                    GroupMember.user_id == current_user_id
+                ).first()
+                
+                if not member and group.owner_id != current_user_id:
+                    raise HTTPException(
+                        status_code=status.HTTP_403_FORBIDDEN,
+                        detail="This is a private group"
+                    )
+
+            # Enrich group with required information
+            # Get member count
+            member_count = db.query(func.count(GroupMember.member_id))\
+                .filter(GroupMember.group_id == group_id)\
+                .scalar()
+            setattr(group, 'member_count', member_count)
+
+            # Check user membership status
+            member = db.query(GroupMember).filter(
                 GroupMember.group_id == group_id,
                 GroupMember.user_id == current_user_id
             ).first()
             
-            if not membership and group.owner_id != current_user_id:
-                raise HTTPException(
-                    status_code=status.HTTP_403_FORBIDDEN,
-                    detail="This is a private group"
-                )
+            is_member = member is not None
+            is_admin = member.admin if member else False
+            # El propietario siempre es considerado admin
+            if group.owner_id == current_user_id:
+                is_member = True
+                is_admin = True
 
-        return group
+            setattr(group, 'is_member', is_member)
+            setattr(group, 'is_admin', is_admin)
+
+            # Get owner information
+            owner = db.query(User).filter(User.user_id == group.owner_id).first()
+            if owner:
+                setattr(group, 'owner_name', f"{owner.user_name} {owner.user_last_name}")
+            else:
+                setattr(group, 'owner_name', None)
+
+            return group
+
+        except HTTPException:
+            raise
+        except Exception as e:
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail=f"Error retrieving group: {str(e)}"
+            )
 
     @staticmethod
     async def update_group(
@@ -104,38 +197,77 @@ class GroupService:
         group_data: GroupUpdate
     ) -> Group:
         """Update group details"""
-        group = db.query(Group).filter(Group.group_id == group_id).first()
-        
-        if not group:
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail="Group not found"
-            )
+        try:
+            group = db.query(Group).filter(Group.group_id == group_id).first()
+            
+            if not group:
+                raise HTTPException(
+                    status_code=status.HTTP_404_NOT_FOUND,
+                    detail="Group not found"
+                )
 
-        # Check if user is owner or admin
-        if group.owner_id != current_user_id:
-            admin = db.query(GroupMember).filter(
+            # Check if user is owner or admin
+            is_owner = group.owner_id == current_user_id
+            is_admin = db.query(GroupMember).filter(
                 GroupMember.group_id == group_id,
                 GroupMember.user_id == current_user_id,
                 GroupMember.admin == True
-            ).first()
-            
-            if not admin:
+            ).first() is not None
+
+            if not (is_owner or is_admin):
                 raise HTTPException(
                     status_code=status.HTTP_403_FORBIDDEN,
                     detail="Only owner and admins can update group"
                 )
 
-        # Update fields
-        for field, value in group_data.model_dump(exclude_unset=True).items():
-            setattr(group, field, value)
+            # Update fields
+            update_data = group_data.model_dump(exclude_unset=True)
+            for field, value in update_data.items():
+                setattr(group, field, value)
 
-        try:
-            db.commit()
-            db.refresh(group)
-            return group
+            try:
+                db.commit()
+                db.refresh(group)
+
+                # Enrich group with required information using helper method
+                enriched_group = GroupService.enrich_group(db, group, current_user_id)
+
+                # Notify members about the update if there are significant changes
+                if update_data:
+                    members = db.query(GroupMember).filter(
+                        GroupMember.group_id == group_id,
+                        GroupMember.user_id != current_user_id  # Don't notify the updater
+                    ).all()
+                    
+                    for member in members:
+                        try:
+                            await NotificationService.create_notification_for_event(
+                                db=db,
+                                event_type=NotificationType.GROUP_SETTINGS_CHANGED,
+                                user_id=member.user_id,
+                                related_id=group_id,
+                                custom_message=f"El grupo {group.name_group} ha sido actualizado",
+                                additional_data={
+                                    "group_id": group_id,
+                                    "updated_fields": list(update_data.keys())
+                                }
+                            )
+                        except Exception as notification_error:
+                            # Log error but don't fail the update
+                            print(f"Error sending notification: {notification_error}")
+
+                return enriched_group
+
+            except Exception as db_error:
+                db.rollback()
+                raise HTTPException(
+                    status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                    detail=f"Error updating group in database: {str(db_error)}"
+                )
+
+        except HTTPException:
+            raise
         except Exception as e:
-            db.rollback()
             raise HTTPException(
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                 detail=f"Error updating group: {str(e)}"
@@ -307,12 +439,80 @@ class GroupService:
                 .limit(limit)\
                 .all()
 
-            return groups
+            # Enriquecer cada grupo con la información adicional
+            enriched_groups = []
+            for group in groups:
+                # Contar miembros
+                member_count = db.query(GroupMember)\
+                    .filter(GroupMember.group_id == group.group_id)\
+                    .count()
+                setattr(group, 'member_count', member_count)
+
+                # Verificar si el usuario es miembro y admin
+                member = db.query(GroupMember)\
+                    .filter(
+                        GroupMember.group_id == group.group_id,
+                        GroupMember.user_id == current_user_id
+                    ).first()
+                
+                setattr(group, 'is_member', member is not None)
+                setattr(group, 'is_admin', member.admin if member else False)
+
+                # Obtener nombre del propietario
+                owner = db.query(User)\
+                    .filter(User.user_id == group.owner_id)\
+                    .first()
+                if owner:
+                    setattr(group, 'owner_name', f"{owner.user_name} {owner.user_last_name}")
+                else:
+                    setattr(group, 'owner_name', None)
+
+                enriched_groups.append(group)
+
+            return enriched_groups
 
         except Exception as e:
             raise HTTPException(
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                 detail=f"Error retrieving groups: {str(e)}"
+            )
+
+    # Método helper para reutilización
+    @staticmethod
+    def enrich_group(db: Session, group: Group, current_user_id: int) -> Group:
+        """Enriquecer un grupo con información adicional"""
+        try:
+            # Contar miembros
+            member_count = db.query(GroupMember)\
+                .filter(GroupMember.group_id == group.group_id)\
+                .count()
+            setattr(group, 'member_count', member_count)
+
+            # Verificar si el usuario es miembro y admin
+            member = db.query(GroupMember)\
+                .filter(
+                    GroupMember.group_id == group.group_id,
+                    GroupMember.user_id == current_user_id
+                ).first()
+            
+            setattr(group, 'is_member', member is not None)
+            setattr(group, 'is_admin', member.admin if member else False)
+
+            # Obtener nombre del propietario
+            owner = db.query(User)\
+                .filter(User.user_id == group.owner_id)\
+                .first()
+            if owner:
+                setattr(group, 'owner_name', f"{owner.user_name} {owner.user_last_name}")
+            else:
+                setattr(group, 'owner_name', None)
+
+            return group
+
+        except Exception as e:
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail=f"Error enriching group: {str(e)}"
             )
 
     @staticmethod
@@ -325,17 +525,50 @@ class GroupService:
     ) -> List[Group]:
         """Get groups where user is member"""
         try:
+            # Base query for user's groups
             query = db.query(Group).join(GroupMember).filter(
                 GroupMember.user_id == user_id
             )
 
+            # Filter for admin groups if requested
             if admin_only:
                 query = query.filter(GroupMember.admin == True)
 
-            return query.order_by(desc(Group.created_at))\
+            # Get groups with pagination
+            groups = query.order_by(desc(Group.created_at))\
                 .offset(skip)\
                 .limit(limit)\
                 .all()
+
+            # Enrich each group with additional information
+            enriched_groups = []
+            for group in groups:
+                # Get member count
+                member_count = db.query(func.count(GroupMember.member_id))\
+                    .filter(GroupMember.group_id == group.group_id)\
+                    .scalar()
+                setattr(group, 'member_count', member_count)
+
+                # Get user's membership status
+                member = db.query(GroupMember)\
+                    .filter(
+                        GroupMember.group_id == group.group_id,
+                        GroupMember.user_id == user_id
+                    ).first()
+                
+                setattr(group, 'is_member', True)  # Always true for user's groups
+                setattr(group, 'is_admin', member.admin if member else False)
+
+                # Get owner name
+                owner = db.query(User)\
+                    .filter(User.user_id == group.owner_id)\
+                    .first()
+                
+                setattr(group, 'owner_name', f"{owner.user_name} {owner.user_last_name}" if owner else None)
+
+                enriched_groups.append(group)
+
+            return enriched_groups
 
         except Exception as e:
             raise HTTPException(
