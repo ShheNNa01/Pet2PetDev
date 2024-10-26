@@ -33,6 +33,7 @@ class Settings(BaseSettings):
     NOTIFICATIONS_SERVICE_PORT: int = 8003
     PETS_SERVICE_PORT: int = 8004
     GROUPS_SERVICE_PORT: int = 8005
+    SEARCH_SERVICE_PORT: int = 8006
 
     # Configuración de archivos
     MAX_FILE_SIZE: int = 5_242_880  # 5MB en bytes

@@ -28,7 +28,7 @@ class GroupUpdate(BaseModel):
         json_schema_extra={
             "example": {
                 "name_group": "Updated Dog Lovers Club",
-                "description": "Updated description",
+                "description": "A friendly community for dog lovers",
                 "privacy": False
             }
         }
@@ -38,13 +38,23 @@ class GroupMemberBase(BaseModel):
     pet_id: Optional[int] = None
     admin: bool = False
 
-class GroupMemberCreate(GroupMemberBase):
-    pass
+class GroupMemberCreate(BaseModel):
+    pet_id: Optional[int] = Field(None, description="ID de la mascota que se unirá al grupo (opcional)")
 
-class GroupMemberResponse(GroupMemberBase):
+    model_config = ConfigDict(
+        json_schema_extra={
+            "example": {
+                "pet_id": 1
+            }
+        }
+    )
+
+class GroupMemberResponse(BaseModel):
     member_id: int
-    user_id: int
     group_id: int
+    user_id: int
+    pet_id: Optional[int] = None
+    admin: bool
     joined_at: datetime
     pet_name: Optional[str] = None
     user_name: Optional[str] = None
@@ -56,12 +66,29 @@ class GroupResponse(GroupBase):
     owner_id: int
     created_at: datetime
     group_picture: Optional[str] = None
-    member_count: int
-    is_member: bool
-    is_admin: bool
-    owner_name: Optional[str] = None
+    member_count: int = Field(..., description="Número total de miembros")
+    is_member: bool = Field(..., description="Indica si el usuario actual es miembro")
+    is_admin: bool = Field(..., description="Indica si el usuario actual es administrador")
+    owner_name: Optional[str] = Field(None, description="Nombre del propietario")
 
-    model_config = ConfigDict(from_attributes=True)
+    model_config = ConfigDict(
+        from_attributes=True,
+        json_schema_extra={
+            "example": {
+                "group_id": 1,
+                "name_group": "Dog Lovers Club",
+                "description": "A group for dog lovers to share experiences",
+                "owner_id": 1,
+                "privacy": True,
+                "created_at": "2024-10-25T14:30:00",
+                "group_picture": "path/to/picture.jpg",
+                "member_count": 1,
+                "is_member": True,
+                "is_admin": True,
+                "owner_name": "John Doe"
+            }
+        }
+    )
 
 class GroupPostBase(BaseModel):
     content: str = Field(..., min_length=1, max_length=1000)

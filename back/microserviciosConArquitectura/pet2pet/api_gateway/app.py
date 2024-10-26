@@ -90,6 +90,11 @@ def create_app() -> FastAPI:
             'name': 'groups',
             'module': 'services.groups.app.api.routes',
             'prefix': '/groups'
+        },
+        {
+            'name': 'search',
+            'module': 'services.search.app.api.routes',
+            'prefix': '/search'
         }
     ]
 
