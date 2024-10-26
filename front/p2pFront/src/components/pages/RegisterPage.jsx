@@ -56,8 +56,12 @@ export default function RegisterPage() {
             required
             errorMessage="La contraseña es obligatoria"
           />
-          
-          <h3>Datos de la Mascota</h3>
+          {/* Se comenta registro de mascota para validar idea de segunda ventana
+           (tengo mascota/quiero adoptar) */}
+
+
+
+          {/* <h3>Datos de la Mascota</h3>
           <Input
             label={<><i className="fas fa-paw"></i> Nombre de la Mascota</>}
             name="petName"
@@ -89,7 +93,7 @@ export default function RegisterPage() {
             register={register}
             required
             errorMessage="La edad de la mascota es obligatoria"
-          />
+          /> */}
           
           <div className="mb-3 form-check">
             <input
@@ -99,7 +103,7 @@ export default function RegisterPage() {
               {...register("terms", { required: true })}
             />
             <label className="form-check-label" htmlFor="termsCheck">
-              <i className="fas fa-check-square"></i> Acepto los términos y condiciones
+            Acepto los términos y condiciones {/* Validar mas adelante terminos y condiciones */}
             </label>
             {errors.terms && <p className="text-danger">Debes aceptar los términos</p>}
           </div>

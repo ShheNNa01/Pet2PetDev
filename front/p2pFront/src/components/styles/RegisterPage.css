@@ -2,46 +2,51 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  min-width: 100vw;
   min-height: 100vh;
-  background-size: cover;
+  background-image: url('../../assets/images/istockphoto-1417882544-612x612.jpg');
   background-position: center;
-  padding: 20px;
-  color: #fff;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .container-form {
-  background: rgba(0, 0, 0, 0.7); /* Fondo semi-transparente */
-  border-radius: 10px;
-  padding: 40px;
-  width: 100%;
-  max-width: 500px; /* Limitar ancho */
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+  background: rgba(255, 255, 255, 0.8); /* Fondo blanco semitransparente */
+  border-radius: 8px;
+  padding: 30px;
+  width: 90%; /* Ancho más flexible */
+  max-width: 400px; /* Limitar ancho */
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px); /* Añadir efecto de desenfoque */
 }
 
 .form-container {
   display: flex;
   flex-direction: column;
+  align-items: center; /* Centrar elementos */
 }
 
 .heading-register {
-  font-size: 2rem;
-  margin-bottom: 20px;
+  font-size: 1.8rem; /* Ajustar tamaño */
+  margin-bottom: 15px;
   text-align: center;
+  color: #333; /* Color de texto */
 }
 
 h3 {
-  margin-top: 20px;
-  margin-bottom: 10px;
-  font-size: 1.5rem;
-  text-decoration: underline; /* Subrayado para resaltar secciones */
+  margin: 15px 0 5px;
+  font-size: 1.4rem; /* Ajustar tamaño */
+  text-decoration: underline;
+  color: #555; /* Color de texto */
 }
 
 .text-danger {
-  color: #ff4d4d; /* Color de error */
+  color: #e74c3c; /* Color de error más suave */
 }
 
 .form-check {
-  margin: 20px 0; /* Espaciado alrededor del checkbox */
+  margin: 15px 0; /* Espaciado reducido */
 }
 
 input[type="text"],
@@ -49,29 +54,33 @@ input[type="email"],
 input[type="password"],
 input[type="number"] {
   border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 10px;
-  margin-bottom: 15px;
-  transition: border-color 0.3s ease;
+  border-radius: 4px;
+  padding: 8px; /* Reducir padding */
+  margin-bottom: 12px; /* Espaciado reducido */
+  width: 100%; /* Ancho completo */
+  max-width: 300px; /* Limitar ancho de inputs */
+  transition: border-color 0.2s ease;
 }
 
 input[type="text"]:focus,
 input[type="email"]:focus,
 input[type="password"]:focus,
 input[type="number"]:focus {
-  border-color: #007bff; /* Color de enfoque */
+  border-color: #007bff;
 }
 
 button {
-  background-color: #007bff; /* Color del botón */
+  background-color: #007bff;
   color: white;
-  padding: 10px;
+  padding: 8px;
   border: none;
-  border-radius: 5px;
+  border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.2s ease;
+  width: 100%; /* Botón ocupa todo el ancho */
+  max-width: 300px; /* Limitar ancho de botón */
 }
 
 button:hover {
-  background-color: #0056b3; /* Color del botón al pasar el ratón */
+  background-color: #0056b3;
 }
