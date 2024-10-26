@@ -202,7 +202,17 @@ class NotificationService:
             NotificationType.POST_SHARED: "Han compartido tu publicación",
             NotificationType.POST_FROM_FOLLOWING: "Una mascota que sigues ha publicado algo nuevo",
             NotificationType.COMMENT_REPLY: "Alguien ha respondido a tu comentario",
-            NotificationType.SYSTEM: "Notificación del sistema"
+            NotificationType.SYSTEM: "Notificación del sistema",
+            NotificationType.GROUP_INVITE: "Has recibido una invitación a un grupo",
+            NotificationType.GROUP_JOIN_REQUEST: "Alguien solicitó unirse al grupo",
+            NotificationType.GROUP_MEMBER_JOINED: "Un nuevo miembro se unió al grupo",
+            NotificationType.GROUP_MEMBER_LEFT: "Un miembro abandonó el grupo",
+            NotificationType.GROUP_MEMBER_REMOVED: "Has sido removido del grupo",
+            NotificationType.GROUP_ROLE_CHANGED: "Tu rol en el grupo ha cambiado",
+            NotificationType.GROUP_POST_NEW: "Nueva publicación en el grupo",
+            NotificationType.GROUP_POST_COMMENT: "Nuevo comentario en una publicación del grupo",
+            NotificationType.GROUP_OWNERSHIP_TRANSFER: "Se ha transferido la propiedad del grupo",
+            NotificationType.GROUP_SETTINGS_CHANGED: "La configuración del grupo ha sido actualizada"
         }
 
         try:

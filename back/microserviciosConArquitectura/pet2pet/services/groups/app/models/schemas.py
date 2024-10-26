@@ -72,6 +72,34 @@ class GroupPostCreate(GroupPostBase):
 class GroupPostUpdate(BaseModel):
     content: Optional[str] = Field(None, min_length=1, max_length=1000)
 
+class MediaFileBase(BaseModel):
+    media_type: str = Field(..., description="Tipo de archivo (image, video)")
+    media_url: str = Field(..., description="URL o ruta del archivo")
+
+class MediaFileCreate(MediaFileBase):
+    pass
+
+class MediaFileResponse(MediaFileBase):
+    media_id: int
+    user_id: int
+    group_post_id: Optional[int] = None
+    comment_id: Optional[int] = None
+    created_at: datetime
+
+    model_config = ConfigDict(
+        from_attributes=True,
+        json_schema_extra={
+            "example": {
+                "media_id": 1,
+                "user_id": 1,
+                "group_post_id": 1,
+                "media_type": "image",
+                "media_url": "uploads/groups/posts/image_123.jpg",
+                "created_at": "2024-10-25T14:30:00"
+            }
+        }
+    )
+
 class GroupPostResponse(GroupPostBase):
     group_post_id: int
     group_id: int
@@ -80,7 +108,7 @@ class GroupPostResponse(GroupPostBase):
     created_at: datetime
     user_name: Optional[str] = None
     pet_name: Optional[str] = None
-    media_urls: List[str] = []
+    media_files: List[MediaFileResponse] = []
 
     model_config = ConfigDict(from_attributes=True)
 
@@ -100,3 +128,4 @@ class GroupCommentResponse(GroupCommentBase):
     pet_name: Optional[str] = None
 
     model_config = ConfigDict(from_attributes=True)
+

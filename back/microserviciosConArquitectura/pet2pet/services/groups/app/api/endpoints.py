@@ -10,7 +10,7 @@ from services.groups.app.models.schemas import (
     GroupCreate, GroupUpdate, GroupResponse,
     GroupPostCreate, GroupPostResponse,
     GroupMemberCreate, GroupMemberResponse,
-    GroupCommentCreate, GroupCommentResponse
+    GroupCommentCreate, GroupCommentResponse, MediaFileResponse
 )
 from services.groups.app.services.group_service import GroupService
 
@@ -282,3 +282,80 @@ async def delete_post(
         post_id,
         current_user.user_id
     )
+
+@router.post("/{group_id}/posts/{post_id}/media", response_model=List[MediaFileResponse])
+async def attach_media_to_post(
+        group_id: int,
+        post_id: int,
+        files: List[UploadFile] = File(...),
+        current_user: User = Depends(get_current_active_user),
+        db: Session = Depends(get_db)
+    ):
+        """
+        Attach media files to a group post.
+        Only the post author can attach media.
+        """
+        return await GroupService.attach_media_to_post(
+            db,
+            group_id,
+            post_id,
+            current_user.user_id,
+            files
+        )
+
+@router.post("/{group_id}/transfer-ownership/{new_owner_id}", response_model=GroupResponse)
+async def transfer_group_ownership(
+        group_id: int,
+        new_owner_id: int,
+        current_user: User = Depends(get_current_active_user),
+        db: Session = Depends(get_db)
+    ):
+        """
+        Transfer group ownership to another member.
+        Only the current owner can transfer ownership.
+        """
+        return await GroupService.transfer_ownership(
+            db,
+            group_id,
+            current_user.user_id,
+            new_owner_id
+        )
+
+@router.get("/{group_id}/posts/{post_id}/comments", response_model=List[GroupCommentResponse])
+async def get_post_comments(
+        group_id: int,
+        post_id: int,
+        skip: int = Query(0, ge=0),
+        limit: int = Query(20, ge=1, le=100),
+        current_user: User = Depends(get_current_active_user),
+        db: Session = Depends(get_db)
+    ):
+        """
+        Get comments for a specific post.
+        """
+        return await GroupService.get_post_comments(
+            db,
+            group_id,
+            post_id,
+            current_user.user_id,
+            skip,
+            limit
+        )
+
+@router.delete("/{group_id}/comments/{comment_id}", status_code=status.HTTP_204_NO_CONTENT)
+async def delete_comment(
+        group_id: int,
+        comment_id: int,
+        current_user: User = Depends(get_current_active_user),
+        db: Session = Depends(get_db)
+    ):
+        """
+        Delete a comment.
+        Can be deleted by comment author, group owner, or admins.
+        """
+        await GroupService.delete_comment(
+            db,
+            group_id,
+            comment_id,
+            current_user.user_id
+        )

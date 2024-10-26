@@ -13,6 +13,17 @@ class NotificationType(str, Enum):
     POST_FROM_FOLLOWING = "post_from_following"  # Cuando una mascota que sigues publica
     COMMENT_REPLY = "comment_reply"      # Respuestas a comentarios
     SYSTEM = "system"                    # Notificaciones del sistema
+    GROUP_INVITE = "group_invite"         # Para invitaciones a grupos
+    GROUP_JOIN_REQUEST = "group_join_request"   # Para solicitudes de unirse a un grupo
+    GROUP_MEMBER_JOINED = "group_member_joined"   # Para cuando un miembro se une a un grupo
+    GROUP_MEMBER_LEFT = "group_member_left"      # Para cuando un miembro sale de un grupo
+    GROUP_MEMBER_REMOVED = "group_member_removed"   # Para cuando un miembro es removido de un grupo
+    GROUP_ROLE_CHANGED = "group_role_changed"       # Para cuando un miembro cambia de rol en un grupo
+    GROUP_POST_NEW = "group_post_new"               # Para nuevos posts en grupos
+    GROUP_POST_COMMENT = "group_post_comment"        # Para comentarios en posts de grupos
+    GROUP_OWNERSHIP_TRANSFER = "group_ownership_transfer"   # Para cuando se transfieren los derechos de un grupo
+    GROUP_SETTINGS_CHANGED = "group_settings_changed"      # Para cuando se cambian los ajustes de un grupo
+
 
 class NotificationBase(BaseModel):
     user_id: int = Field(..., description="ID del usuario que recibirá la notificación")
