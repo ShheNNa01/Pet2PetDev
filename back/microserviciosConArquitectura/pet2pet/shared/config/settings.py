@@ -35,6 +35,15 @@ class Settings(BaseSettings):
     GROUPS_SERVICE_PORT: int = 8005
     SEARCH_SERVICE_PORT: int = 8006
 
+    # Feed Service Configuration
+    FEED_SERVICE_PORT: int = 8007
+    FEED_CACHE_TTL: int = 300  # 5 minutos en segundos
+    FEED_PAGE_SIZE: int = 20
+    FEED_MAX_PAGE_SIZE: int = 50
+    FEED_DEFAULT_TIME_WINDOW: str = "24h"
+    FEED_TRENDING_THRESHOLD: int = 10  # Mínimo de interacciones para trending
+    FEED_REFRESH_INTERVAL: int = 60  # Segundos entre actualizaciones de feed
+
     # Configuración de archivos
     MAX_FILE_SIZE: int = 5_242_880  # 5MB en bytes
     ALLOWED_FILE_TYPES: List[str] = ["image/jpeg", "image/png", "image/jpg"]

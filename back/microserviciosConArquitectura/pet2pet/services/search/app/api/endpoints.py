@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from typing import List, Optional
 from datetime import datetime
 
+from services.search.app.services.indexer_service import IndexerService
 from shared.database.session import get_db
 from shared.database.models import User
 from services.auth.app.api.dependencies import get_current_active_user
@@ -77,3 +78,42 @@ async def get_recent_searches(
     Obtener las búsquedas recientes del usuario.
     """
     return await SearchService.get_recent_searches(db, current_user.user_id)
+
+
+@router.post("/index/{content_type}/{content_id}", status_code=status.HTTP_200_OK)
+async def index_content(
+        content_type: str,
+        content_id: int,
+        current_user: User = Depends(get_current_active_user),
+        db: Session = Depends(get_db)
+    ):
+        """
+        Indexar contenido específico.
+        Solo para administradores.
+        """
+        if not current_user.role_id == 1:  # Asumiendo que role_id 1 es admin
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="Only administrators can manage index"
+            )
+        
+        success = await IndexerService.index_new_content(db, content_type, content_id)
+        return {"status": "success" if success else "error"}
+
+@router.post("/reindex", status_code=status.HTTP_200_OK)
+async def reindex_all(
+        current_user: User = Depends(get_current_active_user),
+        db: Session = Depends(get_db)
+    ):
+        """
+        Reindexar todo el contenido.
+        Solo para administradores.
+        """
+        if not current_user.role_id == 1:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="Only administrators can manage index"
+            )
+        
+        results = await IndexerService.reindex_all(db)
+        return results

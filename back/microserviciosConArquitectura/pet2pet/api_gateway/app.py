@@ -95,6 +95,11 @@ def create_app() -> FastAPI:
             'name': 'search',
             'module': 'services.search.app.api.routes',
             'prefix': '/search'
+        },
+        {
+            'name': 'feed',
+            'module': 'services.feed.app.api.routes',
+            'prefix': '/feed'
         }
     ]
 
