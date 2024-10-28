@@ -1,6 +1,6 @@
 # shared/database/models.py
 from datetime import datetime
-from sqlalchemy import JSON, Column, Integer, String, Text, DateTime, Boolean, Date, ForeignKey, func
+from sqlalchemy import JSON, Float, Column, Integer, String, Text, DateTime, Boolean, Date, ForeignKey, func, text
 from sqlalchemy.orm import relationship
 from shared.database.base import Base
 
@@ -267,3 +267,70 @@ class Notification(Base):
 
     def __repr__(self):
         return f"<Notification(id={self.notification_id}, type={self.type}, user_id={self.user_id})>"
+    
+class VirtualPet(Base):
+    __tablename__ = "virtual_pets"
+    
+    virtual_pet_id = Column(Integer, primary_key=True)
+    pet_id = Column(Integer, ForeignKey('pets.pet_id', ondelete='CASCADE'))
+    level = Column(Integer, default=1)
+    experience_points = Column(Integer, default=0)
+    happiness = Column(Float, default=100.0)
+    energy = Column(Float, default=100.0)
+    last_interaction = Column(DateTime(timezone=True), server_default=text('CURRENT_TIMESTAMP'))
+    created_at = Column(DateTime(timezone=True), server_default=text('CURRENT_TIMESTAMP'))
+    updated_at = Column(DateTime(timezone=True), server_default=text('CURRENT_TIMESTAMP'), onupdate=text('CURRENT_TIMESTAMP'))
+    status = Column(Boolean, default=True)
+    attributes = Column(JSON, nullable=True)
+    
+    # Relaciones
+    pet = relationship("Pet", back_populates="virtual_pet")
+    activities = relationship("VirtualPetActivity", back_populates="virtual_pet")
+    achievements = relationship("VirtualPetAchievement", back_populates="virtual_pet")
+
+class VirtualPetActivity(Base):
+    __tablename__ = "virtual_pet_activities"
+    
+    activity_id = Column(Integer, primary_key=True)
+    virtual_pet_id = Column(Integer, ForeignKey('virtual_pets.virtual_pet_id', ondelete='CASCADE'))
+    activity_type = Column(String(50))
+    points_earned = Column(Integer)
+    timestamp = Column(DateTime(timezone=True), server_default=text('CURRENT_TIMESTAMP'))
+    details = Column(JSON, nullable=True)
+    
+    virtual_pet = relationship("VirtualPet", back_populates="activities")
+
+class VirtualPetAchievement(Base):
+    __tablename__ = "virtual_pet_achievements"
+    
+    achievement_id = Column(Integer, primary_key=True)
+    virtual_pet_id = Column(Integer, ForeignKey('virtual_pets.virtual_pet_id', ondelete='CASCADE'))
+    achievement_type = Column(String(50))
+    unlocked_at = Column(DateTime(timezone=True), server_default=text('CURRENT_TIMESTAMP'))
+    description = Column(String(200))
+    rewards = Column(JSON, nullable=True)
+    
+    virtual_pet = relationship("VirtualPet", back_populates="achievements")
+
+# Modificar la clase Pet existente (en lugar de importarla)
+Pet.virtual_pet = relationship("VirtualPet", uselist=False, back_populates="pet")
+
+class ModerationAction(Base):
+    __tablename__ = "moderation_actions"
+    
+    action_id = Column(Integer, primary_key=True)
+    content_id = Column(Integer, nullable=False)
+    content_type = Column(String(50), nullable=False)  # post, comment, user, etc.
+    action = Column(String(50), nullable=False)  # warn, ban, delete, etc.
+    reason = Column(Text)
+    duration = Column(Integer, nullable=True)  # Duración en días para acciones temporales
+    moderated_by = Column(Integer, ForeignKey('users.user_id'))
+    notes = Column(Text, nullable=True)
+    created_at = Column(DateTime(timezone=True), server_default=text('CURRENT_TIMESTAMP'))
+    updated_at = Column(DateTime(timezone=True), onupdate=datetime.utcnow)
+
+    # Relationships
+    moderator = relationship("User", foreign_keys=[moderated_by])
+
+    def __repr__(self):
+        return f"<ModerationAction(id={self.action_id}, type={self.action}, content_id={self.content_id})>"

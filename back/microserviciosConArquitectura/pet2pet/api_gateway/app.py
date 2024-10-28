@@ -100,6 +100,16 @@ def create_app() -> FastAPI:
             'name': 'feed',
             'module': 'services.feed.app.api.routes',
             'prefix': '/feed'
+        },
+        {
+            'name': 'moderation',
+            'module': 'services.moderation.app.api.routes', 
+            'prefix': '/moderation'
+        },
+        {
+            'name': 'virtual_pet',
+            'module': 'services.virtual_pet.app.api.routes',  
+            'prefix': '/virtual_pet'
         }
     ]
 

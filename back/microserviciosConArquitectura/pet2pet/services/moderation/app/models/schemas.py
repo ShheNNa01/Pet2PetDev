@@ -1,202 +1,242 @@
-from pydantic import BaseModel, Field, ConfigDict
-from typing import List, Optional, Dict, Any
+# services/moderation/app/models/schemas.py
+from pydantic import BaseModel, Field
+from typing import Optional, List, Dict, Any
 from datetime import datetime
 from enum import Enum
 
 class ContentType(str, Enum):
     POST = "post"
     COMMENT = "comment"
-    GROUP = "group"
     GROUP_POST = "group_post"
-    USER = "user"
-    PET = "pet"
-    MESSAGE = "message"
+    GROUP_COMMENT = "group_comment"
     PROFILE = "profile"
+    MESSAGE = "message"
 
 class ReportReason(str, Enum):
-    INAPPROPRIATE = "inappropriate"
+    INAPPROPRIATE = "inappropriate_content"
     SPAM = "spam"
     HARASSMENT = "harassment"
     HATE_SPEECH = "hate_speech"
     VIOLENCE = "violence"
     FAKE_ACCOUNT = "fake_account"
-    IMPERSONATION = "impersonation"
     INTELLECTUAL_PROPERTY = "intellectual_property"
+    ANIMAL_ABUSE = "animal_abuse"
     OTHER = "other"
 
-class ModerationStatus(str, Enum):
+class ContentStatus(str, Enum):
     PENDING = "pending"
     APPROVED = "approved"
     REJECTED = "rejected"
     UNDER_REVIEW = "under_review"
-    APPEALED = "appealed"
-    AUTO_FLAGGED = "auto_flagged"
-    AUTO_REJECTED = "auto_rejected"
-
-class ModerationAction(str, Enum):
-    WARNING = "warning"
-    REMOVE_CONTENT = "remove_content"
-    TEMPORARY_BAN = "temporary_ban"
-    PERMANENT_BAN = "permanent_ban"
-    NO_ACTION = "no_action"
+    FLAGGED = "flagged"
 
 class ReportCreate(BaseModel):
+    reported_content_id: int
     content_type: ContentType
-    content_id: int
     reason: ReportReason
-    description: Optional[str] = Field(None, max_length=500)
-    evidence_urls: Optional[List[str]] = None
+    description: Optional[str] = None
+    evidence: Optional[Dict[str, Any]] = None
 
-    model_config = ConfigDict(
-        json_schema_extra={
-            "example": {
-                "content_type": "post",
-                "content_id": 123,
-                "reason": "inappropriate",
-                "description": "Este post contiene contenido inapropiado",
-                "evidence_urls": ["url/to/evidence1.jpg", "url/to/evidence2.jpg"]
-            }
-        }
-    )
+class ReportUpdate(BaseModel):
+    status: ContentStatus
+    moderation_notes: Optional[str] = None
+    action_taken: Optional[str] = None
 
-class ReportResponse(ReportCreate):
+class ReportResponse(BaseModel):
     report_id: int
-    reporter_id: int
+    reported_by_user_id: int
+    reported_content_id: int
+    content_type: ContentType
+    reason: ReportReason
+    description: Optional[str]
+    evidence: Optional[Dict[str, Any]]
+    status: ContentStatus
     created_at: datetime
-    status: ModerationStatus
-    moderated_by: Optional[int] = None
-    moderated_at: Optional[datetime] = None
-    action_taken: Optional[ModerationAction] = None
-    notes: Optional[str] = None
-    appeal_status: Optional[ModerationStatus] = None
+    updated_at: Optional[datetime]
+    moderation_notes: Optional[str]
+    action_taken: Optional[str]
 
-    model_config = ConfigDict(from_attributes=True)
+    class Config:
+        from_attributes = True
+
+class AutoModResult(BaseModel):
+    is_approved: bool
+    confidence_score: float
+    flags: List[str]
+    detected_issues: Dict[str, float]
+    recommendation: ContentStatus
 
 class ContentFilter(BaseModel):
-    enabled: bool = True
-    sensitivity_level: int = Field(1, ge=1, le=3, description="1: Low, 2: Medium, 3: High")
-    filter_types: List[str] = Field(
-        default=["profanity", "hate_speech", "adult_content"],
-        description="Types of content to filter"
-    )
-    custom_keywords: Optional[List[str]] = None
-    excluded_terms: Optional[List[str]] = None
-    language: str = "es"
+    profanity_check: bool = True
+    spam_check: bool = True
+    toxic_content_check: bool = True
+    image_moderation: bool = True
+    sensitivity_level: int = Field(ge=1, le=5, default=3)
 
-    model_config = ConfigDict(
-        json_schema_extra={
-            "example": {
-                "enabled": True,
-                "sensitivity_level": 2,
-                "filter_types": ["profanity", "hate_speech", "adult_content"],
-                "custom_keywords": ["palabra1", "palabra2"],
-                "excluded_terms": ["término_excluido"],
-                "language": "es"
-            }
-        }
-    )
-
-class FilterResult(BaseModel):
-    is_flagged: bool
-    confidence_score: float
-    matched_filters: List[str]
-    filtered_content: Optional[str] = None
-    recommendations: List[str]
-
-class ModerationQueueItem(BaseModel):
-    queue_id: int
-    content_type: ContentType
+class ContentReview(BaseModel):
     content_id: int
-    content_preview: str
-    reports_count: int
-    latest_report_at: datetime
-    status: ModerationStatus
-    priority_score: float
-    assigned_to: Optional[int] = None
-    assigned_at: Optional[datetime] = None
+    content_type: ContentType
+    content_data: Dict[str, Any]
+    filter_settings: Optional[ContentFilter] = None
 
-    model_config = ConfigDict(from_attributes=True)
-
-class ModerationDecision(BaseModel):
-    queue_item_id: int
-    decision: ModerationStatus
-    action: ModerationAction
+class ModerationAction(BaseModel):
+    content_id: int
+    content_type: ContentType
+    action: str
+    reason: str
+    duration: Optional[int] = None  # Duración en días para acciones temporales
+    moderated_by: int
     notes: Optional[str] = None
-    ban_duration: Optional[int] = Field(
-        None,
-        description="Duration of ban in days, if applicable"
-    )
-
-class Appeal(BaseModel):
-    report_id: int
-    reason: str = Field(..., min_length=10, max_length=1000)
-    evidence_urls: Optional[List[str]] = None
-    contact_email: Optional[str] = None
-
-    model_config = ConfigDict(
-        json_schema_extra={
-            "example": {
-                "report_id": 123,
-                "reason": "Este reporte es incorrecto porque...",
-                "evidence_urls": ["url/to/evidence.jpg"],
-                "contact_email": "user@example.com"
-            }
-        }
-    )
-
-class AppealResponse(Appeal):
-    appeal_id: int
-    created_at: datetime
-    status: ModerationStatus
-    resolved_at: Optional[datetime] = None
-    resolver_id: Optional[int] = None
-    resolution_notes: Optional[str] = None
-
-    model_config = ConfigDict(from_attributes=True)
 
 class ModerationStats(BaseModel):
     total_reports: int
     pending_reports: int
     resolved_reports: int
-    auto_moderated: int
-    manual_moderated: int
-    reports_by_reason: Dict[ReportReason, int]
-    reports_by_content_type: Dict[ContentType, int]
+    automated_actions: int
+    manual_actions: int
     average_response_time: float  # en horas
-    moderation_accuracy: float  # porcentaje
-    top_reporters: List[Dict[str, Any]]
-    recent_actions: List[Dict[str, Any]]
+    common_reasons: Dict[str, int]
+    daily_stats: Dict[str, int]
 
-class ModeratorActivity(BaseModel):
-    moderator_id: int
-    total_reviewed: int
-    accuracy_rate: float
-    average_response_time: float
-    actions_taken: Dict[ModerationAction, int]
-    active_assignments: int
-    last_active: datetime
+class UserModerationProfile(BaseModel):
+    user_id: int
+    total_reports_received: int
+    total_reports_made: int
+    warning_count: int
+    temporary_ban_count: int
+    last_warning_date: Optional[datetime]
+    last_ban_date: Optional[datetime]
+    current_status: str
+    trust_score: float
+    moderation_history: List[Dict[str, Any]]
 
-class AutoModSettings(BaseModel):
-    enabled: bool = True
-    confidence_threshold: float = Field(0.8, ge=0.0, le=1.0)
-    auto_reject_threshold: float = Field(0.95, ge=0.0, le=1.0)
-    min_reports_for_auto_review: int = Field(3, ge=1)
-    allowed_actions: List[ModerationAction]
-    notification_settings: Dict[str, bool]
-    exclusion_rules: Optional[Dict[str, Any]] = None
+class ContentType(str, Enum):
+    POST = "post"
+    COMMENT = "comment"
+    GROUP_POST = "group_post"
+    GROUP_COMMENT = "group_comment"
+    PROFILE = "profile"
+    MESSAGE = "message"
 
-    model_config = ConfigDict(
-        json_schema_extra={
+class ModerationStatus(str, Enum):
+    PENDING = "pending"
+    APPROVED = "approved"
+    REJECTED = "rejected"
+    FLAGGED = "flagged"
+    UNDER_REVIEW = "under_review"
+
+class ContentFilter(BaseModel):
+    filter_types: List[str] = ["profanity", "hate_speech", "adult_content"]
+    sensitivity_level: int = Field(ge=1, le=5, default=3)
+    language: str = "es"
+    custom_keywords: Optional[List[str]] = None
+    excluded_terms: Optional[List[str]] = None
+
+    class Config:
+        json_schema_extra = {
             "example": {
-                "enabled": True,
-                "confidence_threshold": 0.8,
-                "auto_reject_threshold": 0.95,
-                "min_reports_for_auto_review": 3,
-                "allowed_actions": ["warning", "remove_content"],
-                "notification_settings": {
-                    "notify_on_auto_reject": True,
-                    "notify_on_multiple_reports": True
+                "filter_types": ["profanity", "hate_speech", "adult_content"],
+                "sensitivity_level": 3,
+                "language": "es",
+                "custom_keywords": ["palabra1", "palabra2"],
+                "excluded_terms": ["término1", "término2"]
+            }
+        }
+
+class FilterResult(BaseModel):
+    is_flagged: bool
+    confidence_score: float = Field(ge=0.0, le=1.0)
+    matched_filters: List[str]
+    filtered_content: Optional[str]
+    recommendations: List[str]
+
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "is_flagged": True,
+                "confidence_score": 0.85,
+                "matched_filters": ["profanity", "hate_speech"],
+                "filtered_content": "Texto filtrado con ***",
+                "recommendations": [
+                    "El contenido contiene lenguaje inapropiado que debe ser revisado",
+                    "Se detectó posible discurso de odio que requiere revisión"
+                ]
+            }
+        }
+
+class FilterConfiguration(BaseModel):
+    config_id: Optional[int]
+    name: str
+    description: Optional[str]
+    filter_types: List[str]
+    sensitivity_level: int = Field(ge=1, le=5)
+    language: str
+    custom_keywords: Optional[List[str]]
+    excluded_terms: Optional[List[str]]
+    created_by: Optional[int]
+    created_at: Optional[datetime]
+    updated_at: Optional[datetime]
+
+    class Config:
+        from_attributes = True
+        json_schema_extra = {
+            "example": {
+                "name": "Configuración Estricta",
+                "description": "Configuración con alta sensibilidad para contenido familiar",
+                "filter_types": ["profanity", "hate_speech", "adult_content"],
+                "sensitivity_level": 5,
+                "language": "es",
+                "custom_keywords": ["palabra1", "palabra2"],
+                "excluded_terms": ["término1", "término2"]
+            }
+        }
+
+class CustomFilterRule(BaseModel):
+    rule_id: Optional[int]
+    name: str
+    description: Optional[str]
+    keywords: List[str]
+    excluded_terms: Optional[List[str]]
+    sensitivity_level: int = Field(ge=1, le=5)
+    is_active: bool = True
+    created_by: Optional[int]
+    created_at: Optional[datetime]
+    updated_at: Optional[datetime]
+
+    class Config:
+        from_attributes = True
+        json_schema_extra = {
+            "example": {
+                "name": "Regla Personalizada 1",
+                "description": "Regla para detectar contenido específico",
+                "keywords": ["palabra1", "palabra2"],
+                "excluded_terms": ["término1", "término2"],
+                "sensitivity_level": 3,
+                "is_active": True
+            }
+        }
+
+class ContentReview(BaseModel):
+    content: str
+    content_type: ContentType
+    filter_settings: ContentFilter = ContentFilter()
+    metadata: Optional[Dict[str, Any]]
+
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "content": "Texto a revisar",
+                "content_type": "post",
+                "filter_settings": {
+                    "filter_types": ["profanity", "hate_speech"],
+                    "sensitivity_level": 3,
+                    "language": "es",
+                    "custom_keywords": ["palabra1", "palabra2"],
+                    "excluded_terms": ["término1", "término2"]
+                },
+                "metadata": {
+                    "user_id": 123,
+                    "post_id": 456
                 }
             }
         }
-    )

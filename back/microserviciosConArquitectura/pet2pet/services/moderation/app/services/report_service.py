@@ -1,307 +1,230 @@
-from fastapi import HTTPException, status
+# services/moderation/app/services/report_service.py
+from datetime import datetime, timezone, timedelta
 from sqlalchemy.orm import Session
-from sqlalchemy import func, desc
-from datetime import datetime, timedelta
-from typing import List, Dict, Any, Optional
-import logging
-
-from shared.database.models import Report, User, Post, Comment, Group, GroupPost
-from ..models.schemas import (
-    ReportCreate,
-    ReportResponse,
-    ModerationStatus,
-    ModerationAction,
-    ContentType
+from sqlalchemy import func, and_
+from typing import List, Dict, Optional, Tuple
+from shared.database.models import Report, User, ModerationAction, Notification
+from services.moderation.app.models.schemas import (
+    ReportCreate, ContentType, ContentStatus,
+    ReportResponse, UserModerationProfile
 )
 
-logger = logging.getLogger(__name__)
-
 class ReportService:
-    @staticmethod
     async def create_report(
+        self,
         db: Session,
         report_data: ReportCreate,
         reporter_id: int
     ) -> Report:
         """
-        Crear un nuevo reporte
+        Crea un nuevo reporte y maneja la lógica inicial de procesamiento
         """
-        try:
-            # Verificar si el contenido existe
-            if not await ReportService._verify_content_exists(
-                db,
-                report_data.content_type,
-                report_data.content_id
-            ):
-                raise HTTPException(
-                    status_code=status.HTTP_404_NOT_FOUND,
-                    detail="Reported content not found"
-                )
+        # Verificar si ya existe un reporte similar
+        existing_report = db.query(Report).filter(
+            Report.reported_content_id == report_data.reported_content_id,
+            Report.content_type == report_data.content_type,
+            Report.status == ContentStatus.PENDING
+        ).first()
 
-            # Verificar si ya existe un reporte similar
-            existing_report = db.query(Report).filter(
-                Report.content_type == report_data.content_type,
-                Report.content_id == report_data.content_id,
-                Report.reporter_id == reporter_id,
-                Report.status.in_([
-                    ModerationStatus.PENDING,
-                    ModerationStatus.UNDER_REVIEW
-                ])
-            ).first()
-
-            if existing_report:
-                raise HTTPException(
-                    status_code=status.HTTP_400_BAD_REQUEST,
-                    detail="You have already reported this content"
-                )
-
-            # Crear el reporte
-            report = Report(
-                content_type=report_data.content_type,
-                content_id=report_data.content_id,
-                reporter_id=reporter_id,
-                reason=report_data.reason,
-                description=report_data.description,
-                evidence_urls=report_data.evidence_urls,
-                status=ModerationStatus.PENDING,
-                created_at=datetime.utcnow()
-            )
-
-            db.add(report)
+        if existing_report:
+            # Actualizar reporte existente con nueva información
+            existing_report.reason = report_data.reason
+            existing_report.description = report_data.description or existing_report.description
             db.commit()
-            db.refresh(report)
+            return existing_report
 
-            # Verificar si se necesita auto-moderación
-            await ReportService._check_for_auto_moderation(db, report)
+        # Crear nuevo reporte
+        new_report = Report(
+            reported_by_user_id=reporter_id,
+            reported_content_id=report_data.reported_content_id,
+            content_type=report_data.content_type,
+            reason=report_data.reason,
+            description=report_data.description,
+            evidence=report_data.evidence,
+            status=ContentStatus.PENDING,
+            created_at=datetime.now(timezone.utc)
+        )
 
-            return report
+        db.add(new_report)
+        db.commit()
+        db.refresh(new_report)
 
-        except HTTPException:
-            db.rollback()
-            raise
-        except Exception as e:
-            db.rollback()
-            logger.error(f"Error creating report: {str(e)}")
-            raise HTTPException(
-                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                detail=f"Error creating report: {str(e)}"
-            )
+        # Notificar a moderadores
+        await self.notify_moderators(db, new_report)
 
-    @staticmethod
-    async def get_report(
+        return new_report
+
+    async def get_report_details(
+        self,
+        db: Session,
+        report_id: int
+    ) -> Optional[Report]:
+        """
+        Obtiene detalles completos de un reporte
+        """
+        return db.query(Report).filter(Report.report_id == report_id).first()
+
+    async def update_report_status(
+        self,
         db: Session,
         report_id: int,
-        user_id: int
-    ) -> Report:
+        new_status: ContentStatus,
+        moderator_id: int,
+        notes: str = None
+    ) -> Tuple[Report, bool]:
         """
-        Obtener un reporte específico
+        Actualiza el estado de un reporte y realiza acciones necesarias
         """
-        report = db.query(Report).filter(Report.report_id == report_id).first()
-        
+        report = await self.get_report_details(db, report_id)
         if not report:
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail="Report not found"
-            )
+            return None, False
 
-        # Verificar permisos (solo el reportador o moderadores)
-        if report.reporter_id != user_id and not await ReportService._is_moderator(db, user_id):
-            raise HTTPException(
-                status_code=status.HTTP_403_FORBIDDEN,
-                detail="Not authorized to view this report"
-            )
+        report.status = new_status
+        report.updated_at = datetime.now(timezone.utc)
 
-        return report
+        # Registrar acción de moderación
+        action = ModerationAction(
+            content_id=report.reported_content_id,
+            content_type=report.content_type,
+            action=f"report_{new_status.value}",
+            reason=report.reason,
+            moderated_by=moderator_id,
+            notes=notes
+        )
+        
+        db.add(action)
 
-    @staticmethod
-    async def get_reports(
+        # Notificar al reportador
+        notification = Notification(
+            user_id=report.reported_by_user_id,
+            type="report_status_update",
+            related_id=report_id,
+            message=f"El estado de tu reporte ha sido actualizado a: {new_status.value}",
+            additional_data={
+                "new_status": new_status.value,
+                "content_type": report.content_type
+            }
+        )
+        
+        db.add(notification)
+        db.commit()
+
+        return report, True
+
+    async def get_user_report_history(
+        self,
         db: Session,
         user_id: int,
-        status: Optional[ModerationStatus] = None,
-        content_type: Optional[ContentType] = None,
-        skip: int = 0,
-        limit: int = 50
+        as_reporter: bool = True
     ) -> List[Report]:
         """
-        Obtener lista de reportes con filtros
+        Obtiene el historial de reportes de un usuario
         """
-        if not await ReportService._is_moderator(db, user_id):
-            raise HTTPException(
-                status_code=status.HTTP_403_FORBIDDEN,
-                detail="Only moderators can view reports"
-            )
+        if as_reporter:
+            return db.query(Report).filter(
+                Report.reported_by_user_id == user_id
+            ).order_by(Report.created_at.desc()).all()
+        else:
+            return db.query(Report).filter(
+                Report.reported_content_id == user_id,
+                Report.content_type == ContentType.PROFILE
+            ).order_by(Report.created_at.desc()).all()
 
-        query = db.query(Report)
-
-        if status:
-            query = query.filter(Report.status == status)
+    async def get_pending_reports(
+        self,
+        db: Session,
+        content_type: Optional[ContentType] = None,
+        priority: bool = False
+    ) -> List[Report]:
+        """
+        Obtiene reportes pendientes, opcionalmente filtrados y priorizados
+        """
+        query = db.query(Report).filter(Report.status == ContentStatus.PENDING)
+        
         if content_type:
             query = query.filter(Report.content_type == content_type)
 
-        return query.order_by(desc(Report.created_at))\
-            .offset(skip)\
-            .limit(limit)\
+        if priority:
+            # Priorizar basado en cantidad de reportes similares y severidad
+            query = query.join(User, Report.reported_by_user_id == User.user_id)
+            query = query.order_by(
+                func.count(Report.reported_content_id).desc(),
+                Report.created_at.asc()
+            )
+            query = query.group_by(Report.report_id, User.user_id)
+
+        return query.all()
+
+    async def get_report_statistics(
+        self,
+        db: Session,
+        time_range: timedelta = timedelta(days=30)
+    ) -> Dict:
+        """
+        Obtiene estadísticas de reportes para un período de tiempo
+        """
+        start_date = datetime.now(timezone.utc) - time_range
+        
+        # Consultas base
+        base_query = db.query(Report).filter(Report.created_at >= start_date)
+        
+        # Total de reportes
+        total_reports = base_query.count()
+        
+        # Reportes por estado
+        reports_by_status = (
+            base_query
+            .with_entities(Report.status, func.count(Report.report_id))
+            .group_by(Report.status)
             .all()
+        )
+        
+        # Reportes por tipo de contenido
+        reports_by_type = (
+            base_query
+            .with_entities(Report.content_type, func.count(Report.report_id))
+            .group_by(Report.content_type)
+            .all()
+        )
+        
+        # Reportes por razón
+        reports_by_reason = (
+            base_query
+            .with_entities(Report.reason, func.count(Report.report_id))
+            .group_by(Report.reason)
+            .all()
+        )
 
-    @staticmethod
-    async def update_report_status(
-        db: Session,
-        report_id: int,
-        moderator_id: int,
-        new_status: ModerationStatus,
-        action: Optional[ModerationAction] = None,
-        notes: Optional[str] = None
-    ) -> Report:
+        return {
+            "total_reports": total_reports,
+            "by_status": {status: count for status, count in reports_by_status},
+            "by_type": {type_: count for type_, count in reports_by_type},
+            "by_reason": {reason: count for reason, count in reports_by_reason},
+            "time_range_days": time_range.days
+        }
+
+    async def notify_moderators(self, db: Session, report: Report):
         """
-        Actualizar el estado de un reporte
+        Notifica a los moderadores sobre un nuevo reporte
         """
-        try:
-            if not await ReportService._is_moderator(db, moderator_id):
-                raise HTTPException(
-                    status_code=status.HTTP_403_FORBIDDEN,
-                    detail="Only moderators can update reports"
-                )
+        # Obtener moderadores
+        moderators = db.query(User).filter(
+            User.role_id.in_([1, 2])  # IDs de roles de moderador y admin
+        ).all()
 
-            report = db.query(Report).filter(Report.report_id == report_id).first()
-            if not report:
-                raise HTTPException(
-                    status_code=status.HTTP_404_NOT_FOUND,
-                    detail="Report not found"
-                )
-
-            # Actualizar el reporte
-            report.status = new_status
-            report.moderated_by = moderator_id
-            report.moderated_at = datetime.utcnow()
-            
-            if action:
-                report.action_taken = action
-            if notes:
-                report.notes = notes
-
-            # Aplicar la acción de moderación
-            if action:
-                await ReportService._apply_moderation_action(
-                    db,
-                    report.content_type,
-                    report.content_id,
-                    action
-                )
-
-            db.commit()
-            db.refresh(report)
-
-            return report
-
-        except HTTPException:
-            db.rollback()
-            raise
-        except Exception as e:
-            db.rollback()
-            logger.error(f"Error updating report: {str(e)}")
-            raise HTTPException(
-                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                detail=f"Error updating report: {str(e)}"
+        # Crear notificaciones
+        for moderator in moderators:
+            notification = Notification(
+                user_id=moderator.user_id,
+                type="new_report",
+                related_id=report.report_id,
+                message=f"Nuevo reporte de {report.content_type}: {report.reason}",
+                additional_data={
+                    "content_type": report.content_type,
+                    "reason": report.reason,
+                    "reporter_id": report.reported_by_user_id
+                }
             )
+            db.add(notification)
 
-    @staticmethod
-    async def _verify_content_exists(
-        db: Session,
-        content_type: ContentType,
-        content_id: int
-    ) -> bool:
-        """Verificar si el contenido reportado existe"""
-        try:
-            if content_type == ContentType.POST:
-                return db.query(Post).filter(Post.post_id == content_id).first() is not None
-            elif content_type == ContentType.COMMENT:
-                return db.query(Comment).filter(Comment.comment_id == content_id).first() is not None
-            elif content_type == ContentType.GROUP:
-                return db.query(Group).filter(Group.group_id == content_id).first() is not None
-            elif content_type == ContentType.GROUP_POST:
-                return db.query(GroupPost).filter(GroupPost.group_post_id == content_id).first() is not None
-            elif content_type == ContentType.USER:
-                return db.query(User).filter(User.user_id == content_id).first() is not None
-            return False
-        except Exception as e:
-            logger.error(f"Error verifying content: {str(e)}")
-            return False
-
-    @staticmethod
-    async def _is_moderator(db: Session, user_id: int) -> bool:
-        """Verificar si un usuario es moderador"""
-        try:
-            user = db.query(User).filter(User.user_id == user_id).first()
-            return user and user.role_id in [1, 2]  # Asumiendo que roles 1 y 2 son admin y moderador
-        except Exception as e:
-            logger.error(f"Error checking moderator status: {str(e)}")
-            return False
-
-    @staticmethod
-    async def _check_for_auto_moderation(db: Session, report: Report) -> None:
-        """
-        Verificar si se debe aplicar auto-moderación basada en número de reportes
-        o severidad del contenido
-        """
-        try:
-            # Contar reportes similares
-            similar_reports = db.query(func.count(Report.report_id))\
-                .filter(
-                    Report.content_type == report.content_type,
-                    Report.content_id == report.content_id,
-                    Report.status == ModerationStatus.PENDING
-                ).scalar()
-
-            # Auto-moderar si hay muchos reportes
-            if similar_reports >= 5:  # Umbral configurable
-                report.status = ModerationStatus.AUTO_FLAGGED
-                db.commit()
-
-        except Exception as e:
-            logger.error(f"Error in auto moderation: {str(e)}")
-
-    @staticmethod
-    async def _apply_moderation_action(
-        db: Session,
-        content_type: ContentType,
-        content_id: int,
-        action: ModerationAction
-    ) -> None:
-        """
-        Aplicar la acción de moderación al contenido
-        """
-        try:
-            if action == ModerationAction.REMOVE_CONTENT:
-                if content_type == ContentType.POST:
-                    post = db.query(Post).filter(Post.post_id == content_id).first()
-                    if post:
-                        db.delete(post)
-                elif content_type == ContentType.COMMENT:
-                    comment = db.query(Comment).filter(Comment.comment_id == content_id).first()
-                    if comment:
-                        db.delete(comment)
-                # Implementar otros tipos de contenido...
-
-            elif action == ContentType.TEMPORARY_BAN:
-                if content_type == ContentType.USER:
-                    user = db.query(User).filter(User.user_id == content_id).first()
-                    if user:
-                        user.status = False
-                        user.banned_until = datetime.utcnow() + timedelta(days=7)  # Configurable
-
-            elif action == ModerationAction.PERMANENT_BAN:
-                if content_type == ContentType.USER:
-                    user = db.query(User).filter(User.user_id == content_id).first()
-                    if user:
-                        user.status = False
-                        user.banned_until = None  # Ban permanente
-
-            db.commit()
-
-        except Exception as e:
-            db.rollback()
-            logger.error(f"Error applying moderation action: {str(e)}")
-            raise HTTPException(
-                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                detail=f"Error applying moderation action: {str(e)}"
-            )
+        db.commit()

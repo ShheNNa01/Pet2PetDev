@@ -34,6 +34,9 @@ class Settings(BaseSettings):
     PETS_SERVICE_PORT: int = 8004
     GROUPS_SERVICE_PORT: int = 8005
     SEARCH_SERVICE_PORT: int = 8006
+    MODERATION_SERVICE_PORT: int = 8008
+    VIRTUAL_PETS_SERVICE_PORT: int = 8009
+    
 
     # Feed Service Configuration
     FEED_SERVICE_PORT: int = 8007
@@ -43,6 +46,8 @@ class Settings(BaseSettings):
     FEED_DEFAULT_TIME_WINDOW: str = "24h"
     FEED_TRENDING_THRESHOLD: int = 10  # Mínimo de interacciones para trending
     FEED_REFRESH_INTERVAL: int = 60  # Segundos entre actualizaciones de feed
+
+
 
     # Configuración de archivos
     MAX_FILE_SIZE: int = 5_242_880  # 5MB en bytes

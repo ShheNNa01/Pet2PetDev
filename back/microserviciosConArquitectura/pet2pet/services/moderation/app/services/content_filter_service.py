@@ -6,7 +6,7 @@ from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
 from datetime import datetime
 
-from ..models.schemas import (
+from services.moderation.app.models.schemas import (
     ContentFilter,
     FilterResult,
     ContentType,
