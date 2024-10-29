@@ -12,13 +12,12 @@ import { ScrollArea } from "../ui/scroll-area";
 import { Input } from "../ui/input";
 import { Avatar, AvatarImage, AvatarFallback } from "../ui/avatar";
 
-
-export default function HomePage() {
+export default function Header() {
     const [chatOpen, setChatOpen] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-    const [selectedChat, setSelectedChat] = useState<number | null>(null);
+    const [selectedChat, setSelectedChat] = useState(null);
     const [chatMessage, setChatMessage] = useState("");
-    
+
     const petChats = [
         { id: 1, pet: 'Firulais', lastMessage: 'Hola!', avatar: 'path-to-avatar.jpg' },
         { id: 2, pet: 'Mittens', lastMessage: '¿Cómo estás?', avatar: 'path-to-avatar.jpg' },
@@ -150,12 +149,7 @@ export default function HomePage() {
     );
 }
 
-type NavItemProps = {
-    icon: React.ReactNode;
-    text: string;
-};
-
-function NavItem({ icon, text }: NavItemProps) {
+function NavItem({ icon, text }) {
     return (
         <Button variant="ghost" className="flex items-center space-x-2">
             {icon}

@@ -1,53 +1,48 @@
-import React, { useState } from 'react'
-import { Video, Heart, MessageCircle, Share2, Send, UserPlus, PlusCircle, Camera, Gift, ExternalLink, Menu, X, PawPrint, ChevronLeft } from 'lucide-react'
-import { Button } from "../ui/button"
+import React, { useState } from 'react';
+import { Video, Heart, MessageCircle, Share2, Send, UserPlus, Camera, Gift, ExternalLink } from 'lucide-react';
+import { Button } from "../ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu"
-import { Input } from "../ui/input"
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
-import { Card, CardContent, CardFooter, CardHeader } from "../ui/card"
-import { Textarea } from "../ui/textarea"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs"
-import { Badge } from "../ui/badge"
-import Header from '../layout/Header'
+} from "../ui/dropdown-menu";
+import { Input } from "../ui/input";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { Card, CardContent, CardFooter, CardHeader } from "../ui/card";
+import { Textarea } from "../ui/textarea";
+import { Tabs, TabsList, TabsTrigger } from "../ui/tabs";
+import { Badge } from "../ui/badge";
+import Header from '../layout/Header';
 
-
-
-
-// Datos de ejemplo
+// Sample data
 const posts = [
   { id: 1, user: "CatLover", pet: "Mittens", content: "Mi gatito aprendió un nuevo truco", likes: 120, comments: 15, image: "/placeholder.svg?height=300&width=300" },
   { id: 2, user: "DogWhisperer", pet: "Firulais", content: "Paseo matutino con Firulais", likes: 89, comments: 7, image: "/placeholder.svg?height=300&width=300" },
   { id: 3, user: "BunnyMom", pet: "Fluffy", content: "¡Miren esas orejitas!", likes: 200, comments: 25, image: "/placeholder.svg?height=300&width=300" },
   { id: 4, user: "ParrotPal", pet: "Polly", content: "Hora de cantar", likes: 150, comments: 20, image: "/placeholder.svg?height=300&width=300" },
-]
+];
 
-const newFriends = ["Max", "Luna", "Rocky", "Bella"]
+const newFriends = ["Max", "Luna", "Rocky", "Bella"];
 const petsForAdoption = [
   { name: "Whiskers", type: "Gato", age: "2 años", image: "/placeholder.svg?height=100&width=100&text=Whiskers" },
   { name: "Buddy", type: "Perro", age: "3 años", image: "/placeholder.svg?height=100&width=100&text=Buddy" },
   { name: "Fluffy", type: "Conejo", age: "1 año", image: "/placeholder.svg?height=100&width=100&text=Fluffy" },
   { name: "Rex", type: "Iguana", age: "5 años", image: "/placeholder.svg?height=100&width=100&text=Rex" },
-]
+];
 
-
-export default function   HomePage() {
-  const [newPost, setNewPost] = useState("")
-  const [postType, setPostType] = useState("photo")
+export default function HomePage() {
+  const [newPost, setNewPost] = useState("");
+  const [postType, setPostType] = useState("photo");
 
   return (
     <div className="min-h-screen bg-yellow-50 text-gray-800 font-sans">
-
       <Header />
 
-      {/* Contenido principal */}
+      {/* Main content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Columna izquierda - Nuevos Amigos */}
+          {/* Left column - New Friends */}
           <div className="hidden md:block">
             <Card>
               <CardHeader>
@@ -75,9 +70,9 @@ export default function   HomePage() {
             </Card>
           </div>
 
-          {/* Columna central - Feed de publicaciones */}
+          {/* Central column - Feed of posts */}
           <div className="md:col-span-2 space-y-8">
-            {/* Área de nueva publicación */}
+            {/* New post area */}
             <Card>
               <CardContent className="pt-6">
                 <div className="flex space-x-4">
@@ -104,7 +99,7 @@ export default function   HomePage() {
                   <TabsList>
                     <TabsTrigger value="photo">
                       <Camera className="h-4 w-4 mr-2" />
-                      <span className="sr-only  md:not-sr-only">Foto</span>
+                      <span className="sr-only md:not-sr-only">Foto</span>
                     </TabsTrigger>
                     <TabsTrigger value="video">
                       <Video className="h-4 w-4 mr-2" />
@@ -119,7 +114,7 @@ export default function   HomePage() {
               </CardFooter>
             </Card>
 
-            {/* Publicaciones */}
+            {/* Posts */}
             <div className="space-y-8">
               {posts.map((post) => (
                 <Card key={post.id} className="overflow-hidden">
@@ -175,7 +170,7 @@ export default function   HomePage() {
             </div>
           </div>
 
-          {/* Columna derecha - Tu Nueva Mascota y Publicaciones Destacadas */}
+          {/* Right column - Your New Pet and Featured Posts */}
           <div className="hidden md:block space-y-8">
             <Card>
               <CardHeader>
@@ -251,5 +246,5 @@ export default function   HomePage() {
         </div>
       </footer>
     </div>
-  )
+  );
 }

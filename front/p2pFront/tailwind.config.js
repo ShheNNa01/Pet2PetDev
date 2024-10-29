@@ -2,10 +2,10 @@
 module.exports = {
   darkMode: ["class"], // Activa el modo oscuro por clase
   content: [
-    './pages/**/*.{ts,tsx}',      // Archivos de la carpeta `pages`
-    './components/**/*.{ts,tsx}', // Archivos de la carpeta `components`
-    './app/**/*.{ts,tsx}',        // Archivos de la carpeta `app`
-    './src/**/*.{ts,tsx}',        // Archivos de la carpeta `src`
+    './pages/**/*.{js,jsx}',      // Archivos de la carpeta `pages`
+    './components/**/*.{js,jsx}', // Archivos de la carpeta `components`
+    './app/**/*.{js,jsx}',        // Archivos de la carpeta `app`
+    './src/**/*.{js,jsx}',        // Archivos de la carpeta `src`
   ],
   theme: {
     container: {
