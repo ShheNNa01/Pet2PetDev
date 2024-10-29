@@ -41,10 +41,10 @@ export default function HomePage() {
 
       {/* Main content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Left column - New Friends */}
-          <div className="hidden md:block">
-            <Card>
+          <div className="hidden lg:block lg:col-span-3">
+            <Card className="bg-white shadow-md rounded-lg overflow-hidden">
               <CardHeader>
                 <h2 className="text-2xl font-semibold text-pink-600">Nuevos Amigos</h2>
               </CardHeader>
@@ -61,7 +61,7 @@ export default function HomePage() {
                       </div>
                       <Button size="sm" variant="outline">
                         <UserPlus className="h-4 w-4 mr-2" />
-                        <span className="sr-only md:not-sr-only">Seguir</span>
+                        Seguir
                       </Button>
                     </li>
                   ))}
@@ -71,10 +71,10 @@ export default function HomePage() {
           </div>
 
           {/* Central column - Feed of posts */}
-          <div className="md:col-span-2 space-y-8">
+          <div className="lg:col-span-6 space-y-8">
             {/* New post area */}
-            <Card>
-              <CardContent className="pt-6">
+            <Card className="bg-white shadow-md rounded-lg overflow-hidden">
+              <CardContent className="pt-6 px-6">
                 <div className="flex space-x-4">
                   <Avatar>
                     <AvatarImage src="/placeholder.svg?height=40&width=40" alt="Tu avatar" />
@@ -94,22 +94,22 @@ export default function HomePage() {
                   </div>
                 </div>
               </CardContent>
-              <CardFooter className="flex justify-between">
+              <CardFooter className="flex justify-between px-6 py-4">
                 <Tabs defaultValue="photo" onValueChange={(value) => setPostType(value)}>
                   <TabsList>
                     <TabsTrigger value="photo">
                       <Camera className="h-4 w-4 mr-2" />
-                      <span className="sr-only md:not-sr-only">Foto</span>
+                      Foto
                     </TabsTrigger>
                     <TabsTrigger value="video">
                       <Video className="h-4 w-4 mr-2" />
-                      <span className="sr-only md:not-sr-only">Video</span>
+                      Video
                     </TabsTrigger>
                   </TabsList>
                 </Tabs>
                 <Button>
                   <Send className="h-4 w-4 mr-2" />
-                  <span className="sr-only md:not-sr-only">Publicar</span>
+                  Publicar
                 </Button>
               </CardFooter>
             </Card>
@@ -117,8 +117,8 @@ export default function HomePage() {
             {/* Posts */}
             <div className="space-y-8">
               {posts.map((post) => (
-                <Card key={post.id} className="overflow-hidden">
-                  <CardHeader>
+                <Card key={post.id} className="bg-white shadow-md rounded-lg overflow-hidden">
+                  <CardHeader className="px-6 py-4">
                     <div className="flex items-center space-x-4">
                       <Avatar>
                         <AvatarImage src={`/placeholder.svg?height=40&width=40&text=${post.pet}`} alt={post.pet} />
@@ -130,40 +130,28 @@ export default function HomePage() {
                       </div>
                     </div>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="px-6 py-4">
                     <p className="mb-4">{post.content}</p>
                     <img src={post.image} alt="Contenido de la publicación" className="w-full rounded-lg" />
                   </CardContent>
-                  <CardFooter className="flex flex-wrap justify-between gap-2">
+                  <CardFooter className="flex flex-wrap justify-between gap-2 px-6 py-4">
                     <Button variant="ghost" size="sm" className="flex-1">
                       <Heart className="mr-2 h-4 w-4 text-red-500" />
-                      <span className="sr-only md:not-sr-only">{post.likes}</span>
+                      {post.likes}
                     </Button>
                     <Button variant="ghost" size="sm" className="flex-1">
                       <MessageCircle className="mr-2 h-4 w-4 text-blue-500" />
-                      <span className="sr-only md:not-sr-only">{post.comments}</span>
+                      {post.comments}
                     </Button>
                     <Button variant="ghost" size="sm" className="flex-1">
                       <Share2 className="mr-2 h-4 w-4 text-green-500" />
-                      <span className="sr-only md:not-sr-only">Compartir</span>
+                      Compartir
                     </Button>
                     <Button variant="ghost" size="sm" className="flex-1">
                       <Gift className="mr-2 h-4 w-4 text-purple-500" />
-                      <span className="sr-only md:not-sr-only">Regalo</span>
+                      Regalo
                     </Button>
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" size="sm" className="flex-1">
-                          <ExternalLink className="mr-2 h-4 w-4" />
-                          <span className="sr-only md:not-sr-only">Compartir en</span>
-                        </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent>
-                        <DropdownMenuItem>Facebook</DropdownMenuItem>
-                        <DropdownMenuItem>Twitter</DropdownMenuItem>
-                        <DropdownMenuItem>Instagram</DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
+                    
                   </CardFooter>
                 </Card>
               ))}
@@ -171,8 +159,8 @@ export default function HomePage() {
           </div>
 
           {/* Right column - Your New Pet and Featured Posts */}
-          <div className="hidden md:block space-y-8">
-            <Card>
+          <div className="hidden lg:block lg:col-span-3 space-y-8">
+            <Card className="bg-white shadow-md rounded-lg overflow-hidden">
               <CardHeader>
                 <h2 className="text-2xl font-semibold text-pink-600">Tu Nueva Mascota</h2>
               </CardHeader>
@@ -197,7 +185,7 @@ export default function HomePage() {
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="bg-white shadow-md rounded-lg overflow-hidden">
               <CardHeader>
                 <h2 className="text-2xl font-semibold text-pink-600">Publicaciones Destacadas</h2>
               </CardHeader>
