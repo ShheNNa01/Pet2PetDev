@@ -10257,3 +10257,642 @@ ModuleNotFoundError: No module named 'app'
 2024-10-29 19:01:58,347 - api_gateway.app - INFO - Registered route: /api/v1/analytics/exports/{filename}
 2024-10-29 19:01:58,347 - api_gateway.app - INFO - Registered route: /api/v1/analytics/export/cleanup
 2024-10-29 19:28:16,547 - api_gateway.app - INFO - Shutting down Pet2Pet API Gateway...
+2024-10-29 19:30:36,887 - api_gateway.app - INFO - PYTHONPATH: ['C:\\Users\\mares\\OneDrive\\Documentos\\Pet2Pet\\Pet2PetWeb\\Pet2PetDevWeb\\back\\microserviciosConArquitectura\\pet2pet', 'C:\\Users\\mares\\AppData\\Local\\Programs\\Python\\Python312\\python312.zip', 'C:\\Users\\mares\\AppData\\Local\\Programs\\Python\\Python312\\DLLs', 'C:\\Users\\mares\\AppData\\Local\\Programs\\Python\\Python312\\Lib', 'C:\\Users\\mares\\AppData\\Local\\Programs\\Python\\Python312', 'C:\\Users\\mares\\OneDrive\\Documentos\\Pet2Pet\\Pet2PetWeb\\Pet2PetDevWeb\\back\\microserviciosConArquitectura\\pet2pet\\venv', 'C:\\Users\\mares\\OneDrive\\Documentos\\Pet2Pet\\Pet2PetWeb\\Pet2PetDevWeb\\back\\microserviciosConArquitectura\\pet2pet\\venv\\Lib\\site-packages', 'C:\\Users\\mares\\OneDrive\\Documentos\\Pet2Pet\\Pet2PetWeb\\Pet2PetDevWeb\\back\\microserviciosConArquitectura\\pet2pet', 'C:\\Users\\mares\\OneDrive\\Documentos\\Pet2Pet\\Pet2PetWeb\\Pet2PetDevWeb\\back\\microserviciosConArquitectura\\pet2pet']
+2024-10-29 19:30:36,888 - api_gateway.app - INFO - Loading routes for auth service from services.auth.app.api.routes
+2024-10-29 19:30:37,190 - passlib.utils.compat - DEBUG - loaded lazy attr 'SafeConfigParser': <class 'configparser.ConfigParser'>
+2024-10-29 19:30:37,191 - passlib.utils.compat - DEBUG - loaded lazy attr 'NativeStringIO': <class '_io.StringIO'>
+2024-10-29 19:30:37,191 - passlib.utils.compat - DEBUG - loaded lazy attr 'BytesIO': <class '_io.BytesIO'>
+2024-10-29 19:30:37,248 - passlib.registry - DEBUG - registered 'bcrypt' handler: <class 'passlib.handlers.bcrypt.bcrypt'>
+2024-10-29 19:30:37,304 - api_gateway.app - INFO - Successfully loaded routes for auth service
+2024-10-29 19:30:37,304 - api_gateway.app - INFO - Loading routes for pets service from services.pets.app.api.routes
+2024-10-29 19:30:37,399 - api_gateway.app - INFO - Successfully loaded routes for pets service
+2024-10-29 19:30:37,399 - api_gateway.app - INFO - Loading routes for posts service from services.posts.app.api.routes
+2024-10-29 19:30:37,449 - api_gateway.app - INFO - Successfully loaded routes for posts service
+2024-10-29 19:30:37,449 - api_gateway.app - INFO - Loading routes for messages service from services.messages.app.api.routes
+2024-10-29 19:30:37,475 - api_gateway.app - INFO - Successfully loaded routes for messages service
+2024-10-29 19:30:37,475 - api_gateway.app - INFO - Loading routes for notifications service from services.notifications.app.api.routes
+2024-10-29 19:30:37,490 - api_gateway.app - INFO - Successfully loaded routes for notifications service
+2024-10-29 19:30:37,491 - api_gateway.app - INFO - Loading routes for groups service from services.groups.app.api.routes
+2024-10-29 19:30:37,571 - api_gateway.app - INFO - Successfully loaded routes for groups service
+2024-10-29 19:30:37,572 - api_gateway.app - INFO - Loading routes for search service from services.search.app.api.routes
+2024-10-29 19:30:37,607 - api_gateway.app - INFO - Successfully loaded routes for search service
+2024-10-29 19:30:37,607 - api_gateway.app - INFO - Loading routes for feed service from services.feed.app.api.routes
+2024-10-29 19:30:37,656 - api_gateway.app - INFO - Successfully loaded routes for feed service
+2024-10-29 19:30:37,657 - api_gateway.app - INFO - Loading routes for moderation service from services.moderation.app.api.routes
+2024-10-29 19:30:37,785 - api_gateway.app - INFO - Successfully loaded routes for moderation service
+2024-10-29 19:30:37,785 - api_gateway.app - INFO - Loading routes for virtual_pet service from services.virtual_pet.app.api.routes
+2024-10-29 19:30:37,821 - api_gateway.app - INFO - Successfully loaded routes for virtual_pet service
+2024-10-29 19:30:37,821 - api_gateway.app - INFO - Loading routes for analytics service from services.analytics.app.api.routes
+2024-10-29 19:30:38,323 - api_gateway.app - INFO - Successfully loaded routes for analytics service
+2024-10-29 19:30:38,324 - api_gateway.app - INFO - Starting Pet2Pet API Gateway...
+2024-10-29 19:30:38,324 - api_gateway.app - INFO - Registered route: /api/v1/openapi.json
+2024-10-29 19:30:38,324 - api_gateway.app - INFO - Registered route: /api/v1/docs
+2024-10-29 19:30:38,324 - api_gateway.app - INFO - Registered route: /docs/oauth2-redirect
+2024-10-29 19:30:38,324 - api_gateway.app - INFO - Registered route: /api/v1/redoc
+2024-10-29 19:30:38,324 - api_gateway.app - INFO - Registered route: /health
+2024-10-29 19:30:38,326 - api_gateway.app - INFO - Registered route: /api/v1/auth/register
+2024-10-29 19:30:38,326 - api_gateway.app - INFO - Registered route: /api/v1/auth/login
+2024-10-29 19:30:38,326 - api_gateway.app - INFO - Registered route: /api/v1/auth/me
+2024-10-29 19:30:38,326 - api_gateway.app - INFO - Registered route: /api/v1/auth/me
+2024-10-29 19:30:38,326 - api_gateway.app - INFO - Registered route: /api/v1/auth/change-password
+2024-10-29 19:30:38,326 - api_gateway.app - INFO - Registered route: /api/v1/auth/password-reset-request
+2024-10-29 19:30:38,326 - api_gateway.app - INFO - Registered route: /api/v1/auth/reset-password
+2024-10-29 19:30:38,326 - api_gateway.app - INFO - Registered route: /api/v1/pets/types
+2024-10-29 19:30:38,326 - api_gateway.app - INFO - Registered route: /api/v1/pets/breeds
+2024-10-29 19:30:38,326 - api_gateway.app - INFO - Registered route: /api/v1/pets/
+2024-10-29 19:30:38,326 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}/image
+2024-10-29 19:30:38,326 - api_gateway.app - INFO - Registered route: /api/v1/pets/
+2024-10-29 19:30:38,326 - api_gateway.app - INFO - Registered route: /api/v1/pets/my-pets
+2024-10-29 19:30:38,327 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}
+2024-10-29 19:30:38,327 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}
+2024-10-29 19:30:38,327 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}
+2024-10-29 19:30:38,327 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}/follow
+2024-10-29 19:30:38,327 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}/unfollow
+2024-10-29 19:30:38,327 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}/followers
+2024-10-29 19:30:38,327 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}/following
+2024-10-29 19:30:38,327 - api_gateway.app - INFO - Registered route: /api/v1/posts/
+2024-10-29 19:30:38,328 - api_gateway.app - INFO - Registered route: /api/v1/posts/
+2024-10-29 19:30:38,328 - api_gateway.app - INFO - Registered route: /api/v1/posts/my-posts
+2024-10-29 19:30:38,328 - api_gateway.app - INFO - Registered route: /api/v1/posts/{post_id}
+2024-10-29 19:30:38,328 - api_gateway.app - INFO - Registered route: /api/v1/posts/{post_id}
+2024-10-29 19:30:38,328 - api_gateway.app - INFO - Registered route: /api/v1/posts/{post_id}
+2024-10-29 19:30:38,328 - api_gateway.app - INFO - Registered route: /api/v1/posts/{post_id}/media
+2024-10-29 19:30:38,328 - api_gateway.app - INFO - Registered route: /api/v1/posts/{post_id}/comments
+2024-10-29 19:30:38,328 - api_gateway.app - INFO - Registered route: /api/v1/posts/comments/{comment_id}
+2024-10-29 19:30:38,328 - api_gateway.app - INFO - Registered route: /api/v1/posts/{post_id}/reactions
+2024-10-29 19:30:38,329 - api_gateway.app - INFO - Registered route: /api/v1/posts/reactions/{reaction_id}
+2024-10-29 19:30:38,329 - api_gateway.app - INFO - Registered route: /api/v1/messages/
+2024-10-29 19:30:38,329 - api_gateway.app - INFO - Registered route: /api/v1/messages/conversations
+2024-10-29 19:30:38,329 - api_gateway.app - INFO - Registered route: /api/v1/messages/conversation/{other_pet_id}
+2024-10-29 19:30:38,329 - api_gateway.app - INFO - Registered route: /api/v1/messages/conversation/{other_pet_id}/read
+2024-10-29 19:30:38,329 - api_gateway.app - INFO - Registered route: /api/v1/messages/unread/count
+2024-10-29 19:30:38,329 - api_gateway.app - INFO - Registered route: /api/v1/messages/conversation/{other_pet_id}
+2024-10-29 19:30:38,329 - api_gateway.app - INFO - Registered route: /api/v1/messages/search
+2024-10-29 19:30:38,329 - api_gateway.app - INFO - Registered route: /api/v1/notifications/
+2024-10-29 19:30:38,329 - api_gateway.app - INFO - Registered route: /api/v1/notifications/count
+2024-10-29 19:30:38,329 - api_gateway.app - INFO - Registered route: /api/v1/notifications/{notification_id}/read
+2024-10-29 19:30:38,331 - api_gateway.app - INFO - Registered route: /api/v1/notifications/read-all
+2024-10-29 19:30:38,331 - api_gateway.app - INFO - Registered route: /api/v1/notifications/{notification_id}
+2024-10-29 19:30:38,331 - api_gateway.app - INFO - Registered route: /api/v1/notifications/internal/create
+2024-10-29 19:30:38,331 - api_gateway.app - INFO - Registered route: /api/v1/groups/
+2024-10-29 19:30:38,331 - api_gateway.app - INFO - Registered route: /api/v1/groups/
+2024-10-29 19:30:38,331 - api_gateway.app - INFO - Registered route: /api/v1/groups/my-groups
+2024-10-29 19:30:38,331 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}
+2024-10-29 19:30:38,331 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}
+2024-10-29 19:30:38,331 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/image
+2024-10-29 19:30:38,331 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/join
+2024-10-29 19:30:38,331 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/leave
+2024-10-29 19:30:38,331 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/members
+2024-10-29 19:30:38,331 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/members/{user_id}/make-admin
+2024-10-29 19:30:38,331 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/posts
+2024-10-29 19:30:38,332 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/posts
+2024-10-29 19:30:38,332 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/posts/{post_id}/comments
+2024-10-29 19:30:38,332 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/members/{user_id}/remove
+2024-10-29 19:30:38,332 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/posts/{post_id}
+2024-10-29 19:30:38,332 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/posts/{post_id}/media
+2024-10-29 19:30:38,333 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/transfer-ownership/{new_owner_id}
+2024-10-29 19:30:38,333 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/posts/{post_id}/comments
+2024-10-29 19:30:38,333 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/comments/{comment_id}
+2024-10-29 19:30:38,333 - api_gateway.app - INFO - Registered route: /api/v1/search/
+2024-10-29 19:30:38,333 - api_gateway.app - INFO - Registered route: /api/v1/search/quick
+2024-10-29 19:30:38,333 - api_gateway.app - INFO - Registered route: /api/v1/search/suggestions
+2024-10-29 19:30:38,333 - api_gateway.app - INFO - Registered route: /api/v1/search/trending
+2024-10-29 19:30:38,333 - api_gateway.app - INFO - Registered route: /api/v1/search/recent
+2024-10-29 19:30:38,333 - api_gateway.app - INFO - Registered route: /api/v1/search/index/{content_type}/{content_id}
+2024-10-29 19:30:38,333 - api_gateway.app - INFO - Registered route: /api/v1/search/reindex
+2024-10-29 19:30:38,334 - api_gateway.app - INFO - Registered route: /api/v1/feed/
+2024-10-29 19:30:38,334 - api_gateway.app - INFO - Registered route: /api/v1/feed/trending
+2024-10-29 19:30:38,334 - api_gateway.app - INFO - Registered route: /api/v1/feed/following
+2024-10-29 19:30:38,334 - api_gateway.app - INFO - Registered route: /api/v1/feed/groups
+2024-10-29 19:30:38,334 - api_gateway.app - INFO - Registered route: /api/v1/feed/preferences
+2024-10-29 19:30:38,334 - api_gateway.app - INFO - Registered route: /api/v1/feed/preferences
+2024-10-29 19:30:38,334 - api_gateway.app - INFO - Registered route: /api/v1/feed/action
+2024-10-29 19:30:38,334 - api_gateway.app - INFO - Registered route: /api/v1/feed/refresh/{item_id}
+2024-10-29 19:30:38,334 - api_gateway.app - INFO - Registered route: /api/v1/feed/hide/{item_id}
+2024-10-29 19:30:38,334 - api_gateway.app - INFO - Registered route: /api/v1/moderation/reports
+2024-10-29 19:30:38,334 - api_gateway.app - INFO - Registered route: /api/v1/moderation/reports
+2024-10-29 19:30:38,335 - api_gateway.app - INFO - Registered route: /api/v1/moderation/reports/{report_id}
+2024-10-29 19:30:38,335 - api_gateway.app - INFO - Registered route: /api/v1/moderation/reports/{report_id}
+2024-10-29 19:30:38,335 - api_gateway.app - INFO - Registered route: /api/v1/moderation/queue/stats
+2024-10-29 19:30:38,335 - api_gateway.app - INFO - Registered route: /api/v1/moderation/queue/next
+2024-10-29 19:30:38,335 - api_gateway.app - INFO - Registered route: /api/v1/moderation/content/review
+2024-10-29 19:30:38,335 - api_gateway.app - INFO - Registered route: /api/v1/moderation/actions
+2024-10-29 19:30:38,335 - api_gateway.app - INFO - Registered route: /api/v1/moderation/stats
+2024-10-29 19:30:38,335 - api_gateway.app - INFO - Registered route: /api/v1/moderation/users/{user_id}/history
+2024-10-29 19:30:38,335 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter
+2024-10-29 19:30:38,335 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter/batch
+2024-10-29 19:30:38,335 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter/configurations
+2024-10-29 19:30:38,336 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter/configurations
+2024-10-29 19:30:38,336 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter/configurations/{config_id}
+2024-10-29 19:30:38,336 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter/configurations/{config_id}
+2024-10-29 19:30:38,336 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter/custom-rules
+2024-10-29 19:30:38,336 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter/custom-rules
+2024-10-29 19:30:38,336 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter/custom-rules/{rule_id}
+2024-10-29 19:30:38,336 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter/custom-rules/{rule_id}
+2024-10-29 19:30:38,336 - api_gateway.app - INFO - Registered route: /api/v1/virtual_pet/
+2024-10-29 19:30:38,336 - api_gateway.app - INFO - Registered route: /api/v1/virtual_pet/{pet_id}
+2024-10-29 19:30:38,336 - api_gateway.app - INFO - Registered route: /api/v1/virtual_pet/{pet_id}/actions/{action_type}
+2024-10-29 19:30:38,336 - api_gateway.app - INFO - Registered route: /api/v1/virtual_pet/{pet_id}/daily-tasks
+2024-10-29 19:30:38,336 - api_gateway.app - INFO - Registered route: /api/v1/virtual_pet/{pet_id}/stats
+2024-10-29 19:30:38,337 - api_gateway.app - INFO - Registered route: /api/v1/virtual_pet/{pet_id}/feed
+2024-10-29 19:30:38,337 - api_gateway.app - INFO - Registered route: /api/v1/virtual_pet/{pet_id}/play
+2024-10-29 19:30:38,337 - api_gateway.app - INFO - Registered route: /api/v1/virtual_pet/{pet_id}/rest
+2024-10-29 19:30:38,337 - api_gateway.app - INFO - Registered route: /api/v1/analytics/dashboard
+2024-10-29 19:30:38,337 - api_gateway.app - INFO - Registered route: /api/v1/analytics/users
+2024-10-29 19:30:38,337 - api_gateway.app - INFO - Registered route: /api/v1/analytics/users/growth
+2024-10-29 19:30:38,337 - api_gateway.app - INFO - Registered route: /api/v1/analytics/content
+2024-10-29 19:30:38,337 - api_gateway.app - INFO - Registered route: /api/v1/analytics/content/popular-categories
+2024-10-29 19:30:38,337 - api_gateway.app - INFO - Registered route: /api/v1/analytics/engagement
+2024-10-29 19:30:38,337 - api_gateway.app - INFO - Registered route: /api/v1/analytics/engagement/peak-hours
+2024-10-29 19:30:38,337 - api_gateway.app - INFO - Registered route: /api/v1/analytics/engagement/user-segments
+2024-10-29 19:30:38,338 - api_gateway.app - INFO - Registered route: /api/v1/analytics/platform
+2024-10-29 19:30:38,338 - api_gateway.app - INFO - Registered route: /api/v1/analytics/platform/health
+2024-10-29 19:30:38,338 - api_gateway.app - INFO - Registered route: /api/v1/analytics/platform/errors
+2024-10-29 19:30:38,338 - api_gateway.app - INFO - Registered route: /api/v1/analytics/export/csv
+2024-10-29 19:30:38,338 - api_gateway.app - INFO - Registered route: /api/v1/analytics/export/status/{job_id}
+2024-10-29 19:30:38,338 - api_gateway.app - INFO - Registered route: /api/v1/analytics/export
+2024-10-29 19:30:38,338 - api_gateway.app - INFO - Registered route: /api/v1/analytics/export/status/{job_id}
+2024-10-29 19:30:38,338 - api_gateway.app - INFO - Registered route: /api/v1/analytics/exports/{filename}
+2024-10-29 19:30:38,338 - api_gateway.app - INFO - Registered route: /api/v1/analytics/export/cleanup
+2024-10-29 19:55:03,600 - services.analytics.app.core.cache - ERROR - Error getting cache for key dashboard:content_analytics:<services.analytics.app.services.content_analytics.ContentAnalyticsService object at 0x000001AD32D46900>:db:<sqlalchemy.orm.session.Session object at 0x000001AD32CC9310>:end_date:None:engagement_analytics:<services.analytics.app.services.engagement_analytics.EngagementAnalyticsService object at 0x000001AD32D467B0>:platform_analytics:<services.analytics.app.services.platform_analytics.PlatformAnalyticsService object at 0x000001AD32D467E0>:start_date:None:time_range:TimeRange.DAY:user_analytics:<services.analytics.app.services.user_analytics.UserAnalyticsService object at 0x000001AD32D46810>: Error 10061 connecting to localhost:6379. No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión.
+2024-10-29 19:56:43,159 - services.analytics.app.core.cache - ERROR - Error getting cache for key user_metrics:db:<sqlalchemy.orm.session.Session object at 0x000001AD32C80530>:end_date:None:start_date:None:time_range:TimeRange.DAY:user_analytics:<services.analytics.app.services.user_analytics.UserAnalyticsService object at 0x000001AD32D46810>: Error 10061 connecting to localhost:6379. No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión.
+2024-10-29 19:57:35,466 - services.analytics.app.core.cache - ERROR - Error getting cache for key content_metrics:content_analytics:<services.analytics.app.services.content_analytics.ContentAnalyticsService object at 0x000001AD32D46900>:db:<sqlalchemy.orm.session.Session object at 0x000001AD32E39160>:end_date:None:start_date:None:time_range:TimeRange.MONTH: Error 10061 connecting to localhost:6379. No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión.
+2024-10-29 19:58:04,385 - services.analytics.app.core.cache - ERROR - Error getting cache for key engagement_metrics:db:<sqlalchemy.orm.session.Session object at 0x000001AD32E39A30>:end_date:None:engagement_analytics:<services.analytics.app.services.engagement_analytics.EngagementAnalyticsService object at 0x000001AD32D467B0>:start_date:None:time_range:TimeRange.MONTH: Error 10061 connecting to localhost:6379. No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión.
+2024-10-29 19:58:36,844 - services.analytics.app.core.cache - ERROR - Error getting cache for key platform_metrics:db:<sqlalchemy.orm.session.Session object at 0x000001AD33528AD0>:end_date:None:platform_analytics:<services.analytics.app.services.platform_analytics.PlatformAnalyticsService object at 0x000001AD32D467E0>:start_date:None:time_range:TimeRange.MONTH: Error 10061 connecting to localhost:6379. No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión.
+2024-10-29 19:58:38,309 - services.analytics.app.core.cache - ERROR - Error setting cache for key platform_metrics:db:<sqlalchemy.orm.session.Session object at 0x000001AD33528AD0>:end_date:None:platform_analytics:<services.analytics.app.services.platform_analytics.PlatformAnalyticsService object at 0x000001AD32D467E0>:start_date:None:time_range:TimeRange.MONTH: Object of type PlatformMetrics is not JSON serializable
+2024-10-30 11:14:14,484 - api_gateway.app - INFO - PYTHONPATH: ['C:\\Users\\mares\\OneDrive\\Documentos\\Pet2Pet\\Pet2PetWeb\\Pet2PetDevWeb\\back\\microserviciosConArquitectura\\pet2pet', 'C:\\Users\\mares\\AppData\\Local\\Programs\\Python\\Python312\\python312.zip', 'C:\\Users\\mares\\AppData\\Local\\Programs\\Python\\Python312\\DLLs', 'C:\\Users\\mares\\AppData\\Local\\Programs\\Python\\Python312\\Lib', 'C:\\Users\\mares\\AppData\\Local\\Programs\\Python\\Python312', 'C:\\Users\\mares\\OneDrive\\Documentos\\Pet2Pet\\Pet2PetWeb\\Pet2PetDevWeb\\back\\microserviciosConArquitectura\\pet2pet\\venv', 'C:\\Users\\mares\\OneDrive\\Documentos\\Pet2Pet\\Pet2PetWeb\\Pet2PetDevWeb\\back\\microserviciosConArquitectura\\pet2pet\\venv\\Lib\\site-packages', 'C:\\Users\\mares\\OneDrive\\Documentos\\Pet2Pet\\Pet2PetWeb\\Pet2PetDevWeb\\back\\microserviciosConArquitectura\\pet2pet', 'C:\\Users\\mares\\OneDrive\\Documentos\\Pet2Pet\\Pet2PetWeb\\Pet2PetDevWeb\\back\\microserviciosConArquitectura\\pet2pet']
+2024-10-30 11:14:14,485 - api_gateway.app - INFO - Loading routes for auth service from services.auth.app.api.routes
+2024-10-30 11:14:14,810 - passlib.utils.compat - DEBUG - loaded lazy attr 'SafeConfigParser': <class 'configparser.ConfigParser'>
+2024-10-30 11:14:14,810 - passlib.utils.compat - DEBUG - loaded lazy attr 'NativeStringIO': <class '_io.StringIO'>
+2024-10-30 11:14:14,810 - passlib.utils.compat - DEBUG - loaded lazy attr 'BytesIO': <class '_io.BytesIO'>
+2024-10-30 11:14:14,895 - passlib.registry - DEBUG - registered 'bcrypt' handler: <class 'passlib.handlers.bcrypt.bcrypt'>
+2024-10-30 11:14:14,952 - api_gateway.app - INFO - Successfully loaded routes for auth service
+2024-10-30 11:14:14,952 - api_gateway.app - INFO - Loading routes for pets service from services.pets.app.api.routes
+2024-10-30 11:14:15,053 - api_gateway.app - INFO - Successfully loaded routes for pets service
+2024-10-30 11:14:15,054 - api_gateway.app - INFO - Loading routes for posts service from services.posts.app.api.routes
+2024-10-30 11:14:15,105 - api_gateway.app - INFO - Successfully loaded routes for posts service
+2024-10-30 11:14:15,105 - api_gateway.app - INFO - Loading routes for messages service from services.messages.app.api.routes
+2024-10-30 11:14:15,136 - api_gateway.app - INFO - Successfully loaded routes for messages service
+2024-10-30 11:14:15,136 - api_gateway.app - INFO - Loading routes for notifications service from services.notifications.app.api.routes
+2024-10-30 11:14:15,156 - api_gateway.app - INFO - Successfully loaded routes for notifications service
+2024-10-30 11:14:15,156 - api_gateway.app - INFO - Loading routes for groups service from services.groups.app.api.routes
+2024-10-30 11:14:15,240 - api_gateway.app - INFO - Successfully loaded routes for groups service
+2024-10-30 11:14:15,240 - api_gateway.app - INFO - Loading routes for search service from services.search.app.api.routes
+2024-10-30 11:14:15,278 - api_gateway.app - INFO - Successfully loaded routes for search service
+2024-10-30 11:14:15,278 - api_gateway.app - INFO - Loading routes for feed service from services.feed.app.api.routes
+2024-10-30 11:14:15,338 - api_gateway.app - INFO - Successfully loaded routes for feed service
+2024-10-30 11:14:15,338 - api_gateway.app - INFO - Loading routes for moderation service from services.moderation.app.api.routes
+2024-10-30 11:14:15,470 - api_gateway.app - INFO - Successfully loaded routes for moderation service
+2024-10-30 11:14:15,471 - api_gateway.app - INFO - Loading routes for virtual_pet service from services.virtual_pet.app.api.routes
+2024-10-30 11:14:15,514 - api_gateway.app - INFO - Successfully loaded routes for virtual_pet service
+2024-10-30 11:14:15,515 - api_gateway.app - INFO - Loading routes for analytics service from services.analytics.app.api.routes
+2024-10-30 11:14:17,085 - api_gateway.app - INFO - Successfully loaded routes for analytics service
+2024-10-30 11:14:17,086 - api_gateway.app - INFO - Starting Pet2Pet API Gateway...
+2024-10-30 11:14:17,086 - api_gateway.app - INFO - Registered route: /api/v1/openapi.json
+2024-10-30 11:14:17,086 - api_gateway.app - INFO - Registered route: /api/v1/docs
+2024-10-30 11:14:17,086 - api_gateway.app - INFO - Registered route: /docs/oauth2-redirect
+2024-10-30 11:14:17,087 - api_gateway.app - INFO - Registered route: /api/v1/redoc
+2024-10-30 11:14:17,087 - api_gateway.app - INFO - Registered route: /health
+2024-10-30 11:14:17,087 - api_gateway.app - INFO - Registered route: /api/v1/auth/register
+2024-10-30 11:14:17,087 - api_gateway.app - INFO - Registered route: /api/v1/auth/login
+2024-10-30 11:14:17,087 - api_gateway.app - INFO - Registered route: /api/v1/auth/me
+2024-10-30 11:14:17,087 - api_gateway.app - INFO - Registered route: /api/v1/auth/me
+2024-10-30 11:14:17,087 - api_gateway.app - INFO - Registered route: /api/v1/auth/change-password
+2024-10-30 11:14:17,087 - api_gateway.app - INFO - Registered route: /api/v1/auth/password-reset-request
+2024-10-30 11:14:17,087 - api_gateway.app - INFO - Registered route: /api/v1/auth/reset-password
+2024-10-30 11:14:17,088 - api_gateway.app - INFO - Registered route: /api/v1/pets/types
+2024-10-30 11:14:17,088 - api_gateway.app - INFO - Registered route: /api/v1/pets/breeds
+2024-10-30 11:14:17,088 - api_gateway.app - INFO - Registered route: /api/v1/pets/
+2024-10-30 11:14:17,088 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}/image
+2024-10-30 11:14:17,088 - api_gateway.app - INFO - Registered route: /api/v1/pets/
+2024-10-30 11:14:17,088 - api_gateway.app - INFO - Registered route: /api/v1/pets/my-pets
+2024-10-30 11:14:17,088 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}
+2024-10-30 11:14:17,088 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}
+2024-10-30 11:14:17,088 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}
+2024-10-30 11:14:17,088 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}/follow
+2024-10-30 11:14:17,088 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}/unfollow
+2024-10-30 11:14:17,088 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}/followers
+2024-10-30 11:14:17,088 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}/following
+2024-10-30 11:14:17,089 - api_gateway.app - INFO - Registered route: /api/v1/posts/
+2024-10-30 11:14:17,089 - api_gateway.app - INFO - Registered route: /api/v1/posts/
+2024-10-30 11:14:17,089 - api_gateway.app - INFO - Registered route: /api/v1/posts/my-posts
+2024-10-30 11:14:17,089 - api_gateway.app - INFO - Registered route: /api/v1/posts/{post_id}
+2024-10-30 11:14:17,089 - api_gateway.app - INFO - Registered route: /api/v1/posts/{post_id}
+2024-10-30 11:14:17,089 - api_gateway.app - INFO - Registered route: /api/v1/posts/{post_id}
+2024-10-30 11:14:17,089 - api_gateway.app - INFO - Registered route: /api/v1/posts/{post_id}/media
+2024-10-30 11:14:17,089 - api_gateway.app - INFO - Registered route: /api/v1/posts/{post_id}/comments
+2024-10-30 11:14:17,089 - api_gateway.app - INFO - Registered route: /api/v1/posts/comments/{comment_id}
+2024-10-30 11:14:17,089 - api_gateway.app - INFO - Registered route: /api/v1/posts/{post_id}/reactions
+2024-10-30 11:14:17,089 - api_gateway.app - INFO - Registered route: /api/v1/posts/reactions/{reaction_id}
+2024-10-30 11:14:17,089 - api_gateway.app - INFO - Registered route: /api/v1/messages/
+2024-10-30 11:14:17,089 - api_gateway.app - INFO - Registered route: /api/v1/messages/conversations
+2024-10-30 11:14:17,090 - api_gateway.app - INFO - Registered route: /api/v1/messages/conversation/{other_pet_id}
+2024-10-30 11:14:17,090 - api_gateway.app - INFO - Registered route: /api/v1/messages/conversation/{other_pet_id}/read
+2024-10-30 11:14:17,090 - api_gateway.app - INFO - Registered route: /api/v1/messages/unread/count
+2024-10-30 11:14:17,090 - api_gateway.app - INFO - Registered route: /api/v1/messages/conversation/{other_pet_id}
+2024-10-30 11:14:17,090 - api_gateway.app - INFO - Registered route: /api/v1/messages/search
+2024-10-30 11:14:17,090 - api_gateway.app - INFO - Registered route: /api/v1/notifications/
+2024-10-30 11:14:17,090 - api_gateway.app - INFO - Registered route: /api/v1/notifications/count
+2024-10-30 11:14:17,090 - api_gateway.app - INFO - Registered route: /api/v1/notifications/{notification_id}/read
+2024-10-30 11:14:17,090 - api_gateway.app - INFO - Registered route: /api/v1/notifications/read-all
+2024-10-30 11:14:17,090 - api_gateway.app - INFO - Registered route: /api/v1/notifications/{notification_id}
+2024-10-30 11:14:17,090 - api_gateway.app - INFO - Registered route: /api/v1/notifications/internal/create
+2024-10-30 11:14:17,090 - api_gateway.app - INFO - Registered route: /api/v1/groups/
+2024-10-30 11:14:17,090 - api_gateway.app - INFO - Registered route: /api/v1/groups/
+2024-10-30 11:14:17,091 - api_gateway.app - INFO - Registered route: /api/v1/groups/my-groups
+2024-10-30 11:14:17,091 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}
+2024-10-30 11:14:17,091 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}
+2024-10-30 11:14:17,091 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/image
+2024-10-30 11:14:17,091 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/join
+2024-10-30 11:14:17,091 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/leave
+2024-10-30 11:14:17,091 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/members
+2024-10-30 11:14:17,091 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/members/{user_id}/make-admin
+2024-10-30 11:14:17,091 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/posts
+2024-10-30 11:14:17,091 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/posts
+2024-10-30 11:14:17,091 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/posts/{post_id}/comments
+2024-10-30 11:14:17,091 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/members/{user_id}/remove
+2024-10-30 11:14:17,092 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/posts/{post_id}
+2024-10-30 11:14:17,092 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/posts/{post_id}/media
+2024-10-30 11:14:17,092 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/transfer-ownership/{new_owner_id}
+2024-10-30 11:14:17,092 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/posts/{post_id}/comments
+2024-10-30 11:14:17,092 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/comments/{comment_id}
+2024-10-30 11:14:17,092 - api_gateway.app - INFO - Registered route: /api/v1/search/
+2024-10-30 11:14:17,092 - api_gateway.app - INFO - Registered route: /api/v1/search/quick
+2024-10-30 11:14:17,092 - api_gateway.app - INFO - Registered route: /api/v1/search/suggestions
+2024-10-30 11:14:17,092 - api_gateway.app - INFO - Registered route: /api/v1/search/trending
+2024-10-30 11:14:17,092 - api_gateway.app - INFO - Registered route: /api/v1/search/recent
+2024-10-30 11:14:17,092 - api_gateway.app - INFO - Registered route: /api/v1/search/index/{content_type}/{content_id}
+2024-10-30 11:14:17,092 - api_gateway.app - INFO - Registered route: /api/v1/search/reindex
+2024-10-30 11:14:17,092 - api_gateway.app - INFO - Registered route: /api/v1/feed/
+2024-10-30 11:14:17,093 - api_gateway.app - INFO - Registered route: /api/v1/feed/trending
+2024-10-30 11:14:17,093 - api_gateway.app - INFO - Registered route: /api/v1/feed/following
+2024-10-30 11:14:17,093 - api_gateway.app - INFO - Registered route: /api/v1/feed/groups
+2024-10-30 11:14:17,093 - api_gateway.app - INFO - Registered route: /api/v1/feed/preferences
+2024-10-30 11:14:17,093 - api_gateway.app - INFO - Registered route: /api/v1/feed/preferences
+2024-10-30 11:14:17,093 - api_gateway.app - INFO - Registered route: /api/v1/feed/action
+2024-10-30 11:14:17,093 - api_gateway.app - INFO - Registered route: /api/v1/feed/refresh/{item_id}
+2024-10-30 11:14:17,093 - api_gateway.app - INFO - Registered route: /api/v1/feed/hide/{item_id}
+2024-10-30 11:14:17,093 - api_gateway.app - INFO - Registered route: /api/v1/moderation/reports
+2024-10-30 11:14:17,093 - api_gateway.app - INFO - Registered route: /api/v1/moderation/reports
+2024-10-30 11:14:17,094 - api_gateway.app - INFO - Registered route: /api/v1/moderation/reports/{report_id}
+2024-10-30 11:14:17,094 - api_gateway.app - INFO - Registered route: /api/v1/moderation/reports/{report_id}
+2024-10-30 11:14:17,094 - api_gateway.app - INFO - Registered route: /api/v1/moderation/queue/stats
+2024-10-30 11:14:17,094 - api_gateway.app - INFO - Registered route: /api/v1/moderation/queue/next
+2024-10-30 11:14:17,094 - api_gateway.app - INFO - Registered route: /api/v1/moderation/content/review
+2024-10-30 11:14:17,094 - api_gateway.app - INFO - Registered route: /api/v1/moderation/actions
+2024-10-30 11:14:17,094 - api_gateway.app - INFO - Registered route: /api/v1/moderation/stats
+2024-10-30 11:14:17,094 - api_gateway.app - INFO - Registered route: /api/v1/moderation/users/{user_id}/history
+2024-10-30 11:14:17,094 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter
+2024-10-30 11:14:17,094 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter/batch
+2024-10-30 11:14:17,095 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter/configurations
+2024-10-30 11:14:17,095 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter/configurations
+2024-10-30 11:14:17,095 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter/configurations/{config_id}
+2024-10-30 11:14:17,095 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter/configurations/{config_id}
+2024-10-30 11:14:17,095 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter/custom-rules
+2024-10-30 11:14:17,096 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter/custom-rules
+2024-10-30 11:14:17,096 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter/custom-rules/{rule_id}
+2024-10-30 11:14:17,096 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter/custom-rules/{rule_id}
+2024-10-30 11:14:17,096 - api_gateway.app - INFO - Registered route: /api/v1/virtual_pet/
+2024-10-30 11:14:17,096 - api_gateway.app - INFO - Registered route: /api/v1/virtual_pet/{pet_id}
+2024-10-30 11:14:17,096 - api_gateway.app - INFO - Registered route: /api/v1/virtual_pet/{pet_id}/actions/{action_type}
+2024-10-30 11:14:17,096 - api_gateway.app - INFO - Registered route: /api/v1/virtual_pet/{pet_id}/daily-tasks
+2024-10-30 11:14:17,096 - api_gateway.app - INFO - Registered route: /api/v1/virtual_pet/{pet_id}/stats
+2024-10-30 11:14:17,096 - api_gateway.app - INFO - Registered route: /api/v1/virtual_pet/{pet_id}/feed
+2024-10-30 11:14:17,096 - api_gateway.app - INFO - Registered route: /api/v1/virtual_pet/{pet_id}/play
+2024-10-30 11:14:17,096 - api_gateway.app - INFO - Registered route: /api/v1/virtual_pet/{pet_id}/rest
+2024-10-30 11:14:17,097 - api_gateway.app - INFO - Registered route: /api/v1/analytics/dashboard
+2024-10-30 11:14:17,097 - api_gateway.app - INFO - Registered route: /api/v1/analytics/users
+2024-10-30 11:14:17,097 - api_gateway.app - INFO - Registered route: /api/v1/analytics/users/growth
+2024-10-30 11:14:17,097 - api_gateway.app - INFO - Registered route: /api/v1/analytics/content
+2024-10-30 11:14:17,097 - api_gateway.app - INFO - Registered route: /api/v1/analytics/content/popular-categories
+2024-10-30 11:14:17,097 - api_gateway.app - INFO - Registered route: /api/v1/analytics/engagement
+2024-10-30 11:14:17,097 - api_gateway.app - INFO - Registered route: /api/v1/analytics/engagement/peak-hours
+2024-10-30 11:14:17,097 - api_gateway.app - INFO - Registered route: /api/v1/analytics/engagement/user-segments
+2024-10-30 11:14:17,097 - api_gateway.app - INFO - Registered route: /api/v1/analytics/platform
+2024-10-30 11:14:17,097 - api_gateway.app - INFO - Registered route: /api/v1/analytics/platform/health
+2024-10-30 11:14:17,097 - api_gateway.app - INFO - Registered route: /api/v1/analytics/platform/errors
+2024-10-30 11:14:17,098 - api_gateway.app - INFO - Registered route: /api/v1/analytics/export/csv
+2024-10-30 11:14:17,098 - api_gateway.app - INFO - Registered route: /api/v1/analytics/export/status/{job_id}
+2024-10-30 11:14:17,098 - api_gateway.app - INFO - Registered route: /api/v1/analytics/export
+2024-10-30 11:14:17,098 - api_gateway.app - INFO - Registered route: /api/v1/analytics/export/status/{job_id}
+2024-10-30 11:14:17,098 - api_gateway.app - INFO - Registered route: /api/v1/analytics/exports/{filename}
+2024-10-30 11:14:17,098 - api_gateway.app - INFO - Registered route: /api/v1/analytics/export/cleanup
+2024-10-30 11:14:25,886 - api_gateway.app - INFO - Shutting down Pet2Pet API Gateway...
+2024-10-30 11:23:04,269 - api_gateway.app - INFO - PYTHONPATH: ['C:\\Users\\mares\\OneDrive\\Documentos\\Pet2Pet\\Pet2PetWeb\\Pet2PetDevWeb\\back\\microserviciosConArquitectura\\pet2pet', 'C:\\Users\\mares\\AppData\\Local\\Programs\\Python\\Python312\\python312.zip', 'C:\\Users\\mares\\AppData\\Local\\Programs\\Python\\Python312\\DLLs', 'C:\\Users\\mares\\AppData\\Local\\Programs\\Python\\Python312\\Lib', 'C:\\Users\\mares\\AppData\\Local\\Programs\\Python\\Python312', 'C:\\Users\\mares\\OneDrive\\Documentos\\Pet2Pet\\Pet2PetWeb\\Pet2PetDevWeb\\back\\microserviciosConArquitectura\\pet2pet\\venv', 'C:\\Users\\mares\\OneDrive\\Documentos\\Pet2Pet\\Pet2PetWeb\\Pet2PetDevWeb\\back\\microserviciosConArquitectura\\pet2pet\\venv\\Lib\\site-packages', 'C:\\Users\\mares\\OneDrive\\Documentos\\Pet2Pet\\Pet2PetWeb\\Pet2PetDevWeb\\back\\microserviciosConArquitectura\\pet2pet', 'C:\\Users\\mares\\OneDrive\\Documentos\\Pet2Pet\\Pet2PetWeb\\Pet2PetDevWeb\\back\\microserviciosConArquitectura\\pet2pet']
+2024-10-30 11:23:04,270 - api_gateway.app - INFO - Loading routes for auth service from services.auth.app.api.routes
+2024-10-30 11:23:04,598 - passlib.utils.compat - DEBUG - loaded lazy attr 'SafeConfigParser': <class 'configparser.ConfigParser'>
+2024-10-30 11:23:04,598 - passlib.utils.compat - DEBUG - loaded lazy attr 'NativeStringIO': <class '_io.StringIO'>
+2024-10-30 11:23:04,598 - passlib.utils.compat - DEBUG - loaded lazy attr 'BytesIO': <class '_io.BytesIO'>
+2024-10-30 11:23:04,661 - passlib.registry - DEBUG - registered 'bcrypt' handler: <class 'passlib.handlers.bcrypt.bcrypt'>
+2024-10-30 11:23:04,716 - api_gateway.app - INFO - Successfully loaded routes for auth service
+2024-10-30 11:23:04,716 - api_gateway.app - INFO - Loading routes for pets service from services.pets.app.api.routes
+2024-10-30 11:23:04,817 - api_gateway.app - INFO - Successfully loaded routes for pets service
+2024-10-30 11:23:04,818 - api_gateway.app - INFO - Loading routes for posts service from services.posts.app.api.routes
+2024-10-30 11:23:04,870 - api_gateway.app - INFO - Successfully loaded routes for posts service
+2024-10-30 11:23:04,871 - api_gateway.app - INFO - Loading routes for messages service from services.messages.app.api.routes
+2024-10-30 11:23:04,899 - api_gateway.app - INFO - Successfully loaded routes for messages service
+2024-10-30 11:23:04,900 - api_gateway.app - INFO - Loading routes for notifications service from services.notifications.app.api.routes
+2024-10-30 11:23:04,916 - api_gateway.app - INFO - Successfully loaded routes for notifications service
+2024-10-30 11:23:04,916 - api_gateway.app - INFO - Loading routes for groups service from services.groups.app.api.routes
+2024-10-30 11:23:05,021 - api_gateway.app - INFO - Successfully loaded routes for groups service
+2024-10-30 11:23:05,021 - api_gateway.app - INFO - Loading routes for search service from services.search.app.api.routes
+2024-10-30 11:23:05,062 - api_gateway.app - INFO - Successfully loaded routes for search service
+2024-10-30 11:23:05,062 - api_gateway.app - INFO - Loading routes for feed service from services.feed.app.api.routes
+2024-10-30 11:23:05,133 - api_gateway.app - INFO - Successfully loaded routes for feed service
+2024-10-30 11:23:05,133 - api_gateway.app - INFO - Loading routes for moderation service from services.moderation.app.api.routes
+2024-10-30 11:23:05,254 - api_gateway.app - INFO - Successfully loaded routes for moderation service
+2024-10-30 11:23:05,255 - api_gateway.app - INFO - Loading routes for virtual_pet service from services.virtual_pet.app.api.routes
+2024-10-30 11:23:05,300 - api_gateway.app - INFO - Successfully loaded routes for virtual_pet service
+2024-10-30 11:23:05,300 - api_gateway.app - INFO - Loading routes for analytics service from services.analytics.app.api.routes
+2024-10-30 11:23:05,840 - api_gateway.app - INFO - Successfully loaded routes for analytics service
+2024-10-30 11:23:05,840 - api_gateway.app - INFO - Starting Pet2Pet API Gateway...
+2024-10-30 11:23:05,840 - api_gateway.app - INFO - Registered route: /api/v1/openapi.json
+2024-10-30 11:23:05,841 - api_gateway.app - INFO - Registered route: /api/v1/docs
+2024-10-30 11:23:05,841 - api_gateway.app - INFO - Registered route: /docs/oauth2-redirect
+2024-10-30 11:23:05,842 - api_gateway.app - INFO - Registered route: /api/v1/redoc
+2024-10-30 11:23:05,842 - api_gateway.app - INFO - Registered route: /health
+2024-10-30 11:23:05,842 - api_gateway.app - INFO - Registered route: /api/v1/auth/register
+2024-10-30 11:23:05,842 - api_gateway.app - INFO - Registered route: /api/v1/auth/login
+2024-10-30 11:23:05,842 - api_gateway.app - INFO - Registered route: /api/v1/auth/me
+2024-10-30 11:23:05,842 - api_gateway.app - INFO - Registered route: /api/v1/auth/me
+2024-10-30 11:23:05,843 - api_gateway.app - INFO - Registered route: /api/v1/auth/change-password
+2024-10-30 11:23:05,843 - api_gateway.app - INFO - Registered route: /api/v1/auth/password-reset-request
+2024-10-30 11:23:05,843 - api_gateway.app - INFO - Registered route: /api/v1/auth/reset-password
+2024-10-30 11:23:05,843 - api_gateway.app - INFO - Registered route: /api/v1/pets/types
+2024-10-30 11:23:05,843 - api_gateway.app - INFO - Registered route: /api/v1/pets/breeds
+2024-10-30 11:23:05,843 - api_gateway.app - INFO - Registered route: /api/v1/pets/
+2024-10-30 11:23:05,843 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}/image
+2024-10-30 11:23:05,844 - api_gateway.app - INFO - Registered route: /api/v1/pets/
+2024-10-30 11:23:05,844 - api_gateway.app - INFO - Registered route: /api/v1/pets/my-pets
+2024-10-30 11:23:05,844 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}
+2024-10-30 11:23:05,844 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}
+2024-10-30 11:23:05,844 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}
+2024-10-30 11:23:05,844 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}/follow
+2024-10-30 11:23:05,844 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}/unfollow
+2024-10-30 11:23:05,844 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}/followers
+2024-10-30 11:23:05,845 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}/following
+2024-10-30 11:23:05,845 - api_gateway.app - INFO - Registered route: /api/v1/posts/
+2024-10-30 11:23:05,845 - api_gateway.app - INFO - Registered route: /api/v1/posts/
+2024-10-30 11:23:05,845 - api_gateway.app - INFO - Registered route: /api/v1/posts/my-posts
+2024-10-30 11:23:05,845 - api_gateway.app - INFO - Registered route: /api/v1/posts/{post_id}
+2024-10-30 11:23:05,845 - api_gateway.app - INFO - Registered route: /api/v1/posts/{post_id}
+2024-10-30 11:23:05,845 - api_gateway.app - INFO - Registered route: /api/v1/posts/{post_id}
+2024-10-30 11:23:05,845 - api_gateway.app - INFO - Registered route: /api/v1/posts/{post_id}/media
+2024-10-30 11:23:05,845 - api_gateway.app - INFO - Registered route: /api/v1/posts/{post_id}/comments
+2024-10-30 11:23:05,845 - api_gateway.app - INFO - Registered route: /api/v1/posts/comments/{comment_id}
+2024-10-30 11:23:05,846 - api_gateway.app - INFO - Registered route: /api/v1/posts/{post_id}/reactions
+2024-10-30 11:23:05,846 - api_gateway.app - INFO - Registered route: /api/v1/posts/reactions/{reaction_id}
+2024-10-30 11:23:05,846 - api_gateway.app - INFO - Registered route: /api/v1/messages/
+2024-10-30 11:23:05,846 - api_gateway.app - INFO - Registered route: /api/v1/messages/conversations
+2024-10-30 11:23:05,846 - api_gateway.app - INFO - Registered route: /api/v1/messages/conversation/{other_pet_id}
+2024-10-30 11:23:05,846 - api_gateway.app - INFO - Registered route: /api/v1/messages/conversation/{other_pet_id}/read
+2024-10-30 11:23:05,846 - api_gateway.app - INFO - Registered route: /api/v1/messages/unread/count
+2024-10-30 11:23:05,846 - api_gateway.app - INFO - Registered route: /api/v1/messages/conversation/{other_pet_id}
+2024-10-30 11:23:05,846 - api_gateway.app - INFO - Registered route: /api/v1/messages/search
+2024-10-30 11:23:05,846 - api_gateway.app - INFO - Registered route: /api/v1/notifications/
+2024-10-30 11:23:05,846 - api_gateway.app - INFO - Registered route: /api/v1/notifications/count
+2024-10-30 11:23:05,846 - api_gateway.app - INFO - Registered route: /api/v1/notifications/{notification_id}/read
+2024-10-30 11:23:05,846 - api_gateway.app - INFO - Registered route: /api/v1/notifications/read-all
+2024-10-30 11:23:05,846 - api_gateway.app - INFO - Registered route: /api/v1/notifications/{notification_id}
+2024-10-30 11:23:05,847 - api_gateway.app - INFO - Registered route: /api/v1/notifications/internal/create
+2024-10-30 11:23:05,847 - api_gateway.app - INFO - Registered route: /api/v1/groups/
+2024-10-30 11:23:05,847 - api_gateway.app - INFO - Registered route: /api/v1/groups/
+2024-10-30 11:23:05,847 - api_gateway.app - INFO - Registered route: /api/v1/groups/my-groups
+2024-10-30 11:23:05,847 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}
+2024-10-30 11:23:05,847 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}
+2024-10-30 11:23:05,847 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/image
+2024-10-30 11:23:05,847 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/join
+2024-10-30 11:23:05,847 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/leave
+2024-10-30 11:23:05,847 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/members
+2024-10-30 11:23:05,848 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/members/{user_id}/make-admin
+2024-10-30 11:23:05,848 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/posts
+2024-10-30 11:23:05,848 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/posts
+2024-10-30 11:23:05,848 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/posts/{post_id}/comments
+2024-10-30 11:23:05,848 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/members/{user_id}/remove
+2024-10-30 11:23:05,849 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/posts/{post_id}
+2024-10-30 11:23:05,849 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/posts/{post_id}/media
+2024-10-30 11:23:05,849 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/transfer-ownership/{new_owner_id}
+2024-10-30 11:23:05,849 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/posts/{post_id}/comments
+2024-10-30 11:23:05,849 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/comments/{comment_id}
+2024-10-30 11:23:05,849 - api_gateway.app - INFO - Registered route: /api/v1/search/
+2024-10-30 11:23:05,849 - api_gateway.app - INFO - Registered route: /api/v1/search/quick
+2024-10-30 11:23:05,849 - api_gateway.app - INFO - Registered route: /api/v1/search/suggestions
+2024-10-30 11:23:05,849 - api_gateway.app - INFO - Registered route: /api/v1/search/trending
+2024-10-30 11:23:05,849 - api_gateway.app - INFO - Registered route: /api/v1/search/recent
+2024-10-30 11:23:05,850 - api_gateway.app - INFO - Registered route: /api/v1/search/index/{content_type}/{content_id}
+2024-10-30 11:23:05,850 - api_gateway.app - INFO - Registered route: /api/v1/search/reindex
+2024-10-30 11:23:05,850 - api_gateway.app - INFO - Registered route: /api/v1/feed/
+2024-10-30 11:23:05,850 - api_gateway.app - INFO - Registered route: /api/v1/feed/trending
+2024-10-30 11:23:05,850 - api_gateway.app - INFO - Registered route: /api/v1/feed/following
+2024-10-30 11:23:05,850 - api_gateway.app - INFO - Registered route: /api/v1/feed/groups
+2024-10-30 11:23:05,850 - api_gateway.app - INFO - Registered route: /api/v1/feed/preferences
+2024-10-30 11:23:05,850 - api_gateway.app - INFO - Registered route: /api/v1/feed/preferences
+2024-10-30 11:23:05,850 - api_gateway.app - INFO - Registered route: /api/v1/feed/action
+2024-10-30 11:23:05,850 - api_gateway.app - INFO - Registered route: /api/v1/feed/refresh/{item_id}
+2024-10-30 11:23:05,851 - api_gateway.app - INFO - Registered route: /api/v1/feed/hide/{item_id}
+2024-10-30 11:23:05,851 - api_gateway.app - INFO - Registered route: /api/v1/moderation/reports
+2024-10-30 11:23:05,851 - api_gateway.app - INFO - Registered route: /api/v1/moderation/reports
+2024-10-30 11:23:05,851 - api_gateway.app - INFO - Registered route: /api/v1/moderation/reports/{report_id}
+2024-10-30 11:23:05,851 - api_gateway.app - INFO - Registered route: /api/v1/moderation/reports/{report_id}
+2024-10-30 11:23:05,851 - api_gateway.app - INFO - Registered route: /api/v1/moderation/queue/stats
+2024-10-30 11:23:05,851 - api_gateway.app - INFO - Registered route: /api/v1/moderation/queue/next
+2024-10-30 11:23:05,851 - api_gateway.app - INFO - Registered route: /api/v1/moderation/content/review
+2024-10-30 11:23:05,851 - api_gateway.app - INFO - Registered route: /api/v1/moderation/actions
+2024-10-30 11:23:05,851 - api_gateway.app - INFO - Registered route: /api/v1/moderation/stats
+2024-10-30 11:23:05,851 - api_gateway.app - INFO - Registered route: /api/v1/moderation/users/{user_id}/history
+2024-10-30 11:23:05,852 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter
+2024-10-30 11:23:05,852 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter/batch
+2024-10-30 11:23:05,852 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter/configurations
+2024-10-30 11:23:05,852 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter/configurations
+2024-10-30 11:23:05,852 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter/configurations/{config_id}
+2024-10-30 11:23:05,852 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter/configurations/{config_id}
+2024-10-30 11:23:05,852 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter/custom-rules
+2024-10-30 11:23:05,852 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter/custom-rules
+2024-10-30 11:23:05,852 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter/custom-rules/{rule_id}
+2024-10-30 11:23:05,852 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter/custom-rules/{rule_id}
+2024-10-30 11:23:05,853 - api_gateway.app - INFO - Registered route: /api/v1/virtual_pet/
+2024-10-30 11:23:05,853 - api_gateway.app - INFO - Registered route: /api/v1/virtual_pet/{pet_id}
+2024-10-30 11:23:05,853 - api_gateway.app - INFO - Registered route: /api/v1/virtual_pet/{pet_id}/actions/{action_type}
+2024-10-30 11:23:05,853 - api_gateway.app - INFO - Registered route: /api/v1/virtual_pet/{pet_id}/daily-tasks
+2024-10-30 11:23:05,853 - api_gateway.app - INFO - Registered route: /api/v1/virtual_pet/{pet_id}/stats
+2024-10-30 11:23:05,853 - api_gateway.app - INFO - Registered route: /api/v1/virtual_pet/{pet_id}/feed
+2024-10-30 11:23:05,853 - api_gateway.app - INFO - Registered route: /api/v1/virtual_pet/{pet_id}/play
+2024-10-30 11:23:05,853 - api_gateway.app - INFO - Registered route: /api/v1/virtual_pet/{pet_id}/rest
+2024-10-30 11:23:05,853 - api_gateway.app - INFO - Registered route: /api/v1/analytics/dashboard
+2024-10-30 11:23:05,853 - api_gateway.app - INFO - Registered route: /api/v1/analytics/users
+2024-10-30 11:23:05,853 - api_gateway.app - INFO - Registered route: /api/v1/analytics/users/growth
+2024-10-30 11:23:05,854 - api_gateway.app - INFO - Registered route: /api/v1/analytics/content
+2024-10-30 11:23:05,854 - api_gateway.app - INFO - Registered route: /api/v1/analytics/content/popular-categories
+2024-10-30 11:23:05,854 - api_gateway.app - INFO - Registered route: /api/v1/analytics/engagement
+2024-10-30 11:23:05,854 - api_gateway.app - INFO - Registered route: /api/v1/analytics/engagement/peak-hours
+2024-10-30 11:23:05,854 - api_gateway.app - INFO - Registered route: /api/v1/analytics/engagement/user-segments
+2024-10-30 11:23:05,854 - api_gateway.app - INFO - Registered route: /api/v1/analytics/platform
+2024-10-30 11:23:05,854 - api_gateway.app - INFO - Registered route: /api/v1/analytics/platform/health
+2024-10-30 11:23:05,854 - api_gateway.app - INFO - Registered route: /api/v1/analytics/platform/errors
+2024-10-30 11:23:05,854 - api_gateway.app - INFO - Registered route: /api/v1/analytics/export/csv
+2024-10-30 11:23:05,854 - api_gateway.app - INFO - Registered route: /api/v1/analytics/export/status/{job_id}
+2024-10-30 11:23:05,855 - api_gateway.app - INFO - Registered route: /api/v1/analytics/export
+2024-10-30 11:23:05,855 - api_gateway.app - INFO - Registered route: /api/v1/analytics/export/status/{job_id}
+2024-10-30 11:23:05,855 - api_gateway.app - INFO - Registered route: /api/v1/analytics/exports/{filename}
+2024-10-30 11:23:05,855 - api_gateway.app - INFO - Registered route: /api/v1/analytics/export/cleanup
+2024-10-30 11:28:05,710 - api_gateway.app - INFO - Shutting down Pet2Pet API Gateway...
+2024-10-30 11:28:10,690 - api_gateway.app - INFO - PYTHONPATH: ['C:\\Users\\mares\\OneDrive\\Documentos\\Pet2Pet\\Pet2PetWeb\\Pet2PetDevWeb\\back\\microserviciosConArquitectura\\pet2pet', 'C:\\Users\\mares\\AppData\\Local\\Programs\\Python\\Python312\\python312.zip', 'C:\\Users\\mares\\AppData\\Local\\Programs\\Python\\Python312\\DLLs', 'C:\\Users\\mares\\AppData\\Local\\Programs\\Python\\Python312\\Lib', 'C:\\Users\\mares\\AppData\\Local\\Programs\\Python\\Python312', 'C:\\Users\\mares\\OneDrive\\Documentos\\Pet2Pet\\Pet2PetWeb\\Pet2PetDevWeb\\back\\microserviciosConArquitectura\\pet2pet\\venv', 'C:\\Users\\mares\\OneDrive\\Documentos\\Pet2Pet\\Pet2PetWeb\\Pet2PetDevWeb\\back\\microserviciosConArquitectura\\pet2pet\\venv\\Lib\\site-packages', 'C:\\Users\\mares\\OneDrive\\Documentos\\Pet2Pet\\Pet2PetWeb\\Pet2PetDevWeb\\back\\microserviciosConArquitectura\\pet2pet', 'C:\\Users\\mares\\OneDrive\\Documentos\\Pet2Pet\\Pet2PetWeb\\Pet2PetDevWeb\\back\\microserviciosConArquitectura\\pet2pet']
+2024-10-30 11:28:10,691 - api_gateway.app - INFO - Loading routes for auth service from services.auth.app.api.routes
+2024-10-30 11:28:11,018 - passlib.utils.compat - DEBUG - loaded lazy attr 'SafeConfigParser': <class 'configparser.ConfigParser'>
+2024-10-30 11:28:11,019 - passlib.utils.compat - DEBUG - loaded lazy attr 'NativeStringIO': <class '_io.StringIO'>
+2024-10-30 11:28:11,019 - passlib.utils.compat - DEBUG - loaded lazy attr 'BytesIO': <class '_io.BytesIO'>
+2024-10-30 11:28:11,079 - passlib.registry - DEBUG - registered 'bcrypt' handler: <class 'passlib.handlers.bcrypt.bcrypt'>
+2024-10-30 11:28:11,136 - api_gateway.app - INFO - Successfully loaded routes for auth service
+2024-10-30 11:28:11,136 - api_gateway.app - INFO - Loading routes for pets service from services.pets.app.api.routes
+2024-10-30 11:28:11,218 - api_gateway.app - INFO - Successfully loaded routes for pets service
+2024-10-30 11:28:11,219 - api_gateway.app - INFO - Loading routes for posts service from services.posts.app.api.routes
+2024-10-30 11:28:11,269 - api_gateway.app - INFO - Successfully loaded routes for posts service
+2024-10-30 11:28:11,269 - api_gateway.app - INFO - Loading routes for messages service from services.messages.app.api.routes
+2024-10-30 11:28:11,296 - api_gateway.app - INFO - Successfully loaded routes for messages service
+2024-10-30 11:28:11,296 - api_gateway.app - INFO - Loading routes for notifications service from services.notifications.app.api.routes
+2024-10-30 11:28:11,312 - api_gateway.app - INFO - Successfully loaded routes for notifications service
+2024-10-30 11:28:11,312 - api_gateway.app - INFO - Loading routes for groups service from services.groups.app.api.routes
+2024-10-30 11:28:11,393 - api_gateway.app - INFO - Successfully loaded routes for groups service
+2024-10-30 11:28:11,393 - api_gateway.app - INFO - Loading routes for search service from services.search.app.api.routes
+2024-10-30 11:28:11,427 - api_gateway.app - INFO - Successfully loaded routes for search service
+2024-10-30 11:28:11,427 - api_gateway.app - INFO - Loading routes for feed service from services.feed.app.api.routes
+2024-10-30 11:28:11,478 - api_gateway.app - INFO - Successfully loaded routes for feed service
+2024-10-30 11:28:11,478 - api_gateway.app - INFO - Loading routes for moderation service from services.moderation.app.api.routes
+2024-10-30 11:28:11,597 - api_gateway.app - INFO - Successfully loaded routes for moderation service
+2024-10-30 11:28:11,598 - api_gateway.app - INFO - Loading routes for virtual_pet service from services.virtual_pet.app.api.routes
+2024-10-30 11:28:11,642 - api_gateway.app - INFO - Successfully loaded routes for virtual_pet service
+2024-10-30 11:28:11,642 - api_gateway.app - INFO - Loading routes for analytics service from services.analytics.app.api.routes
+2024-10-30 11:28:12,172 - api_gateway.app - INFO - Successfully loaded routes for analytics service
+2024-10-30 11:28:12,173 - api_gateway.app - INFO - Starting Pet2Pet API Gateway...
+2024-10-30 11:28:12,173 - api_gateway.app - INFO - Registered route: /api/v1/openapi.json
+2024-10-30 11:28:12,173 - api_gateway.app - INFO - Registered route: /api/v1/docs
+2024-10-30 11:28:12,174 - api_gateway.app - INFO - Registered route: /docs/oauth2-redirect
+2024-10-30 11:28:12,174 - api_gateway.app - INFO - Registered route: /api/v1/redoc
+2024-10-30 11:28:12,174 - api_gateway.app - INFO - Registered route: /health
+2024-10-30 11:28:12,174 - api_gateway.app - INFO - Registered route: /api/v1/auth/register
+2024-10-30 11:28:12,174 - api_gateway.app - INFO - Registered route: /api/v1/auth/login
+2024-10-30 11:28:12,174 - api_gateway.app - INFO - Registered route: /api/v1/auth/me
+2024-10-30 11:28:12,174 - api_gateway.app - INFO - Registered route: /api/v1/auth/me
+2024-10-30 11:28:12,174 - api_gateway.app - INFO - Registered route: /api/v1/auth/change-password
+2024-10-30 11:28:12,174 - api_gateway.app - INFO - Registered route: /api/v1/auth/password-reset-request
+2024-10-30 11:28:12,174 - api_gateway.app - INFO - Registered route: /api/v1/auth/reset-password
+2024-10-30 11:28:12,174 - api_gateway.app - INFO - Registered route: /api/v1/pets/types
+2024-10-30 11:28:12,174 - api_gateway.app - INFO - Registered route: /api/v1/pets/breeds
+2024-10-30 11:28:12,175 - api_gateway.app - INFO - Registered route: /api/v1/pets/
+2024-10-30 11:28:12,175 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}/image
+2024-10-30 11:28:12,175 - api_gateway.app - INFO - Registered route: /api/v1/pets/
+2024-10-30 11:28:12,175 - api_gateway.app - INFO - Registered route: /api/v1/pets/my-pets
+2024-10-30 11:28:12,175 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}
+2024-10-30 11:28:12,175 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}
+2024-10-30 11:28:12,175 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}
+2024-10-30 11:28:12,175 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}/follow
+2024-10-30 11:28:12,175 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}/unfollow
+2024-10-30 11:28:12,175 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}/followers
+2024-10-30 11:28:12,176 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}/following
+2024-10-30 11:28:12,176 - api_gateway.app - INFO - Registered route: /api/v1/posts/
+2024-10-30 11:28:12,176 - api_gateway.app - INFO - Registered route: /api/v1/posts/
+2024-10-30 11:28:12,176 - api_gateway.app - INFO - Registered route: /api/v1/posts/my-posts
+2024-10-30 11:28:12,176 - api_gateway.app - INFO - Registered route: /api/v1/posts/{post_id}
+2024-10-30 11:28:12,176 - api_gateway.app - INFO - Registered route: /api/v1/posts/{post_id}
+2024-10-30 11:28:12,176 - api_gateway.app - INFO - Registered route: /api/v1/posts/{post_id}
+2024-10-30 11:28:12,176 - api_gateway.app - INFO - Registered route: /api/v1/posts/{post_id}/media
+2024-10-30 11:28:12,176 - api_gateway.app - INFO - Registered route: /api/v1/posts/{post_id}/comments
+2024-10-30 11:28:12,177 - api_gateway.app - INFO - Registered route: /api/v1/posts/comments/{comment_id}
+2024-10-30 11:28:12,177 - api_gateway.app - INFO - Registered route: /api/v1/posts/{post_id}/reactions
+2024-10-30 11:28:12,177 - api_gateway.app - INFO - Registered route: /api/v1/posts/reactions/{reaction_id}
+2024-10-30 11:28:12,177 - api_gateway.app - INFO - Registered route: /api/v1/messages/
+2024-10-30 11:28:12,177 - api_gateway.app - INFO - Registered route: /api/v1/messages/conversations
+2024-10-30 11:28:12,177 - api_gateway.app - INFO - Registered route: /api/v1/messages/conversation/{other_pet_id}
+2024-10-30 11:28:12,177 - api_gateway.app - INFO - Registered route: /api/v1/messages/conversation/{other_pet_id}/read
+2024-10-30 11:28:12,177 - api_gateway.app - INFO - Registered route: /api/v1/messages/unread/count
+2024-10-30 11:28:12,177 - api_gateway.app - INFO - Registered route: /api/v1/messages/conversation/{other_pet_id}
+2024-10-30 11:28:12,177 - api_gateway.app - INFO - Registered route: /api/v1/messages/search
+2024-10-30 11:28:12,178 - api_gateway.app - INFO - Registered route: /api/v1/notifications/
+2024-10-30 11:28:12,178 - api_gateway.app - INFO - Registered route: /api/v1/notifications/count
+2024-10-30 11:28:12,178 - api_gateway.app - INFO - Registered route: /api/v1/notifications/{notification_id}/read
+2024-10-30 11:28:12,178 - api_gateway.app - INFO - Registered route: /api/v1/notifications/read-all
+2024-10-30 11:28:12,178 - api_gateway.app - INFO - Registered route: /api/v1/notifications/{notification_id}
+2024-10-30 11:28:12,178 - api_gateway.app - INFO - Registered route: /api/v1/notifications/internal/create
+2024-10-30 11:28:12,178 - api_gateway.app - INFO - Registered route: /api/v1/groups/
+2024-10-30 11:28:12,178 - api_gateway.app - INFO - Registered route: /api/v1/groups/
+2024-10-30 11:28:12,178 - api_gateway.app - INFO - Registered route: /api/v1/groups/my-groups
+2024-10-30 11:28:12,178 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}
+2024-10-30 11:28:12,178 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}
+2024-10-30 11:28:12,178 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/image
+2024-10-30 11:28:12,178 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/join
+2024-10-30 11:28:12,179 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/leave
+2024-10-30 11:28:12,179 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/members
+2024-10-30 11:28:12,179 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/members/{user_id}/make-admin
+2024-10-30 11:28:12,179 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/posts
+2024-10-30 11:28:12,179 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/posts
+2024-10-30 11:28:12,179 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/posts/{post_id}/comments
+2024-10-30 11:28:12,179 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/members/{user_id}/remove
+2024-10-30 11:28:12,179 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/posts/{post_id}
+2024-10-30 11:28:12,179 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/posts/{post_id}/media
+2024-10-30 11:28:12,179 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/transfer-ownership/{new_owner_id}
+2024-10-30 11:28:12,179 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/posts/{post_id}/comments
+2024-10-30 11:28:12,179 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/comments/{comment_id}
+2024-10-30 11:28:12,179 - api_gateway.app - INFO - Registered route: /api/v1/search/
+2024-10-30 11:28:12,179 - api_gateway.app - INFO - Registered route: /api/v1/search/quick
+2024-10-30 11:28:12,180 - api_gateway.app - INFO - Registered route: /api/v1/search/suggestions
+2024-10-30 11:28:12,180 - api_gateway.app - INFO - Registered route: /api/v1/search/trending
+2024-10-30 11:28:12,180 - api_gateway.app - INFO - Registered route: /api/v1/search/recent
+2024-10-30 11:28:12,180 - api_gateway.app - INFO - Registered route: /api/v1/search/index/{content_type}/{content_id}
+2024-10-30 11:28:12,180 - api_gateway.app - INFO - Registered route: /api/v1/search/reindex
+2024-10-30 11:28:12,180 - api_gateway.app - INFO - Registered route: /api/v1/feed/
+2024-10-30 11:28:12,180 - api_gateway.app - INFO - Registered route: /api/v1/feed/trending
+2024-10-30 11:28:12,180 - api_gateway.app - INFO - Registered route: /api/v1/feed/following
+2024-10-30 11:28:12,180 - api_gateway.app - INFO - Registered route: /api/v1/feed/groups
+2024-10-30 11:28:12,180 - api_gateway.app - INFO - Registered route: /api/v1/feed/preferences
+2024-10-30 11:28:12,180 - api_gateway.app - INFO - Registered route: /api/v1/feed/preferences
+2024-10-30 11:28:12,180 - api_gateway.app - INFO - Registered route: /api/v1/feed/action
+2024-10-30 11:28:12,180 - api_gateway.app - INFO - Registered route: /api/v1/feed/refresh/{item_id}
+2024-10-30 11:28:12,181 - api_gateway.app - INFO - Registered route: /api/v1/feed/hide/{item_id}
+2024-10-30 11:28:12,181 - api_gateway.app - INFO - Registered route: /api/v1/moderation/reports
+2024-10-30 11:28:12,181 - api_gateway.app - INFO - Registered route: /api/v1/moderation/reports
+2024-10-30 11:28:12,181 - api_gateway.app - INFO - Registered route: /api/v1/moderation/reports/{report_id}
+2024-10-30 11:28:12,181 - api_gateway.app - INFO - Registered route: /api/v1/moderation/reports/{report_id}
+2024-10-30 11:28:12,181 - api_gateway.app - INFO - Registered route: /api/v1/moderation/queue/stats
+2024-10-30 11:28:12,181 - api_gateway.app - INFO - Registered route: /api/v1/moderation/queue/next
+2024-10-30 11:28:12,181 - api_gateway.app - INFO - Registered route: /api/v1/moderation/content/review
+2024-10-30 11:28:12,181 - api_gateway.app - INFO - Registered route: /api/v1/moderation/actions
+2024-10-30 11:28:12,181 - api_gateway.app - INFO - Registered route: /api/v1/moderation/stats
+2024-10-30 11:28:12,183 - api_gateway.app - INFO - Registered route: /api/v1/moderation/users/{user_id}/history
+2024-10-30 11:28:12,183 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter
+2024-10-30 11:28:12,183 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter/batch
+2024-10-30 11:28:12,183 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter/configurations
+2024-10-30 11:28:12,183 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter/configurations
+2024-10-30 11:28:12,183 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter/configurations/{config_id}
+2024-10-30 11:28:12,183 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter/configurations/{config_id}
+2024-10-30 11:28:12,183 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter/custom-rules
+2024-10-30 11:28:12,183 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter/custom-rules
+2024-10-30 11:28:12,183 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter/custom-rules/{rule_id}
+2024-10-30 11:28:12,183 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter/custom-rules/{rule_id}
+2024-10-30 11:28:12,183 - api_gateway.app - INFO - Registered route: /api/v1/virtual_pet/
+2024-10-30 11:28:12,183 - api_gateway.app - INFO - Registered route: /api/v1/virtual_pet/{pet_id}
+2024-10-30 11:28:12,183 - api_gateway.app - INFO - Registered route: /api/v1/virtual_pet/{pet_id}/actions/{action_type}
+2024-10-30 11:28:12,184 - api_gateway.app - INFO - Registered route: /api/v1/virtual_pet/{pet_id}/daily-tasks
+2024-10-30 11:28:12,184 - api_gateway.app - INFO - Registered route: /api/v1/virtual_pet/{pet_id}/stats
+2024-10-30 11:28:12,184 - api_gateway.app - INFO - Registered route: /api/v1/virtual_pet/{pet_id}/feed
+2024-10-30 11:28:12,184 - api_gateway.app - INFO - Registered route: /api/v1/virtual_pet/{pet_id}/play
+2024-10-30 11:28:12,184 - api_gateway.app - INFO - Registered route: /api/v1/virtual_pet/{pet_id}/rest
+2024-10-30 11:28:12,184 - api_gateway.app - INFO - Registered route: /api/v1/analytics/dashboard
+2024-10-30 11:28:12,184 - api_gateway.app - INFO - Registered route: /api/v1/analytics/users
+2024-10-30 11:28:12,184 - api_gateway.app - INFO - Registered route: /api/v1/analytics/users/growth
+2024-10-30 11:28:12,184 - api_gateway.app - INFO - Registered route: /api/v1/analytics/content
+2024-10-30 11:28:12,184 - api_gateway.app - INFO - Registered route: /api/v1/analytics/content/popular-categories
+2024-10-30 11:28:12,184 - api_gateway.app - INFO - Registered route: /api/v1/analytics/engagement
+2024-10-30 11:28:12,184 - api_gateway.app - INFO - Registered route: /api/v1/analytics/engagement/peak-hours
+2024-10-30 11:28:12,184 - api_gateway.app - INFO - Registered route: /api/v1/analytics/engagement/user-segments
+2024-10-30 11:28:12,184 - api_gateway.app - INFO - Registered route: /api/v1/analytics/platform
+2024-10-30 11:28:12,185 - api_gateway.app - INFO - Registered route: /api/v1/analytics/platform/health
+2024-10-30 11:28:12,185 - api_gateway.app - INFO - Registered route: /api/v1/analytics/platform/errors
+2024-10-30 11:28:12,185 - api_gateway.app - INFO - Registered route: /api/v1/analytics/export/csv
+2024-10-30 11:28:12,185 - api_gateway.app - INFO - Registered route: /api/v1/analytics/export/status/{job_id}
+2024-10-30 11:28:12,185 - api_gateway.app - INFO - Registered route: /api/v1/analytics/export
+2024-10-30 11:28:12,185 - api_gateway.app - INFO - Registered route: /api/v1/analytics/export/status/{job_id}
+2024-10-30 11:28:12,185 - api_gateway.app - INFO - Registered route: /api/v1/analytics/exports/{filename}
+2024-10-30 11:28:12,185 - api_gateway.app - INFO - Registered route: /api/v1/analytics/export/cleanup
+2024-10-30 11:29:44,692 - passlib.handlers.bcrypt - DEBUG - detected 'bcrypt' backend, version '4.0.1'
+2024-10-30 11:29:44,692 - passlib.handlers.bcrypt - DEBUG - 'bcrypt' backend lacks $2$ support, enabling workaround
+2024-10-30 11:30:58,260 - api_gateway.app - INFO - Shutting down Pet2Pet API Gateway...
