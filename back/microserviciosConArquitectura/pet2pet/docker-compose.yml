@@ -1,0 +1,211 @@
+version: '3.8'
+
+services:
+  # API Gateway
+  api_gateway:
+    build:
+      context: .
+      dockerfile: docker/api_gateway/Dockerfile
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+      - redis
+      - auth_service
+      - pets_service
+      - posts_service
+      - messages_service
+      - notifications_service
+      - groups_service
+      - search_service
+      - feed_service
+      - moderation_service
+      - virtual_pet_service
+      - analytics_service
+    networks:
+      - pet2pet_network
+
+  # Base de datos
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - pet2pet_network
+
+  # Redis para caché
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - pet2pet_network
+
+  # Servicios individuales
+  auth_service:
+    build:
+      context: .
+      dockerfile: docker/services/auth/Dockerfile
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - pet2pet_network
+
+  pets_service:
+    build:
+      context: .
+      dockerfile: docker/services/pets/Dockerfile
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - pet2pet_network
+
+  posts_service:
+    build:
+      context: .
+      dockerfile: docker/services/posts/Dockerfile
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - pet2pet_network
+
+  messages_service:
+    build:
+      context: .
+      dockerfile: docker/services/messages/Dockerfile
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - pet2pet_network
+
+  notifications_service:
+    build:
+      context: .
+      dockerfile: docker/services/notifications/Dockerfile
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - pet2pet_network
+
+  groups_service:
+    build:
+      context: .
+      dockerfile: docker/services/groups/Dockerfile
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - pet2pet_network
+
+  search_service:
+    build:
+      context: .
+      dockerfile: docker/services/search/Dockerfile
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - pet2pet_network
+
+  feed_service:
+    build:
+      context: .
+      dockerfile: docker/services/feed/Dockerfile
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - pet2pet_network
+
+  moderation_service:
+    build:
+      context: .
+      dockerfile: docker/services/moderation/Dockerfile
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - pet2pet_network
+
+  virtual_pet_service:
+    build:
+      context: .
+      dockerfile: docker/services/virtual_pet/Dockerfile
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - pet2pet_network
+
+  analytics_service:
+    build:
+      context: .
+      dockerfile: docker/services/analytics/Dockerfile
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - pet2pet_network
+
+  # Nginx como proxy inverso
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+      - ./docker/nginx/ssl:/etc/nginx/ssl
+      - static_files:/var/www/static
+      - media_files:/var/www/media
+    depends_on:
+      - api_gateway
+    networks:
+      - pet2pet_network
+
+networks:
+  pet2pet_network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  redis_data:
+  static_files:
+  media_files:

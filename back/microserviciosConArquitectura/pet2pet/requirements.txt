@@ -50,7 +50,9 @@ sentry-sdk==1.35.0  # Para monitoreo de errores
 bcrypt==4.0.1  # Para hashing de contraseñas
 python-multipart==0.0.6 #para procesar datos de formularios enviados a través de solicitudes HTTP con el método POST
 aiofiles==24.1.0 #permite trabajar con archivos de manera asíncrona
-#aioredis==2.0.1 #para interactuar con bd asincronica
+psutil==6.1.0 #para obtener información sobre los procesos en el sistema y el uso de recursos del sistema
+pandas==2.2.3
+openptxl==3.1.5
 
 # Herramientas de desarrollo
 black==23.11.0  # Formateador de código

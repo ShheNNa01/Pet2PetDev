@@ -110,6 +110,11 @@ def create_app() -> FastAPI:
             'name': 'virtual_pet',
             'module': 'services.virtual_pet.app.api.routes',  
             'prefix': '/virtual_pet'
+        },
+        {
+            'name': 'analytics',
+            'module': 'services.analytics.app.api.routes',  
+            'prefix': '/analytics'
         }
     ]
 
