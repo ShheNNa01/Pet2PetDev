@@ -249,7 +249,11 @@ class SearchService:
         offset: int
     ) -> Dict[str, Any]:
         """Búsqueda de posts"""
-        query = db.query(Post).join(User).outerjoin(Pet).outerjoin(MediaFile)
+        # Especificar explícitamente las relaciones
+        query = db.query(Post)\
+            .join(User, User.user_id == Post.user_id)\
+            .outerjoin(Pet, Pet.pet_id == Post.pet_id)\
+            .outerjoin(MediaFile, MediaFile.post_id == Post.post_id)
 
         conditions = []
         if search_query.query:
@@ -264,13 +268,18 @@ class SearchService:
             conditions.append(Post.created_at <= search_query.filters.date_to)
 
         query = query.filter(and_(*conditions))
+        
+        # Contar total antes de paginar
         total = query.count()
 
-        # Ordenar
+        # Ordenar y paginar
         query = query.order_by(Post.created_at.desc())
         query = query.offset(offset).limit(search_query.page_size)
+        
+        # Obtener posts con sus medias agrupados
         posts = query.all()
-
+        
+        # Procesar resultados
         results = []
         for post in posts:
             media_urls = [media.media_url for media in post.media_files]
