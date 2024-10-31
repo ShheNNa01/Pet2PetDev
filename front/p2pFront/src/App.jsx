@@ -6,6 +6,7 @@ import HomePage from './components/pages/HomePage';
 import WelcomePage from './components/pages/WelcomePage';
 import NotFoundPage from './components/pages/NotFoundPage'; // Opcional para rutas no encontradas
 import 'bootstrap/dist/css/bootstrap.min.css';
+import RegisterMascotaPage from './components/pages/RegisterMascotaPage';
 
 
 
@@ -13,10 +14,11 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<LoginPage />} /> {/* Página de inicio de sesión */}
-        <Route path="/home" element={<HomePage />} /> {/* Página principal */}
+        <Route path="/" element={<WelcomePage />} /> {/* Página de Bienvenida */}
+        <Route path="/login" element={<LoginPage />} /> {/* Página de inicio de sesión */}
         <Route path="/register" element={<RegisterPage />} /> {/* Página de registro */}
-        <Route path="/welcome" element={<WelcomePage />} /> {/* Página de Bienvenida */}
+        <Route path="/registerMascota" element={<RegisterMascotaPage />} /> {/* Página principal */}
+        <Route path="/home" element={<HomePage />} /> {/* Página principal */}
         <Route path="*" element={<NotFoundPage />} /> {/* Componente para rutas no encontradas */}
       </Routes>
     </Router>
