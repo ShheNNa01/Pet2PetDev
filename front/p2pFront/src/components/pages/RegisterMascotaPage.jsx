@@ -54,7 +54,7 @@ const RegisterMascotaPage = () => {
           <h1 className="text-2xl font-bold text-[#d55b49] mb-4">Registrar Mascota  </h1>
           <div className="mb-4">
             <label htmlFor="name" className="block text-[#1a1a1a] mb-1">
-              <i className="fas fa-paw  text-[#509ca2]"></i> Nombre:
+              <i className="fas fa-paw  text-[#509ca2]  "></i> Nombre:
             </label>
             <input
               type="text"
@@ -67,7 +67,7 @@ const RegisterMascotaPage = () => {
 
           <div className="mb-4">
             <label htmlFor="petType" className="block text-[#1a1a1a] mb-1">
-              <i className="fas fa-paw  text-[#509ca2]"></i> Tipo de mascota:
+              <i className="fas fa-paw  text-[#509ca2]  "></i> Tipo de mascota:
             </label>
             <select
               id="petType"
@@ -87,7 +87,7 @@ const RegisterMascotaPage = () => {
 
           <div className="mb-4">
             <label htmlFor="breed_id" className="block text-[#1a1a1a] mb-1">
-              <i className="fas fa-paw text-[#509ca2]" ></i> Raza:
+              <i className="fas fa-paw text-[#509ca2]  " ></i> Raza:
             </label>
             <select
               id="breed_id"
@@ -107,7 +107,7 @@ const RegisterMascotaPage = () => {
 
           <div className="mb-4">
             <label htmlFor="birthdate" className="block text-[#1a1a1a] mb-1">
-              <i className="fas fa-calendar-alt  text-[#509ca2]"></i> Fecha de nacimiento:
+              <i className="fas fa-calendar-alt  text-[#509ca2]  "></i> Fecha de nacimiento:
             </label>
             <input
               type="date"
@@ -120,7 +120,7 @@ const RegisterMascotaPage = () => {
 
           <div className="mb-4">
             <label htmlFor="gender" className="block text-[#1a1a1a] mb-1">
-              <i className="fas fa-venus-mars  text-[#509ca2]"></i> Género:
+              <i className="fas fa-venus-mars  text-[#509ca2]  "></i> Género:
             </label>
             <select
               id="gender"
@@ -136,7 +136,7 @@ const RegisterMascotaPage = () => {
 
           <div className="mb-4">
             <label htmlFor="bio" className="block text-[#1a1a1a] mb-1">
-              <i className="fas fa-info-circle  text-[#509ca2]"></i> Biografía:
+              <i className="fas fa-info-circle  text-[#509ca2]  "></i> Biografía:
             </label>
             <textarea
               id="bio"
