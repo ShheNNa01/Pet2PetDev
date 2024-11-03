@@ -1,34 +1,27 @@
     // Comment.jsx
     import React, { useState } from 'react';
-    import { Heart, Reply, ChevronDown, ChevronUp } from 'lucide-react';
+    import { Reply, ChevronDown, ChevronUp } from 'lucide-react';
     import { Button } from "./button";
     import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
-    import { Textarea } from "./textarea";
+    import CommentInput from './CommentInput';
+    import LikeButton from './LikeButton';
 
     export default function Comment({ comment, onLike, onReply }) {
     const [isReplying, setIsReplying] = useState(false);
     const [showReplies, setShowReplies] = useState(false);
-    const [replyContent, setReplyContent] = useState('');
-
-    const handleSubmitReply = () => {
-        if (replyContent.trim()) {
-        onReply(comment.id, { content: replyContent });
-        setReplyContent('');
-        setIsReplying(false);
-        }
-    };
 
     return (
         <div className="space-y-2">
         <div className="flex items-start gap-3">
             {/* Avatar a la izquierda */}
             <div className="flex-shrink-0">
-            <Avatar className="h-8 w-8 rounded-full">
+            <Avatar className="h-8 w-8 rounded-full ring-2 ring-[#509ca2]/10">
                 <AvatarImage 
                 src={`/placeholder.svg?height=32&width=32&text=${comment.user[0]}`} 
                 alt={comment.user}
+                className="rounded-full"
                 />
-                <AvatarFallback>{comment.user[0]}</AvatarFallback>
+                <AvatarFallback className="rounded-full">{comment.user[0]}</AvatarFallback>
             </Avatar>
             </div>
 
@@ -42,27 +35,28 @@
                 </div>
                 <p className="text-sm text-gray-600 break-words">{comment.content}</p>
                 {comment.image && (
-                    <img src={comment.image} alt="Comment" className="mt-2 max-h-40 rounded-md" />
+                    <img 
+                    src={comment.image} 
+                    alt="Comment" 
+                    className="mt-2 max-h-40 rounded-md hover:scale-[1.02] transition-transform duration-200" 
+                    />
                 )}
                 </div>
 
                 {/* Botones de acción */}
                 <div className="flex items-center gap-4 px-1">
+                <LikeButton 
+                    count={comment.likes} 
+                    onLike={() => onLike(comment.id)}
+                    size="small"
+                />
                 <Button 
                     variant="ghost" 
                     size="sm" 
-                    onClick={() => onLike(comment.id)}
-                    className="h-6 text-xs text-gray-500 hover:text-[#d55b49] p-0"
-                >
-                    <Heart className="h-3 w-3 mr-1" />
-                    {comment.likes}
-                </Button>
-                <Button 
-                    variant="ghost" 
-                    size="sm" 
-                    className="h-6 text-xs text-gray-500 hover:text-[#509ca2] p-0"
+                    className="h-6 text-xs font-medium text-gray-500 hover:text-[#509ca2] p-0"
                     onClick={() => setIsReplying(!isReplying)}
                 >
+                    <Reply className="h-3 w-3 mr-1" />
                     Responder
                 </Button>
                 {comment.replies?.length > 0 && (
@@ -70,72 +64,72 @@
                     variant="ghost"
                     size="sm"
                     onClick={() => setShowReplies(!showReplies)}
-                    className="h-6 text-xs text-[#509ca2] p-0"
+                    className="h-6 text-xs font-medium text-[#509ca2] p-0 hover:text-[#509ca2]/80"
                     >
-                    {showReplies ? "Ocultar respuestas" : `Ver ${comment.replies.length} respuestas`}
+                    {showReplies ? (
+                        <>
+                        <ChevronUp className="h-3 w-3 mr-1" />
+                        Ocultar respuestas
+                        </>
+                    ) : (
+                        <>
+                        <ChevronDown className="h-3 w-3 mr-1" />
+                        Ver {comment.replies.length} {comment.replies.length === 1 ? 'respuesta' : 'respuestas'}
+                        </>
+                    )}
                     </Button>
                 )}
                 </div>
             </div>
 
-            {/* Área de respuesta */}
+            {/* Área de respuesta usando CommentInput */}
             {isReplying && (
-                <div className="mt-2 space-y-2">
-                <Textarea
+                <div className="mt-2 border-l-2 border-[#509ca2]/20 pl-4">
+                <CommentInput
+                    onSubmit={(data) => {
+                    onReply(comment.id, data);
+                    setIsReplying(false);
+                    }}
+                    onCancel={() => setIsReplying(false)}
                     placeholder="Escribe una respuesta..."
-                    value={replyContent}
-                    onChange={(e) => setReplyContent(e.target.value)}
-                    className="min-h-[80px] resize-none border-[#509ca2]/20 focus:border-[#509ca2] focus:ring-[#509ca2] text-sm"
+                    buttonText="Responder"
+                    isReply={true}
                 />
-                <div className="flex justify-end gap-2">
-                    <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => setIsReplying(false)}
-                    className="h-8 text-sm"
-                    >
-                    Cancelar
-                    </Button>
-                    <Button
-                    size="sm"
-                    onClick={handleSubmitReply}
-                    className="h-8 bg-[#509ca2] hover:bg-[#509ca2]/90 text-white"
-                    >
-                    Responder
-                    </Button>
-                </div>
                 </div>
             )}
 
             {/* Respuestas */}
             {showReplies && comment.replies?.length > 0 && (
-                <div className="mt-2 space-y-2">
+                <div className="mt-2 space-y-2 border-l-2 border-[#509ca2]/20 pl-4">
                 {comment.replies.map(reply => (
-                    <div key={reply.id} className="flex items-start gap-2">
-                    <Avatar className="h-6 w-6 rounded-full flex-shrink-0">
+                    <div key={reply.id} className="flex items-start gap-2 group">
+                    <Avatar className="h-6 w-6 rounded-full flex-shrink-0 ring-2 ring-[#509ca2]/10">
                         <AvatarImage 
                         src={`/placeholder.svg?height=24&width=24&text=${reply.user[0]}`} 
                         alt={reply.user}
+                        className="rounded-full"
                         />
-                        <AvatarFallback>{reply.user[0]}</AvatarFallback>
+                        <AvatarFallback className="rounded-full">{reply.user[0]}</AvatarFallback>
                     </Avatar>
                     <div className="flex-1 min-w-0">
-                        <div className="bg-[#f8f9fa] rounded-lg p-2">
+                        <div className="bg-[#f8f9fa] rounded-lg p-2 group-hover:bg-[#f8f9fa]/80 transition-colors duration-200">
                         <p className="font-medium text-xs mb-0.5">{reply.user}</p>
                         <p className="text-xs text-gray-600 break-words">{reply.content}</p>
                         {reply.image && (
-                            <img src={reply.image} alt="Reply" className="mt-2 max-h-32 rounded-md" />
+                            <img 
+                            src={reply.image} 
+                            alt="Reply" 
+                            className="mt-2 max-h-32 rounded-md hover:scale-[1.02] transition-transform duration-200" 
+                            />
                         )}
                         </div>
-                        <Button 
-                        variant="ghost" 
-                        size="sm" 
-                        onClick={() => onLike(reply.id)}
-                        className="h-5 text-xs text-gray-500 hover:text-[#d55b49] mt-0.5 p-0"
-                        >
-                        <Heart className="h-3 w-3 mr-1" />
-                        {reply.likes}
-                        </Button>
+                        <div className="mt-1">
+                        <LikeButton 
+                            count={reply.likes} 
+                            onLike={() => onLike(reply.id)}
+                            size="small"
+                        />
+                        </div>
                     </div>
                     </div>
                 ))}

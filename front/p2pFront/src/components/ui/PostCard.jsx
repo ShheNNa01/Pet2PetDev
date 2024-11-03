@@ -1,13 +1,14 @@
     // PostCard.jsx
-    import React, { useState } from 'react';
-    import { Heart, MessageCircle, Share2, Gift, ChevronDown, ChevronUp } from 'lucide-react';
-    import { Button } from "./button";
-    import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
-    import { Card, CardContent, CardFooter, CardHeader } from "./card";
-    import CommentInput from './CommentInput';
-    import Comment from './Comment';
+import React, { useState } from 'react';
+import { Heart, MessageCircle, Share2, Gift, ChevronDown, ChevronUp } from 'lucide-react';
+import { Button } from "./button";
+import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
+import { Card, CardContent, CardFooter, CardHeader } from "./card";
+import CommentInput from './CommentInput';
+import Comment from './Comment';
+import LikeButton from './LikeButton';
 
-    export default function PostCard({ post: initialPost }) {
+export default function PostCard({ post: initialPost }) {
     const [post, setPost] = useState(initialPost);
     const [isCommenting, setIsCommenting] = useState(false);
     const [showAllComments, setShowAllComments] = useState(false);
@@ -103,26 +104,34 @@
         <CardFooter className="flex flex-col items-start px-6 py-4">
                 {/* Botones de interacción */}
                 <div className="flex items-center justify-between w-full border-y border-gray-100 py-2">
-                    <Button variant="ghost" size="sm" className="text-[#d55b49] hover:bg-[#d55b49]/10">
-                    <Heart className="h-4 w-4 mr-2" />
-                    {post.likes}
+                    <LikeButton 
+                        count={post.likes} 
+                        onLike={handleLike}
+                    />
+                    <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        className="text-[#509ca2] hover:bg-[#509ca2]/10"
+                        onClick={() => setIsCommenting(!isCommenting)}
+                    >
+                        <MessageCircle className="h-4 w-4 mr-2" />
+                        {post.comments?.length || 0}
                     </Button>
                     <Button 
-                    variant="ghost" 
-                    size="sm" 
-                    className="text-[#509ca2] hover:bg-[#509ca2]/10"
-                    onClick={() => setIsCommenting(!isCommenting)}
+                        variant="ghost" 
+                        size="sm" 
+                        className="text-[#509ca2] hover:bg-[#509ca2]/10"
                     >
-                    <MessageCircle className="h-4 w-4 mr-2" />
-                    {post.comments?.length || 0}
+                        <Share2 className="h-4 w-4 mr-2" />
+                        Compartir
                     </Button>
-                    <Button variant="ghost" size="sm" className="text-[#509ca2] hover:bg-[#509ca2]/10">
-                    <Share2 className="h-4 w-4 mr-2" />
-                    Compartir
-                    </Button>
-                    <Button variant="ghost" size="sm" className="text-[#d55b49] hover:bg-[#d55b49]/10">
-                    <Gift className="h-4 w-4 mr-2" />
-                    Regalo
+                    <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        className="text-[#d55b49] hover:bg-[#d55b49]/10"
+                    >
+                        <Gift className="h-4 w-4 mr-2" />
+                        Regalo
                     </Button>
                 </div>
 
@@ -167,4 +176,4 @@
         </CardFooter>
     </Card>
     );
-    }
+}

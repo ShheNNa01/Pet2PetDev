@@ -5,7 +5,13 @@
     import { Input } from "./input";
     import { Textarea } from "./textarea";
 
-    export default function CommentInput({ onSubmit, onCancel, placeholder = "Escribe un comentario..." }) {
+    export default function CommentInput({ 
+    onSubmit, 
+    onCancel, 
+    placeholder = "Escribe un comentario...",
+    buttonText = "Comentar", // Nuevo prop para personalizar el texto del botón
+    isReply = false // Nuevo prop para identificar si es una respuesta
+    }) {
     const [content, setContent] = useState('');
     const [image, setImage] = useState(null);
     const inputId = React.useId();
@@ -29,13 +35,17 @@
         }
     };
 
+    // CommentInput.jsx
     return (
-        <div className="space-y-4">
+        <div className={`space-y-3 ${isReply ? 'ml-11 border-l-2 border-gray-100 pl-4' : ''}`}>
         <Textarea
             placeholder={placeholder}
             value={content}
             onChange={(e) => setContent(e.target.value)}
-            className="min-h-[80px] resize-none border-[#509ca2]/20 focus:border-[#509ca2] focus:ring-[#509ca2]"
+            className={`
+            resize-none border-[#509ca2]/20 focus:border-[#509ca2] focus:ring-[#509ca2] text-sm
+            ${isReply ? 'min-h-[60px]' : 'min-h-[80px]'}
+            `}
         />
         <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
@@ -70,15 +80,16 @@
                 variant="ghost"
                 size="sm"
                 onClick={onCancel}
+                className="text-sm font-medium hover:text-gray-700"
             >
                 Cancelar
             </Button>
             <Button
                 size="sm"
                 onClick={handleSubmit}
-                className="bg-[#509ca2] hover:bg-[#509ca2]/90 text-white"
+                className="bg-[#509ca2] hover:bg-[#509ca2]/90 text-white h-8 font-medium"
             >
-                Comentar
+                {buttonText}
             </Button>
             </div>
         </div>
