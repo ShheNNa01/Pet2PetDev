@@ -1,14 +1,14 @@
 // src/pages/LoginPage.jsx
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { authService } from '../services/auth.service';
+import { AuthService } from '../services/auth.service';
 import '../styles/LoginPage.css';
 import MesaDeTrabajo50 from '../../assets/icons/Mesa de trabajo 50.png';
 
 const LoginPage = () => {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
-        usuario: '',
+        username: '',
         password: ''
     });
     const [error, setError] = useState('');
@@ -29,29 +29,23 @@ const LoginPage = () => {
         e.preventDefault();
         setLoading(true);
         setError('');
-
-        // Validaciones básicas
-        if (!formData.usuario.trim() || !formData.password.trim()) {
+    
+        if (!formData.username.trim() || !formData.password.trim()) {
             setError('Por favor, completa todos los campos');
             setLoading(false);
             return;
         }
-
+    
         try {
-            const response = await authService.login({
-                email: formData.usuario, // Asumiendo que el backend espera 'email'
+            const response = await AuthService.login({
+                username: formData.username,
                 password: formData.password
             });
-
-            // Guardar datos del usuario si es necesario
-            if (response.user) {
-                localStorage.setItem('userData', JSON.stringify(response.user));
+    
+            if (response.access_token) {
+                navigate('/home');
             }
-
-            // Redireccionar al dashboard o página principal
-            navigate('/home');
         } catch (error) {
-            // Manejar diferentes tipos de errores
             if (error.response?.status === 401) {
                 setError('Usuario o contraseña incorrectos');
             } else if (error.response?.status === 422) {
@@ -79,12 +73,12 @@ const LoginPage = () => {
                     )}
 
                     <form className='form-login' onSubmit={handleSubmit}>
-                        <label htmlFor="usuario">Usuario:</label>
+                        <label htmlFor="username">Usuario:</label>
                         <input
                             type="text"
-                            id="usuario"
+                            id="username"
                             placeholder="Introduce tu usuario"
-                            value={formData.usuario}
+                            value={formData.username}
                             onChange={handleChange}
                             disabled={loading}
                         />
