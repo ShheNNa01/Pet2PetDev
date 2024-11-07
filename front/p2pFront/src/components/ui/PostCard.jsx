@@ -1,6 +1,5 @@
-    // PostCard.jsx
 import React, { useState } from 'react';
-import { Heart, MessageCircle, Share2, Gift, ChevronDown, ChevronUp } from 'lucide-react';
+import { Heart, MessageCircle, Share2, Gift } from 'lucide-react';
 import { Button } from "./button";
 import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 import { Card, CardContent, CardFooter, CardHeader } from "./card";
@@ -15,59 +14,60 @@ export default function PostCard({ post: initialPost }) {
 
     const handleLike = () => {
         setPost(prev => ({
-        ...prev,
-        likes: prev.likes + 1
+            ...prev,
+            reactions_count: prev.reactions_count + 1
         }));
     };
 
     const handleCommentLike = (commentId) => {
         setPost(prev => ({
-        ...prev,
-        comments: prev.comments.map(comment => 
-            comment.id === commentId 
-            ? { ...comment, likes: comment.likes + 1 }
-            : comment
-        )
+            ...prev,
+            comments: prev.comments.map(comment => 
+                comment.id === commentId 
+                    ? { ...comment, likes: comment.likes + 1 }
+                    : comment
+            )
         }));
     };
 
     const handleReply = (commentId, data) => {
         setPost(prev => ({
-        ...prev,
-        comments: prev.comments.map(comment => 
-            comment.id === commentId 
-            ? {
-                ...comment,
-                replies: [
-                    ...(comment.replies || []),
-                    {
-                    id: Date.now(),
-                    user: "CurrentUser",
-                    content: data.content,
-                    image: data.image,
-                    likes: 0
+            ...prev,
+            comments: prev.comments.map(comment => 
+                comment.id === commentId 
+                    ? {
+                        ...comment,
+                        replies: [
+                            ...(comment.replies || []),
+                            {
+                                id: Date.now(),
+                                user: "CurrentUser",
+                                content: data.content,
+                                image: data.image,
+                                likes: 0
+                            }
+                        ]
                     }
-                ]
-                }
-            : comment
-        )
+                    : comment
+            )
         }));
     };
 
     const handleComment = (data) => {
         setPost(prev => ({
-        ...prev,
-        comments: [
-            ...prev.comments,
-            {
-            id: Date.now(),
-            user: "CurrentUser",
-            content: data.content,
-            image: data.image,
-            likes: 0,
-            replies: []
-            }
-        ]
+            ...prev,
+            comments: [
+                ...prev.comments,
+                {
+                    id: Date.now(),
+                    user: "CurrentUser",
+                    content: data.content,
+                    image: data.image,
+                    likes: 0,
+                    replies: []
+                }
+            ],
+            comments_count: prev.comments_count + 1
         }));
         setIsCommenting(false);
     };
@@ -75,37 +75,60 @@ export default function PostCard({ post: initialPost }) {
     const sortedComments = post.comments ? [...post.comments].sort((a, b) => b.likes - a.likes) : [];
     const displayedComments = showAllComments ? sortedComments : sortedComments.slice(0, 3);
 
+    const placeholderText = post.pet_id || 'P';
+
     return (
         <Card className="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-200">
-        <CardHeader className="px-6 py-4 border-b border-gray-100">
-            <div className="flex items-center space-x-4">
-            <Avatar className="ring-2 ring-[#509ca2]/10">
-                <AvatarImage src={`/placeholder.svg?height=40&width=40&text=${post.pet[0]}`} alt={post.pet} />
-                <AvatarFallback className="bg-[#509ca2]/10 text-[#509ca2]">{post.pet[0]}</AvatarFallback>
-            </Avatar>
-            <div>
-                <p className="font-semibold text-[#1a1a1a]">{post.pet}</p>
-                <p className="text-sm text-gray-500">Publicado por {post.user}</p>
-            </div>
-            </div>
-        </CardHeader>
-        
-        <CardContent className="px-6 py-4">
-            <p className="mb-4 text-[#1a1a1a]">{post.content}</p>
-            <div className="relative rounded-lg overflow-hidden">
-            <img 
-                src={post.image} 
-                alt="Contenido de la publicación" 
-                className="w-full rounded-lg transform hover:scale-[1.02] transition-transform duration-200"
-            />
-            </div>
-        </CardContent>
+            <CardHeader className="px-6 py-4 border-b border-gray-100">
+                <div className="flex items-center space-x-4">
+                    <Avatar className="ring-2 ring-[#509ca2]/10">
+                        <AvatarImage src={`/placeholder.svg?height=40&width=40&text=${placeholderText}`} alt="Pet Profile" />
+                        <AvatarFallback className="bg-[#509ca2]/10 text-[#509ca2]">{placeholderText}</AvatarFallback>
+                    </Avatar>
+                    <div>
+                        <p className="font-semibold text-[#1a1a1a]">Mascota #{post.pet_id}</p>
+                        <p className="text-sm text-gray-500">Usuario #{post.user_id}</p>
+                    </div>
+                </div>
+            </CardHeader>
 
-        <CardFooter className="flex flex-col items-start px-6 py-4">
-                {/* Botones de interacción */}
+            <CardContent className="px-6 py-4">
+                {/* Mostrar solo contenido si hay texto o media */}
+                {(post.content || (post.media_urls && post.media_urls.length > 0)) && (
+                    <>
+                        {/* Solo muestra el contenido si hay texto */}
+                        {post.content && <p className="mb-4 text-[#1a1a1a]">{post.content}</p>}
+
+                        {/* Mostrar archivo multimedia solo si está presente */}
+                        {post.media_urls && post.media_urls.length > 0 && (
+                            <div className="relative rounded-lg overflow-hidden">
+                                {post.media_urls[0].endsWith(".mp4") ? (
+                                    <video 
+                                        controls 
+                                        src={post.media_urls[0]} 
+                                        className="w-full rounded-lg transform hover:scale-[1.02] transition-transform duration-200"
+                                    />
+                                ) : (
+                                    <img 
+                                        src={post.media_urls[0]} 
+                                        alt="Contenido de la publicación" 
+                                        className="w-full rounded-lg transform hover:scale-[1.02] transition-transform duration-200"
+                                    />
+                                )}
+                            </div>
+                        )}
+
+                        {post.location && (
+                            <p className="text-sm text-gray-500 mt-2">📍 {post.location}</p>
+                        )}
+                    </>
+                )}
+            </CardContent>
+
+            <CardFooter className="flex flex-col items-start px-6 py-4">
                 <div className="flex items-center justify-between w-full border-y border-gray-100 py-2">
                     <LikeButton 
-                        count={post.likes} 
+                        count={post.reactions_count} 
                         onLike={handleLike}
                     />
                     <Button 
@@ -115,7 +138,7 @@ export default function PostCard({ post: initialPost }) {
                         onClick={() => setIsCommenting(!isCommenting)}
                     >
                         <MessageCircle className="h-4 w-4 mr-2" />
-                        {post.comments?.length || 0}
+                        {post.comments_count}
                     </Button>
                     <Button 
                         variant="ghost" 
@@ -135,45 +158,45 @@ export default function PostCard({ post: initialPost }) {
                     </Button>
                 </div>
 
-                {/* Área de comentarios */}
                 {isCommenting && (
                     <div className="w-full pt-3">
-                    <CommentInput
-                        onSubmit={handleComment}
-                        onCancel={() => setIsCommenting(false)}
-                    />
+                        <CommentInput
+                            onSubmit={handleComment}
+                            onCancel={() => setIsCommenting(false)}
+                            postId={post.post_id}
+                        />
                     </div>
                 )}
 
                 {post.comments?.length > 0 && (
                     <div className="w-full pt-3 space-y-3">
-                    {displayedComments.map((comment) => (
-                        <Comment
-                        key={comment.id}
-                        comment={comment}
-                        onLike={handleLike}
-                        onReply={handleReply}
-                        className="border-b border-gray-100 last:border-0 pb-3"
-                        />
-                    ))}
-                    
-                    {post.comments.length > 3 && (
-                        <Button
-                        variant="ghost"
-                        size="sm"
-                        className="text-[#509ca2] hover:bg-[#509ca2]/10 text-sm px-0"
-                        onClick={() => setShowAllComments(!showAllComments)}
-                        >
-                        {showAllComments ? (
-                            "Mostrar menos comentarios"
-                        ) : (
-                            `Ver ${post.comments.length - 3} comentarios más`
+                        {displayedComments.map((comment) => (
+                            <Comment
+                                key={comment.id || comment.comment_id} // Verifica que tenga un `id` único
+                                comment={comment}
+                                onLike={handleCommentLike}
+                                onReply={handleReply}
+                                className="border-b border-gray-100 last:border-0 pb-3"
+                            />
+                        ))}
+
+                        {post.comments.length > 3 && (
+                            <Button
+                                variant="ghost"
+                                size="sm"
+                                className="text-[#509ca2] hover:bg-[#509ca2]/10 text-sm px-0"
+                                onClick={() => setShowAllComments(!showAllComments)}
+                            >
+                                {showAllComments ? (
+                                    "Mostrar menos comentarios"
+                                ) : (
+                                    `Ver ${post.comments.length - 3} comentarios más`
+                                )}
+                            </Button>
                         )}
-                        </Button>
-                    )}
                     </div>
                 )}
-        </CardFooter>
-    </Card>
+            </CardFooter>
+        </Card>
     );
 }

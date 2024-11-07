@@ -3,7 +3,7 @@ import api from './config/axios';
 export const AuthService = {
     async register(userData) {
         try {
-            const response = await api.post('/register', {
+            const response = await api.post('/auth/register', {
                 user_name: userData.userName,
                 user_last_name: userData.userLastName,
                 user_email: userData.userEmail,
@@ -26,7 +26,7 @@ export const AuthService = {
             formData.append('username', credentials.username);
             formData.append('password', credentials.password);
     
-            const response = await api.post('/login', formData, {
+            const response = await api.post('/auth/login', formData, {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
