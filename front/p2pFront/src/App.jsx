@@ -17,7 +17,7 @@ function App() {
         <Route path="/welcome" element={<WelcomePage />} /> {/* Página de Bienvenida */}
         <Route path="/" element={<LoginPage />} /> {/* Página de inicio de sesión */}
         <Route path="/register" element={<RegisterPage />} /> {/* Página de registro */}
-        <Route path="/registerMascota" element={<RegisterMascotaPage />} /> {/* Página principal */}
+        <Route path="/registerPet" element={<RegisterMascotaPage />} /> {/* Página principal */}
         <Route path="/home" element={<HomePage />} /> {/* Página principal */}
         <Route path="*" element={<NotFoundPage />} /> {/* Componente para rutas no encontradas */}
       </Routes>

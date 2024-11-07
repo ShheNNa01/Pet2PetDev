@@ -12376,3 +12376,50 @@ ModuleNotFoundError: No module named 'app'
 2024-11-06 15:59:37,136 - api_gateway.app - INFO - Registered route: /api/v1/analytics/export/status/{job_id}
 2024-11-06 15:59:37,136 - api_gateway.app - INFO - Registered route: /api/v1/analytics/exports/{filename}
 2024-11-06 15:59:37,137 - api_gateway.app - INFO - Registered route: /api/v1/analytics/export/cleanup
+2024-11-06 16:13:02,721 - multipart.multipart - DEBUG - Calling on_field_start with no data
+2024-11-06 16:13:02,770 - multipart.multipart - DEBUG - Calling on_field_name with data[0:8]
+2024-11-06 16:13:02,798 - multipart.multipart - DEBUG - Calling on_field_data with data[9:26]
+2024-11-06 16:13:02,804 - multipart.multipart - DEBUG - Calling on_field_end with no data
+2024-11-06 16:13:02,806 - multipart.multipart - DEBUG - Calling on_field_start with no data
+2024-11-06 16:13:02,808 - multipart.multipart - DEBUG - Calling on_field_name with data[27:35]
+2024-11-06 16:13:02,808 - multipart.multipart - DEBUG - Calling on_field_data with data[36:44]
+2024-11-06 16:13:02,833 - multipart.multipart - DEBUG - Calling on_field_end with no data
+2024-11-06 16:13:02,836 - multipart.multipart - DEBUG - Calling on_end with no data
+2024-11-06 16:13:07,073 - passlib.handlers.bcrypt - DEBUG - detected 'bcrypt' backend, version '4.0.1'
+2024-11-06 16:13:07,079 - passlib.handlers.bcrypt - DEBUG - 'bcrypt' backend lacks $2$ support, enabling workaround
+2024-11-06 16:23:49,460 - multipart.multipart - DEBUG - Calling on_field_start with no data
+2024-11-06 16:23:49,466 - multipart.multipart - DEBUG - Calling on_field_name with data[0:8]
+2024-11-06 16:23:49,468 - multipart.multipart - DEBUG - Calling on_field_data with data[9:26]
+2024-11-06 16:23:49,470 - multipart.multipart - DEBUG - Calling on_field_end with no data
+2024-11-06 16:23:49,471 - multipart.multipart - DEBUG - Calling on_field_start with no data
+2024-11-06 16:23:49,471 - multipart.multipart - DEBUG - Calling on_field_name with data[27:35]
+2024-11-06 16:23:49,471 - multipart.multipart - DEBUG - Calling on_field_data with data[36:44]
+2024-11-06 16:23:49,475 - multipart.multipart - DEBUG - Calling on_field_end with no data
+2024-11-06 16:23:49,476 - multipart.multipart - DEBUG - Calling on_end with no data
+2024-11-06 17:09:32,429 - multipart.multipart - DEBUG - Calling on_field_start with no data
+2024-11-06 17:09:32,445 - multipart.multipart - DEBUG - Calling on_field_name with data[0:8]
+2024-11-06 17:09:32,447 - multipart.multipart - DEBUG - Calling on_field_data with data[9:26]
+2024-11-06 17:09:32,449 - multipart.multipart - DEBUG - Calling on_field_end with no data
+2024-11-06 17:09:32,450 - multipart.multipart - DEBUG - Calling on_field_start with no data
+2024-11-06 17:09:32,451 - multipart.multipart - DEBUG - Calling on_field_name with data[27:35]
+2024-11-06 17:09:32,452 - multipart.multipart - DEBUG - Calling on_field_data with data[36:44]
+2024-11-06 17:09:32,456 - multipart.multipart - DEBUG - Calling on_field_end with no data
+2024-11-06 17:09:32,456 - multipart.multipart - DEBUG - Calling on_end with no data
+2024-11-06 17:21:01,649 - multipart.multipart - DEBUG - Calling on_field_start with no data
+2024-11-06 17:21:01,655 - multipart.multipart - DEBUG - Calling on_field_name with data[0:8]
+2024-11-06 17:21:01,656 - multipart.multipart - DEBUG - Calling on_field_data with data[9:26]
+2024-11-06 17:21:01,657 - multipart.multipart - DEBUG - Calling on_field_end with no data
+2024-11-06 17:21:01,658 - multipart.multipart - DEBUG - Calling on_field_start with no data
+2024-11-06 17:21:01,659 - multipart.multipart - DEBUG - Calling on_field_name with data[27:35]
+2024-11-06 17:21:01,661 - multipart.multipart - DEBUG - Calling on_field_data with data[36:44]
+2024-11-06 17:21:01,668 - multipart.multipart - DEBUG - Calling on_field_end with no data
+2024-11-06 17:21:01,669 - multipart.multipart - DEBUG - Calling on_end with no data
+2024-11-06 17:51:36,749 - multipart.multipart - DEBUG - Calling on_field_start with no data
+2024-11-06 17:51:36,763 - multipart.multipart - DEBUG - Calling on_field_name with data[0:8]
+2024-11-06 17:51:36,764 - multipart.multipart - DEBUG - Calling on_field_data with data[9:26]
+2024-11-06 17:51:36,765 - multipart.multipart - DEBUG - Calling on_field_end with no data
+2024-11-06 17:51:36,766 - multipart.multipart - DEBUG - Calling on_field_start with no data
+2024-11-06 17:51:36,766 - multipart.multipart - DEBUG - Calling on_field_name with data[27:35]
+2024-11-06 17:51:36,767 - multipart.multipart - DEBUG - Calling on_field_data with data[36:44]
+2024-11-06 17:51:36,769 - multipart.multipart - DEBUG - Calling on_field_end with no data
+2024-11-06 17:51:36,770 - multipart.multipart - DEBUG - Calling on_end with no data

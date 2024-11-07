@@ -4,14 +4,14 @@ export const AuthService = {
     async register(userData) {
         try {
             const response = await api.post('/auth/register', {
-                user_name: userData.userName,
-                user_last_name: userData.userLastName,
-                user_email: userData.userEmail,
-                user_city: userData.userCity,
-                user_country: userData.userCountry,
-                user_number: userData.userNumber,
-                user_bio: userData.userBio,
-                password: userData.password
+                user_name: userData.ownerName,
+                user_last_name: userData.ownerLastName,
+                user_email: userData.correo,
+                password: userData.contrasena,
+                user_city: userData.city || '',
+                user_country: userData.country || '',
+                user_number: userData.phoneNumber || '',
+                user_bio: userData.bio || ''
             });
             return response.data;
         } catch (error) {
