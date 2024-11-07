@@ -12219,3 +12219,69 @@ ModuleNotFoundError: No module named 'app'
 2024-11-06 10:36:06,664 - api_gateway.app - INFO - Registered route: /api/v1/analytics/export/status/{job_id}
 2024-11-06 10:36:06,664 - api_gateway.app - INFO - Registered route: /api/v1/analytics/exports/{filename}
 2024-11-06 10:36:06,664 - api_gateway.app - INFO - Registered route: /api/v1/analytics/export/cleanup
+2024-11-06 11:06:27,326 - multipart.multipart - DEBUG - Calling on_part_begin with no data
+2024-11-06 11:06:27,328 - multipart.multipart - DEBUG - Calling on_header_field with data[42:61]
+2024-11-06 11:06:27,328 - multipart.multipart - DEBUG - Calling on_header_value with data[63:89]
+2024-11-06 11:06:27,328 - multipart.multipart - DEBUG - Calling on_header_end with no data
+2024-11-06 11:06:27,328 - multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2024-11-06 11:06:27,328 - multipart.multipart - DEBUG - Calling on_part_data with data[93:108]
+2024-11-06 11:06:27,328 - multipart.multipart - DEBUG - Calling on_part_end with no data
+2024-11-06 11:06:27,328 - multipart.multipart - DEBUG - Calling on_part_begin with no data
+2024-11-06 11:06:27,328 - multipart.multipart - DEBUG - Calling on_header_field with data[152:171]
+2024-11-06 11:06:27,329 - multipart.multipart - DEBUG - Calling on_header_value with data[173:199]
+2024-11-06 11:06:27,329 - multipart.multipart - DEBUG - Calling on_header_end with no data
+2024-11-06 11:06:27,329 - multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2024-11-06 11:06:27,329 - multipart.multipart - DEBUG - Calling on_part_data with data[203:212]
+2024-11-06 11:06:27,329 - multipart.multipart - DEBUG - Calling on_part_end with no data
+2024-11-06 11:06:27,329 - multipart.multipart - DEBUG - Calling on_end with no data
+2024-11-06 11:06:45,866 - multipart.multipart - DEBUG - Calling on_part_begin with no data
+2024-11-06 11:06:45,866 - multipart.multipart - DEBUG - Calling on_header_field with data[42:61]
+2024-11-06 11:06:45,866 - multipart.multipart - DEBUG - Calling on_header_value with data[63:89]
+2024-11-06 11:06:45,866 - multipart.multipart - DEBUG - Calling on_header_end with no data
+2024-11-06 11:06:45,866 - multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2024-11-06 11:06:45,866 - multipart.multipart - DEBUG - Calling on_part_data with data[93:108]
+2024-11-06 11:06:45,866 - multipart.multipart - DEBUG - Calling on_part_end with no data
+2024-11-06 11:06:45,866 - multipart.multipart - DEBUG - Calling on_part_begin with no data
+2024-11-06 11:06:45,867 - multipart.multipart - DEBUG - Calling on_header_field with data[152:171]
+2024-11-06 11:06:45,867 - multipart.multipart - DEBUG - Calling on_header_value with data[173:199]
+2024-11-06 11:06:45,867 - multipart.multipart - DEBUG - Calling on_header_end with no data
+2024-11-06 11:06:45,867 - multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2024-11-06 11:06:45,867 - multipart.multipart - DEBUG - Calling on_part_data with data[203:212]
+2024-11-06 11:06:45,867 - multipart.multipart - DEBUG - Calling on_part_end with no data
+2024-11-06 11:06:45,867 - multipart.multipart - DEBUG - Calling on_end with no data
+2024-11-06 11:09:39,763 - multipart.multipart - DEBUG - Calling on_part_begin with no data
+2024-11-06 11:09:39,763 - multipart.multipart - DEBUG - Calling on_header_field with data[42:61]
+2024-11-06 11:09:39,763 - multipart.multipart - DEBUG - Calling on_header_value with data[63:89]
+2024-11-06 11:09:39,763 - multipart.multipart - DEBUG - Calling on_header_end with no data
+2024-11-06 11:09:39,763 - multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2024-11-06 11:09:39,763 - multipart.multipart - DEBUG - Calling on_part_data with data[93:108]
+2024-11-06 11:09:39,763 - multipart.multipart - DEBUG - Calling on_part_end with no data
+2024-11-06 11:09:39,763 - multipart.multipart - DEBUG - Calling on_part_begin with no data
+2024-11-06 11:09:39,763 - multipart.multipart - DEBUG - Calling on_header_field with data[152:171]
+2024-11-06 11:09:39,764 - multipart.multipart - DEBUG - Calling on_header_value with data[173:199]
+2024-11-06 11:09:39,764 - multipart.multipart - DEBUG - Calling on_header_end with no data
+2024-11-06 11:09:39,764 - multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2024-11-06 11:09:39,764 - multipart.multipart - DEBUG - Calling on_part_data with data[203:212]
+2024-11-06 11:09:39,764 - multipart.multipart - DEBUG - Calling on_part_end with no data
+2024-11-06 11:09:39,764 - multipart.multipart - DEBUG - Calling on_end with no data
+2024-11-06 11:17:52,778 - multipart.multipart - DEBUG - Calling on_field_start with no data
+2024-11-06 11:17:52,780 - multipart.multipart - DEBUG - Calling on_field_name with data[0:8]
+2024-11-06 11:17:52,780 - multipart.multipart - DEBUG - Calling on_field_data with data[9:30]
+2024-11-06 11:17:52,780 - multipart.multipart - DEBUG - Calling on_field_end with no data
+2024-11-06 11:17:52,780 - multipart.multipart - DEBUG - Calling on_field_start with no data
+2024-11-06 11:17:52,780 - multipart.multipart - DEBUG - Calling on_field_name with data[31:39]
+2024-11-06 11:17:52,780 - multipart.multipart - DEBUG - Calling on_field_data with data[40:51]
+2024-11-06 11:17:52,780 - multipart.multipart - DEBUG - Calling on_field_end with no data
+2024-11-06 11:17:52,780 - multipart.multipart - DEBUG - Calling on_end with no data
+2024-11-06 11:17:53,082 - passlib.handlers.bcrypt - DEBUG - detected 'bcrypt' backend, version '4.0.1'
+2024-11-06 11:17:53,082 - passlib.handlers.bcrypt - DEBUG - 'bcrypt' backend lacks $2$ support, enabling workaround
+2024-11-06 11:18:19,049 - multipart.multipart - DEBUG - Calling on_field_start with no data
+2024-11-06 11:18:19,049 - multipart.multipart - DEBUG - Calling on_field_name with data[0:8]
+2024-11-06 11:18:19,049 - multipart.multipart - DEBUG - Calling on_field_data with data[9:30]
+2024-11-06 11:18:19,050 - multipart.multipart - DEBUG - Calling on_field_end with no data
+2024-11-06 11:18:19,050 - multipart.multipart - DEBUG - Calling on_field_start with no data
+2024-11-06 11:18:19,050 - multipart.multipart - DEBUG - Calling on_field_name with data[31:39]
+2024-11-06 11:18:19,050 - multipart.multipart - DEBUG - Calling on_field_data with data[40:51]
+2024-11-06 11:18:19,051 - multipart.multipart - DEBUG - Calling on_field_end with no data
+2024-11-06 11:18:19,051 - multipart.multipart - DEBUG - Calling on_end with no data
+2024-11-06 12:01:03,624 - api_gateway.app - INFO - Shutting down Pet2Pet API Gateway...
