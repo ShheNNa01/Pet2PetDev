@@ -25,6 +25,16 @@ class PlatformAnalyticsService:
         self.metrics = MetricsAggregator()
         self._error_cache = {}
         self._performance_cache = {}
+        self.cache_enabled = False
+        
+        # Intentar verificar si Redis está disponible
+        try:
+            import redis
+            redis_client = redis.Redis(host='localhost', port=6379, db=0)
+            redis_client.ping()
+            self.cache_enabled = True
+        except:
+            logger.warning("Redis cache unavailable, running without cache")
 
     async def get_platform_metrics(
         self,

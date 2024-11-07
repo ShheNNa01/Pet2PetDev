@@ -1,6 +1,7 @@
 # services/analytics/app/services/user_analytics.py
 from datetime import datetime
-from sqlalchemy import func, and_
+from typing import Dict, List
+from sqlalchemy import func, and_, case
 from sqlalchemy.orm import Session
 from services.analytics.app.models.schemas import (
     MetricType,
@@ -9,8 +10,11 @@ from services.analytics.app.models.schemas import (
     UserActivityMetrics,
 )
 from services.analytics.app.services.metrics_aggregator import MetricsAggregator
-from shared.database.models import User, Pet, Post, Reaction
+from shared.database.models import User, Post, Reaction, Comment
+from sqlalchemy import or_
+import logging
 
+logger = logging.getLogger(__name__)
 
 class UserAnalyticsService:
     def __init__(self):
@@ -30,19 +34,38 @@ class UserAnalyticsService:
 
         # Total usuarios
         current_total = db.query(User).filter(User.created_at <= end_date).count()
-
         previous_total = db.query(User).filter(User.created_at <= prev_start).count()
 
-        # Usuarios activos (con actividad en el período)
+        # Usuarios activos (con alguna actividad en el período)
         current_active = (
-            db.query(User)
-            .filter(and_(User.last_login >= start_date, User.last_login <= end_date))
+            db.query(User.user_id)
+            .distinct()
+            .join(Post, User.user_id == Post.user_id, isouter=True)
+            .join(Comment, User.user_id == Comment.user_id, isouter=True)
+            .join(Reaction, User.user_id == Reaction.user_id, isouter=True)
+            .filter(
+                or_(
+                    and_(Post.created_at >= start_date, Post.created_at <= end_date),
+                    and_(Comment.created_at >= start_date, Comment.created_at <= end_date),
+                    and_(Reaction.created_at >= start_date, Reaction.created_at <= end_date)
+                )
+            )
             .count()
         )
 
         previous_active = (
-            db.query(User)
-            .filter(and_(User.last_login >= prev_start, User.last_login <= start_date))
+            db.query(User.user_id)
+            .distinct()
+            .join(Post, User.user_id == Post.user_id, isouter=True)
+            .join(Comment, User.user_id == Comment.user_id, isouter=True)
+            .join(Reaction, User.user_id == Reaction.user_id, isouter=True)
+            .filter(
+                or_(
+                    and_(Post.created_at >= prev_start, Post.created_at <= start_date),
+                    and_(Comment.created_at >= prev_start, Comment.created_at <= start_date),
+                    and_(Reaction.created_at >= prev_start, Reaction.created_at <= start_date)
+                )
+            )
             .count()
         )
 
@@ -64,15 +87,11 @@ class UserAnalyticsService:
             db, User.created_at, time_range, start_date, end_date
         )
 
-        # Tasa de retención
-        retention_rate = (
-            (current_active / current_total * 100) if current_total > 0 else 0
-        )
-        prev_retention = (
-            (previous_active / previous_total * 100) if previous_total > 0 else 0
-        )
+        # Tasa de retención (usuarios activos / total usuarios)
+        retention_rate = (current_active / current_total * 100) if current_total > 0 else 0
+        prev_retention = (previous_active / previous_total * 100) if previous_total > 0 else 0
 
-        # Tasa de abandono
+        # Tasa de abandono (100% - tasa de retención)
         churn_rate = 100 - retention_rate
         prev_churn = 100 - prev_retention
 
@@ -106,3 +125,69 @@ class UserAnalyticsService:
                 churn_rate, prev_churn, MetricType.PERCENTAGE
             ),
         )
+
+    async def get_user_segments(
+        self,
+        db: Session,
+        start_date: datetime,
+        end_date: datetime
+    ) -> List[Dict[str, float]]:
+        """
+        Clasifica usuarios por nivel de actividad
+        """
+        try:
+            # Contar actividades por usuario
+            activity_counts = (
+                db.query(
+                    User.user_id,
+                    func.count(Post.post_id).label('post_count'),
+                    func.count(Comment.comment_id).label('comment_count'),
+                    func.count(Reaction.reaction_id).label('reaction_count')
+                )
+                .join(Post, User.user_id == Post.user_id, isouter=True)
+                .join(Comment, User.user_id == Comment.user_id, isouter=True)
+                .join(Reaction, User.user_id == Reaction.user_id, isouter=True)
+                .filter(
+                    or_(
+                        and_(Post.created_at >= start_date, Post.created_at <= end_date),
+                        and_(Comment.created_at >= start_date, Comment.created_at <= end_date),
+                        and_(Reaction.created_at >= start_date, Reaction.created_at <= end_date)
+                    )
+                )
+                .group_by(User.user_id)
+                .all()
+            )
+
+            total_users = len(activity_counts)
+            if total_users == 0:
+                return [
+                    {"segment": "High Activity", "percentage": 0},
+                    {"segment": "Medium Activity", "percentage": 0},
+                    {"segment": "Low Activity", "percentage": 0}
+                ]
+
+            # Clasificar usuarios
+            high_activity = len([u for u in activity_counts 
+                               if (u.post_count + u.comment_count + u.reaction_count) > 50])
+            medium_activity = len([u for u in activity_counts 
+                                 if 20 <= (u.post_count + u.comment_count + u.reaction_count) <= 50])
+            low_activity = len([u for u in activity_counts 
+                              if (u.post_count + u.comment_count + u.reaction_count) < 20])
+
+            return [
+                {
+                    "segment": "High Activity",
+                    "percentage": (high_activity / total_users * 100)
+                },
+                {
+                    "segment": "Medium Activity",
+                    "percentage": (medium_activity / total_users * 100)
+                },
+                {
+                    "segment": "Low Activity",
+                    "percentage": (low_activity / total_users * 100)
+                }
+            ]
+        except Exception as e:
+            logger.error(f"Error getting user segments: {str(e)}")
+            return []
