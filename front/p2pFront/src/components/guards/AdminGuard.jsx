@@ -2,15 +2,15 @@ import { Navigate, Outlet } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 export const AdminGuard = () => {
-    const { isAuthenticated, isAdmin, loading } = useAuth();
+  const { isAuthenticated, isAdmin, loading } = useAuth();
 
-    if (loading) {
-        return <div>Cargando...</div>;
-    }
+  if (loading) {
+    return <div>Cargando...</div>;
+  }
 
-    if (!isAuthenticated || !isAdmin) {
-        return <Navigate to="/home" replace />;
-    }
+  if (!isAuthenticated || !isAdmin) {
+    return <Navigate to="/" replace />;
+  }
 
-    return <Outlet />;
+  return <Outlet />;
 };

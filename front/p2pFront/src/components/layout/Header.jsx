@@ -124,7 +124,7 @@ export default function Header() {
                                     Perfil
                                 </DropdownMenuItem>
 
-                                {user?.is_admin && (
+                                {user?.rol_id === 2 && (
                                     <DropdownMenuItem 
                                         onClick={() => navigate('/dashboard')}
                                         className="cursor-pointer text-[#d55b49]"
