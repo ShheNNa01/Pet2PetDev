@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { 
     Bone, Dog, CircleDot, User, Fish, Video, 
-    MessageCircle, Send, PawPrint, ChevronLeft, Menu 
+    MessageCircle, Send, PawPrint, ChevronLeft, Menu,
+    Settings, LogOut, LayoutDashboard 
 } from 'lucide-react';
 import logo from '../../assets/icons/Mesa de trabajo 50.png';
-
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import { Button } from "../ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
@@ -13,11 +15,17 @@ import { Input } from "../ui/input";
 import { Avatar, AvatarImage, AvatarFallback } from "../ui/avatar";
 
 export default function Header() {
+    const navigate = useNavigate();
+    const { user, logout } = useAuth();
     const [chatOpen, setChatOpen] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [selectedChat, setSelectedChat] = useState(null);
     const [chatMessage, setChatMessage] = useState("");
 
+    const handleLogout = async () => {
+        await logout();
+        navigate('/');
+    };
     const petChats = [
         { id: 1, pet: 'Firulais', lastMessage: 'Hola!', avatar: 'path-to-avatar.jpg' },
         { id: 2, pet: 'Mittens', lastMessage: '¿Cómo estás?', avatar: 'path-to-avatar.jpg' },
@@ -109,9 +117,35 @@ export default function Header() {
                                 </Button>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="end">
-                                <DropdownMenuItem>Perfil</DropdownMenuItem>
-                                <DropdownMenuItem>Configuración</DropdownMenuItem>
-                                <DropdownMenuItem>Cerrar sesión</DropdownMenuItem>
+                                <DropdownMenuItem 
+                                    onClick={() => navigate('/profile')}
+                                    className="cursor-pointer"
+                                >
+                                    Perfil
+                                </DropdownMenuItem>
+
+                                {user?.is_admin && (
+                                    <DropdownMenuItem 
+                                        onClick={() => navigate('/dashboard')}
+                                        className="cursor-pointer text-[#d55b49]"
+                                    >
+                                        Dashboard
+                                    </DropdownMenuItem>
+                                )}
+
+                                <DropdownMenuItem 
+                                    onClick={() => navigate('/settings')}
+                                    className="cursor-pointer"
+                                >
+                                    Configuración
+                                </DropdownMenuItem>
+
+                                <DropdownMenuItem 
+                                    onClick={handleLogout}
+                                    className="cursor-pointer text-red-600"
+                                >
+                                    Cerrar sesión
+                                </DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>
                         <DropdownMenu>

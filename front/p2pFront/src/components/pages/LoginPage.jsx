@@ -1,12 +1,13 @@
-// src/pages/LoginPage.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthService } from '../services/auth.service';
+import { useAuth } from '../context/AuthContext';
 import '../styles/LoginPage.css';
 import MesaDeTrabajo50 from '../../assets/icons/Mesa de trabajo 50.png';
 
 const LoginPage = () => {
     const navigate = useNavigate();
+    const { login, isAuthenticated } = useAuth();
     const [formData, setFormData] = useState({
         username: '',
         password: ''
@@ -14,17 +15,20 @@ const LoginPage = () => {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
 
-    // Manejar cambios en los inputs
+    useEffect(() => {
+        if (isAuthenticated) {
+            navigate('/home');
+        }
+    }, [isAuthenticated, navigate]);
+
     const handleChange = (e) => {
         setFormData({
             ...formData,
             [e.target.id]: e.target.value
         });
-        // Limpiar error cuando el usuario empiece a escribir
         if (error) setError('');
     };
 
-    // Manejar el envío del formulario
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
@@ -43,7 +47,8 @@ const LoginPage = () => {
             });
     
             if (response.access_token) {
-                navigate('/home');
+                await login(response);
+                // La redirección la maneja el useEffect
             }
         } catch (error) {
             if (error.response?.status === 401) {
@@ -53,6 +58,7 @@ const LoginPage = () => {
             } else {
                 setError('Error al iniciar sesión. Por favor, intenta más tarde');
             }
+            console.error('Error de login:', error);
         } finally {
             setLoading(false);
         }
