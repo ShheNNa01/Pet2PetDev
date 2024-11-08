@@ -11,6 +11,7 @@ class UserBase(BaseModel):
     user_country: Optional[str] = None
     user_number: Optional[str] = None
     user_bio: Optional[str] = None
+    role_id: Optional[int] = None 
 
 class UserCreate(UserBase):
     password: constr(min_length=8) # type: ignore
@@ -53,12 +54,16 @@ class UserResponse(UserBase):
 
     class Config:
         from_attributes = True
+        populated_by_name = True
 
 class Token(BaseModel):
     access_token: str
     token_type: str = "bearer"
     expires_in: int
     user: UserResponse
+
+    class Config:
+        from_attributes = True
 
 class TokenData(BaseModel):
     user_id: Optional[int] = None
