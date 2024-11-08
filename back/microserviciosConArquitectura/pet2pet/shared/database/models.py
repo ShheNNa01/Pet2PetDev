@@ -28,7 +28,7 @@ class User(Base):
     status = Column(Boolean, default=True)
     password = Column(String(100), nullable=False)
     profile_picture = Column(String(255))
-    role_id = Column(Integer, ForeignKey('roles.role_id', ondelete='SET NULL'))
+    role_id = Column(Integer, ForeignKey('roles.role_id', ondelete='SET NULL'), nullable=True)
 
     role = relationship("Role", back_populates="users")
     pets = relationship("Pet", back_populates="owner")
