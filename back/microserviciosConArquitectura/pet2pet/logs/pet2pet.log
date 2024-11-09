@@ -15346,3 +15346,190 @@ engagement_metrics
 2024-11-08 19:42:44,048 - api_gateway.app - INFO - Registered route: /api/v1/analytics/export/status/{job_id}
 2024-11-08 19:42:44,049 - api_gateway.app - INFO - Registered route: /api/v1/analytics/exports/{filename}
 2024-11-08 19:42:44,049 - api_gateway.app - INFO - Registered route: /api/v1/analytics/export/cleanup
+2024-11-08 20:43:54,059 - api_gateway.app - INFO - PYTHONPATH: ['C:\\Users\\nacho\\OneDrive\\Desktop\\Pet2PetDevWeb\\back\\microserviciosConArquitectura\\pet2pet', 'C:\\Users\\nacho\\AppData\\Local\\Programs\\Python\\Python312\\python312.zip', 'C:\\Users\\nacho\\AppData\\Local\\Programs\\Python\\Python312\\DLLs', 'C:\\Users\\nacho\\AppData\\Local\\Programs\\Python\\Python312\\Lib', 'C:\\Users\\nacho\\AppData\\Local\\Programs\\Python\\Python312', 'C:\\Users\\nacho\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages', 'C:\\Users\\nacho\\OneDrive\\Desktop\\Pet2PetDevWeb\\back\\microserviciosConArquitectura\\pet2pet', 'C:\\Users\\nacho\\OneDrive\\Desktop\\Pet2PetDevWeb\\back\\microserviciosConArquitectura\\pet2pet']
+2024-11-08 20:43:54,060 - api_gateway.app - INFO - Loading routes for auth service from services.auth.app.api.routes
+2024-11-08 20:43:56,454 - passlib.utils.compat - DEBUG - loaded lazy attr 'SafeConfigParser': <class 'configparser.ConfigParser'>
+2024-11-08 20:43:56,455 - passlib.utils.compat - DEBUG - loaded lazy attr 'NativeStringIO': <class '_io.StringIO'>
+2024-11-08 20:43:56,455 - passlib.utils.compat - DEBUG - loaded lazy attr 'BytesIO': <class '_io.BytesIO'>
+2024-11-08 20:43:56,915 - passlib.registry - DEBUG - registered 'bcrypt' handler: <class 'passlib.handlers.bcrypt.bcrypt'>
+2024-11-08 20:43:57,008 - api_gateway.app - INFO - Successfully loaded routes for auth service
+2024-11-08 20:43:57,009 - api_gateway.app - INFO - Loading routes for pets service from services.pets.app.api.routes
+2024-11-08 20:43:57,214 - api_gateway.app - INFO - Successfully loaded routes for pets service
+2024-11-08 20:43:57,214 - api_gateway.app - INFO - Loading routes for posts service from services.posts.app.api.routes
+2024-11-08 20:43:57,353 - api_gateway.app - INFO - Successfully loaded routes for posts service
+2024-11-08 20:43:57,353 - api_gateway.app - INFO - Loading routes for messages service from services.messages.app.api.routes
+2024-11-08 20:43:57,430 - api_gateway.app - INFO - Successfully loaded routes for messages service
+2024-11-08 20:43:57,431 - api_gateway.app - INFO - Loading routes for notifications service from services.notifications.app.api.routes
+2024-11-08 20:43:57,470 - api_gateway.app - INFO - Successfully loaded routes for notifications service
+2024-11-08 20:43:57,471 - api_gateway.app - INFO - Loading routes for groups service from services.groups.app.api.routes
+2024-11-08 20:43:57,647 - api_gateway.app - INFO - Successfully loaded routes for groups service
+2024-11-08 20:43:57,647 - api_gateway.app - INFO - Loading routes for search service from services.search.app.api.routes
+2024-11-08 20:43:57,757 - api_gateway.app - INFO - Successfully loaded routes for search service
+2024-11-08 20:43:57,759 - api_gateway.app - INFO - Loading routes for feed service from services.feed.app.api.routes
+2024-11-08 20:43:57,939 - api_gateway.app - INFO - Successfully loaded routes for feed service
+2024-11-08 20:43:57,939 - api_gateway.app - INFO - Loading routes for moderation service from services.moderation.app.api.routes
+2024-11-08 20:43:58,227 - api_gateway.app - INFO - Successfully loaded routes for moderation service
+2024-11-08 20:43:58,228 - api_gateway.app - INFO - Loading routes for virtual_pet service from services.virtual_pet.app.api.routes
+2024-11-08 20:43:58,313 - api_gateway.app - INFO - Successfully loaded routes for virtual_pet service
+2024-11-08 20:43:58,313 - api_gateway.app - INFO - Loading routes for analytics service from services.analytics.app.api.routes
+2024-11-08 20:44:02,501 - services.analytics.app.core.cache - WARNING - Redis cache unavailable, running without cache: Error 10061 connecting to localhost:6379. No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión.
+2024-11-08 20:44:07,969 - services.analytics.app.services.platform_analytics - WARNING - Redis cache unavailable, running without cache
+2024-11-08 20:44:08,011 - api_gateway.app - INFO - Successfully loaded routes for analytics service
+2024-11-08 20:44:08,012 - api_gateway.app - INFO - Starting Pet2Pet API Gateway...
+2024-11-08 20:44:08,012 - api_gateway.app - INFO - Registered route: /api/v1/openapi.json
+2024-11-08 20:44:08,012 - api_gateway.app - INFO - Registered route: /api/v1/docs
+2024-11-08 20:44:08,012 - api_gateway.app - INFO - Registered route: /docs/oauth2-redirect
+2024-11-08 20:44:08,012 - api_gateway.app - INFO - Registered route: /api/v1/redoc
+2024-11-08 20:44:08,013 - api_gateway.app - INFO - Registered route: /health
+2024-11-08 20:44:08,013 - api_gateway.app - INFO - Registered route: /api/v1/auth/register
+2024-11-08 20:44:08,013 - api_gateway.app - INFO - Registered route: /api/v1/auth/login
+2024-11-08 20:44:08,013 - api_gateway.app - INFO - Registered route: /api/v1/auth/me
+2024-11-08 20:44:08,013 - api_gateway.app - INFO - Registered route: /api/v1/auth/me
+2024-11-08 20:44:08,013 - api_gateway.app - INFO - Registered route: /api/v1/auth/change-password
+2024-11-08 20:44:08,013 - api_gateway.app - INFO - Registered route: /api/v1/auth/password-reset-request
+2024-11-08 20:44:08,013 - api_gateway.app - INFO - Registered route: /api/v1/auth/reset-password
+2024-11-08 20:44:08,014 - api_gateway.app - INFO - Registered route: /api/v1/pets/types
+2024-11-08 20:44:08,014 - api_gateway.app - INFO - Registered route: /api/v1/pets/breeds
+2024-11-08 20:44:08,014 - api_gateway.app - INFO - Registered route: /api/v1/pets/
+2024-11-08 20:44:08,014 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}/image
+2024-11-08 20:44:08,014 - api_gateway.app - INFO - Registered route: /api/v1/pets/
+2024-11-08 20:44:08,014 - api_gateway.app - INFO - Registered route: /api/v1/pets/my-pets
+2024-11-08 20:44:08,014 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}
+2024-11-08 20:44:08,014 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}
+2024-11-08 20:44:08,014 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}
+2024-11-08 20:44:08,015 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}/follow
+2024-11-08 20:44:08,015 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}/unfollow
+2024-11-08 20:44:08,015 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}/followers
+2024-11-08 20:44:08,015 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}/following
+2024-11-08 20:44:08,015 - api_gateway.app - INFO - Registered route: /api/v1/posts/
+2024-11-08 20:44:08,015 - api_gateway.app - INFO - Registered route: /api/v1/posts/
+2024-11-08 20:44:08,017 - api_gateway.app - INFO - Registered route: /api/v1/posts/my-posts
+2024-11-08 20:44:08,017 - api_gateway.app - INFO - Registered route: /api/v1/posts/{post_id}
+2024-11-08 20:44:08,017 - api_gateway.app - INFO - Registered route: /api/v1/posts/{post_id}
+2024-11-08 20:44:08,017 - api_gateway.app - INFO - Registered route: /api/v1/posts/{post_id}
+2024-11-08 20:44:08,017 - api_gateway.app - INFO - Registered route: /api/v1/posts/{post_id}/media
+2024-11-08 20:44:08,017 - api_gateway.app - INFO - Registered route: /api/v1/posts/{post_id}/comments
+2024-11-08 20:44:08,018 - api_gateway.app - INFO - Registered route: /api/v1/posts/comments/{comment_id}
+2024-11-08 20:44:08,018 - api_gateway.app - INFO - Registered route: /api/v1/posts/{post_id}/reactions
+2024-11-08 20:44:08,018 - api_gateway.app - INFO - Registered route: /api/v1/posts/reactions/{reaction_id}
+2024-11-08 20:44:08,018 - api_gateway.app - INFO - Registered route: /api/v1/messages/
+2024-11-08 20:44:08,018 - api_gateway.app - INFO - Registered route: /api/v1/messages/conversations
+2024-11-08 20:44:08,018 - api_gateway.app - INFO - Registered route: /api/v1/messages/conversation/{other_pet_id}
+2024-11-08 20:44:08,018 - api_gateway.app - INFO - Registered route: /api/v1/messages/conversation/{other_pet_id}/read
+2024-11-08 20:44:08,018 - api_gateway.app - INFO - Registered route: /api/v1/messages/unread/count
+2024-11-08 20:44:08,019 - api_gateway.app - INFO - Registered route: /api/v1/messages/conversation/{other_pet_id}
+2024-11-08 20:44:08,019 - api_gateway.app - INFO - Registered route: /api/v1/messages/search
+2024-11-08 20:44:08,019 - api_gateway.app - INFO - Registered route: /api/v1/notifications/
+2024-11-08 20:44:08,019 - api_gateway.app - INFO - Registered route: /api/v1/notifications/count
+2024-11-08 20:44:08,019 - api_gateway.app - INFO - Registered route: /api/v1/notifications/{notification_id}/read
+2024-11-08 20:44:08,019 - api_gateway.app - INFO - Registered route: /api/v1/notifications/read-all
+2024-11-08 20:44:08,019 - api_gateway.app - INFO - Registered route: /api/v1/notifications/{notification_id}
+2024-11-08 20:44:08,019 - api_gateway.app - INFO - Registered route: /api/v1/notifications/internal/create
+2024-11-08 20:44:08,019 - api_gateway.app - INFO - Registered route: /api/v1/groups/
+2024-11-08 20:44:08,019 - api_gateway.app - INFO - Registered route: /api/v1/groups/
+2024-11-08 20:44:08,020 - api_gateway.app - INFO - Registered route: /api/v1/groups/my-groups
+2024-11-08 20:44:08,020 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}
+2024-11-08 20:44:08,020 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}
+2024-11-08 20:44:08,020 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/image
+2024-11-08 20:44:08,020 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/join
+2024-11-08 20:44:08,020 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/leave
+2024-11-08 20:44:08,020 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/members
+2024-11-08 20:44:08,020 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/members/{user_id}/make-admin
+2024-11-08 20:44:08,020 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/posts
+2024-11-08 20:44:08,020 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/posts
+2024-11-08 20:44:08,020 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/posts/{post_id}/comments
+2024-11-08 20:44:08,020 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/members/{user_id}/remove
+2024-11-08 20:44:08,020 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/posts/{post_id}
+2024-11-08 20:44:08,020 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/posts/{post_id}/media
+2024-11-08 20:44:08,020 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/transfer-ownership/{new_owner_id}
+2024-11-08 20:44:08,022 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/posts/{post_id}/comments
+2024-11-08 20:44:08,022 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/comments/{comment_id}
+2024-11-08 20:44:08,022 - api_gateway.app - INFO - Registered route: /api/v1/search/
+2024-11-08 20:44:08,022 - api_gateway.app - INFO - Registered route: /api/v1/search/quick
+2024-11-08 20:44:08,022 - api_gateway.app - INFO - Registered route: /api/v1/search/suggestions
+2024-11-08 20:44:08,022 - api_gateway.app - INFO - Registered route: /api/v1/search/trending
+2024-11-08 20:44:08,023 - api_gateway.app - INFO - Registered route: /api/v1/search/recent
+2024-11-08 20:44:08,023 - api_gateway.app - INFO - Registered route: /api/v1/search/index/{content_type}/{content_id}
+2024-11-08 20:44:08,023 - api_gateway.app - INFO - Registered route: /api/v1/search/reindex
+2024-11-08 20:44:08,023 - api_gateway.app - INFO - Registered route: /api/v1/feed/
+2024-11-08 20:44:08,023 - api_gateway.app - INFO - Registered route: /api/v1/feed/trending
+2024-11-08 20:44:08,023 - api_gateway.app - INFO - Registered route: /api/v1/feed/following
+2024-11-08 20:44:08,023 - api_gateway.app - INFO - Registered route: /api/v1/feed/groups
+2024-11-08 20:44:08,023 - api_gateway.app - INFO - Registered route: /api/v1/feed/preferences
+2024-11-08 20:44:08,023 - api_gateway.app - INFO - Registered route: /api/v1/feed/preferences
+2024-11-08 20:44:08,024 - api_gateway.app - INFO - Registered route: /api/v1/feed/action
+2024-11-08 20:44:08,024 - api_gateway.app - INFO - Registered route: /api/v1/feed/refresh/{item_id}
+2024-11-08 20:44:08,024 - api_gateway.app - INFO - Registered route: /api/v1/feed/hide/{item_id}
+2024-11-08 20:44:08,024 - api_gateway.app - INFO - Registered route: /api/v1/moderation/reports
+2024-11-08 20:44:08,024 - api_gateway.app - INFO - Registered route: /api/v1/moderation/reports
+2024-11-08 20:44:08,024 - api_gateway.app - INFO - Registered route: /api/v1/moderation/reports/{report_id}
+2024-11-08 20:44:08,024 - api_gateway.app - INFO - Registered route: /api/v1/moderation/reports/{report_id}
+2024-11-08 20:44:08,025 - api_gateway.app - INFO - Registered route: /api/v1/moderation/queue/stats
+2024-11-08 20:44:08,025 - api_gateway.app - INFO - Registered route: /api/v1/moderation/queue/next
+2024-11-08 20:44:08,025 - api_gateway.app - INFO - Registered route: /api/v1/moderation/content/review
+2024-11-08 20:44:08,025 - api_gateway.app - INFO - Registered route: /api/v1/moderation/actions
+2024-11-08 20:44:08,025 - api_gateway.app - INFO - Registered route: /api/v1/moderation/stats
+2024-11-08 20:44:08,025 - api_gateway.app - INFO - Registered route: /api/v1/moderation/users/{user_id}/history
+2024-11-08 20:44:08,025 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter
+2024-11-08 20:44:08,026 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter/batch
+2024-11-08 20:44:08,026 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter/configurations
+2024-11-08 20:44:08,026 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter/configurations
+2024-11-08 20:44:08,026 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter/configurations/{config_id}
+2024-11-08 20:44:08,026 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter/configurations/{config_id}
+2024-11-08 20:44:08,026 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter/custom-rules
+2024-11-08 20:44:08,026 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter/custom-rules
+2024-11-08 20:44:08,026 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter/custom-rules/{rule_id}
+2024-11-08 20:44:08,026 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter/custom-rules/{rule_id}
+2024-11-08 20:44:08,026 - api_gateway.app - INFO - Registered route: /api/v1/virtual_pet/
+2024-11-08 20:44:08,026 - api_gateway.app - INFO - Registered route: /api/v1/virtual_pet/{pet_id}
+2024-11-08 20:44:08,026 - api_gateway.app - INFO - Registered route: /api/v1/virtual_pet/{pet_id}/actions/{action_type}
+2024-11-08 20:44:08,026 - api_gateway.app - INFO - Registered route: /api/v1/virtual_pet/{pet_id}/daily-tasks
+2024-11-08 20:44:08,026 - api_gateway.app - INFO - Registered route: /api/v1/virtual_pet/{pet_id}/stats
+2024-11-08 20:44:08,026 - api_gateway.app - INFO - Registered route: /api/v1/virtual_pet/{pet_id}/feed
+2024-11-08 20:44:08,027 - api_gateway.app - INFO - Registered route: /api/v1/virtual_pet/{pet_id}/play
+2024-11-08 20:44:08,027 - api_gateway.app - INFO - Registered route: /api/v1/virtual_pet/{pet_id}/rest
+2024-11-08 20:44:08,027 - api_gateway.app - INFO - Registered route: /api/v1/analytics/dashboard
+2024-11-08 20:44:08,027 - api_gateway.app - INFO - Registered route: /api/v1/analytics/users
+2024-11-08 20:44:08,027 - api_gateway.app - INFO - Registered route: /api/v1/analytics/users/growth
+2024-11-08 20:44:08,027 - api_gateway.app - INFO - Registered route: /api/v1/analytics/content
+2024-11-08 20:44:08,027 - api_gateway.app - INFO - Registered route: /api/v1/analytics/content/popular-categories
+2024-11-08 20:44:08,027 - api_gateway.app - INFO - Registered route: /api/v1/analytics/engagement
+2024-11-08 20:44:08,027 - api_gateway.app - INFO - Registered route: /api/v1/analytics/engagement/peak-hours
+2024-11-08 20:44:08,027 - api_gateway.app - INFO - Registered route: /api/v1/analytics/engagement/user-segments
+2024-11-08 20:44:08,027 - api_gateway.app - INFO - Registered route: /api/v1/analytics/platform
+2024-11-08 20:44:08,028 - api_gateway.app - INFO - Registered route: /api/v1/analytics/platform/health
+2024-11-08 20:44:08,028 - api_gateway.app - INFO - Registered route: /api/v1/analytics/export
+2024-11-08 20:44:08,028 - api_gateway.app - INFO - Registered route: /api/v1/analytics/export/status/{job_id}
+2024-11-08 20:44:08,028 - api_gateway.app - INFO - Registered route: /api/v1/analytics/exports/{filename}
+2024-11-08 20:44:08,028 - api_gateway.app - INFO - Registered route: /api/v1/analytics/export/cleanup
+2024-11-08 21:14:16,478 - multipart.multipart - DEBUG - Calling on_field_start with no data
+2024-11-08 21:14:16,492 - multipart.multipart - DEBUG - Calling on_field_name with data[0:8]
+2024-11-08 21:14:16,494 - multipart.multipart - DEBUG - Calling on_field_data with data[9:26]
+2024-11-08 21:14:16,495 - multipart.multipart - DEBUG - Calling on_field_end with no data
+2024-11-08 21:14:16,496 - multipart.multipart - DEBUG - Calling on_field_start with no data
+2024-11-08 21:14:16,497 - multipart.multipart - DEBUG - Calling on_field_name with data[27:35]
+2024-11-08 21:14:16,497 - multipart.multipart - DEBUG - Calling on_field_data with data[36:44]
+2024-11-08 21:14:16,503 - multipart.multipart - DEBUG - Calling on_field_end with no data
+2024-11-08 21:14:16,503 - multipart.multipart - DEBUG - Calling on_end with no data
+2024-11-08 21:14:19,926 - passlib.handlers.bcrypt - DEBUG - detected 'bcrypt' backend, version '4.0.1'
+2024-11-08 21:14:19,932 - passlib.handlers.bcrypt - DEBUG - 'bcrypt' backend lacks $2$ support, enabling workaround
+2024-11-08 21:20:10,676 - multipart.multipart - DEBUG - Calling on_field_start with no data
+2024-11-08 21:20:10,679 - multipart.multipart - DEBUG - Calling on_field_name with data[0:8]
+2024-11-08 21:20:10,679 - multipart.multipart - DEBUG - Calling on_field_data with data[9:26]
+2024-11-08 21:20:10,679 - multipart.multipart - DEBUG - Calling on_field_end with no data
+2024-11-08 21:20:10,681 - multipart.multipart - DEBUG - Calling on_field_start with no data
+2024-11-08 21:20:10,681 - multipart.multipart - DEBUG - Calling on_field_name with data[27:35]
+2024-11-08 21:20:10,681 - multipart.multipart - DEBUG - Calling on_field_data with data[36:44]
+2024-11-08 21:20:10,682 - multipart.multipart - DEBUG - Calling on_field_end with no data
+2024-11-08 21:20:10,682 - multipart.multipart - DEBUG - Calling on_end with no data
+2024-11-08 21:20:33,543 - services.analytics.app.services.platform_analytics - WARNING - Redis cache unavailable, running without cache
+2024-11-08 21:23:58,956 - multipart.multipart - DEBUG - Calling on_field_start with no data
+2024-11-08 21:23:58,956 - multipart.multipart - DEBUG - Calling on_field_name with data[0:8]
+2024-11-08 21:23:58,957 - multipart.multipart - DEBUG - Calling on_field_data with data[9:26]
+2024-11-08 21:23:58,957 - multipart.multipart - DEBUG - Calling on_field_end with no data
+2024-11-08 21:23:58,957 - multipart.multipart - DEBUG - Calling on_field_start with no data
+2024-11-08 21:23:58,957 - multipart.multipart - DEBUG - Calling on_field_name with data[27:35]
+2024-11-08 21:23:58,957 - multipart.multipart - DEBUG - Calling on_field_data with data[36:44]
+2024-11-08 21:23:58,958 - multipart.multipart - DEBUG - Calling on_field_end with no data
+2024-11-08 21:23:58,958 - multipart.multipart - DEBUG - Calling on_end with no data
+2024-11-08 21:28:17,826 - api_gateway.app - INFO - Shutting down Pet2Pet API Gateway...
