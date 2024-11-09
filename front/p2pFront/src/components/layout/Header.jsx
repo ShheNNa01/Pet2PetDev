@@ -22,10 +22,14 @@ export default function Header() {
     const [selectedChat, setSelectedChat] = useState(null);
     const [chatMessage, setChatMessage] = useState("");
 
+    console.log('Datos del usuario en Header:', user);
+    console.log('Rol ID en Header:', user?.role_id);
+
     const handleLogout = async () => {
         await logout();
         navigate('/');
     };
+
     const petChats = [
         { id: 1, pet: 'Firulais', lastMessage: 'Hola!', avatar: 'path-to-avatar.jpg' },
         { id: 2, pet: 'Mittens', lastMessage: '¿Cómo estás?', avatar: 'path-to-avatar.jpg' },
@@ -40,11 +44,11 @@ export default function Header() {
                         <img src={logo} alt="Logo de Pet2Pet" className="h-16 w-32" />
                     </div>
                     <div className="hidden md:flex items-center justify-center space-x-8">
-                        <NavItem icon={<Bone className="text-pink-500" />} text="Nido" />
-                        <NavItem icon={<CircleDot className="text-green-500" />} text="Descubrir" />
-                        <NavItem icon={<Dog className="text-purple-500 h-10 w-10" />} text="Mis Peludos" />
-                        <NavItem icon={<Fish className="text-blue-500" />} text="Chismes" />
-                        <NavItem icon={<Video className="text-red-500" />} text="Cine" />
+                        <NavItem icon={<Bone className="text-pink-500" />} text="Nido" onClick={() => navigate('/')} />
+                        <NavItem icon={<CircleDot className="text-green-500" />} text="Descubrir" onClick={() => navigate('/discover')} />
+                        <NavItem icon={<Dog className="text-purple-500 h-10 w-10" />} text="Mis Peludos" onClick={() => navigate('/pets')} />
+                        <NavItem icon={<Fish className="text-blue-500" />} text="Chismes" onClick={() => navigate('/gossip')} />
+                        <NavItem icon={<Video className="text-red-500" />} text="Cine" onClick={() => navigate('/cinema')} />
                     </div>
                     <div className="flex items-center space-x-4">
                         <Sheet open={chatOpen} onOpenChange={setChatOpen}>
@@ -110,6 +114,7 @@ export default function Header() {
                                 )}
                             </SheetContent>
                         </Sheet>
+
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
                                 <Button variant="ghost" size="icon" aria-label="Perfil de usuario">
@@ -121,14 +126,16 @@ export default function Header() {
                                     onClick={() => navigate('/profile')}
                                     className="cursor-pointer"
                                 >
+                                    <User className="w-4 h-4 mr-2" />
                                     Perfil
                                 </DropdownMenuItem>
 
-                                {user?.rol_id === 2 && (
+                                {user?.role_id === 2 && (
                                     <DropdownMenuItem 
                                         onClick={() => navigate('/dashboard')}
                                         className="cursor-pointer text-[#d55b49]"
                                     >
+                                        <LayoutDashboard className="w-4 h-4 mr-2" />
                                         Dashboard
                                     </DropdownMenuItem>
                                 )}
@@ -137,6 +144,7 @@ export default function Header() {
                                     onClick={() => navigate('/settings')}
                                     className="cursor-pointer"
                                 >
+                                    <Settings className="w-4 h-4 mr-2" />
                                     Configuración
                                 </DropdownMenuItem>
 
@@ -144,10 +152,12 @@ export default function Header() {
                                     onClick={handleLogout}
                                     className="cursor-pointer text-red-600"
                                 >
+                                    <LogOut className="w-4 h-4 mr-2" />
                                     Cerrar sesión
                                 </DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>
+
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
                                 <Button variant="ghost" size="icon" aria-label="Cambiar mascota">
@@ -160,6 +170,7 @@ export default function Header() {
                                 <DropdownMenuItem>Rocky</DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>
+
                         <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
                             <SheetTrigger asChild>
                                 <Button variant="ghost" size="icon" className="md:hidden" aria-label="Menú">
@@ -168,11 +179,11 @@ export default function Header() {
                             </SheetTrigger>
                             <SheetContent side="left" className="w-[300px] sm:w-[400px]">
                                 <nav className="flex flex-col space-y-4">
-                                    <NavItem icon={<Bone className="text-pink-500" />} text="Nido" />
-                                    <NavItem icon={<CircleDot className="text-green-500" />} text="Descubrir" />
-                                    <NavItem icon={<User className="text-purple-500" />} text="Mis Peludos" />
-                                    <NavItem icon={<Fish className="text-blue-500" />} text="Chismes" />
-                                    <NavItem icon={<Video className="text-red-500" />} text="Cine" />
+                                    <NavItem icon={<Bone className="text-pink-500" />} text="Nido" onClick={() => navigate('/')} />
+                                    <NavItem icon={<CircleDot className="text-green-500" />} text="Descubrir" onClick={() => navigate('/discover')} />
+                                    <NavItem icon={<Dog className="text-purple-500" />} text="Mis Peludos" onClick={() => navigate('/pets')} />
+                                    <NavItem icon={<Fish className="text-blue-500" />} text="Chismes" onClick={() => navigate('/gossip')} />
+                                    <NavItem icon={<Video className="text-red-500" />} text="Cine" onClick={() => navigate('/cinema')} />
                                 </nav>
                             </SheetContent>
                         </Sheet>
@@ -183,9 +194,9 @@ export default function Header() {
     );
 }
 
-function NavItem({ icon, text }) {
+function NavItem({ icon, text, onClick }) {
     return (
-        <Button variant="ghost" className="flex items-center space-x-2">
+        <Button variant="ghost" className="flex items-center space-x-2" onClick={onClick}>
             {icon}
             <span>{text}</span>
         </Button>

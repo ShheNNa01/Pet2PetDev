@@ -14,6 +14,7 @@ import {
 } from 'chart.js';
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { useNavigate } from 'react-router-dom';
 import {
     Users,
     Activity,
@@ -23,7 +24,8 @@ import {
     Clock,
     Layers,
     Target,
-    Loader2
+    Loader2,
+    Home
 } from 'lucide-react';
 import { analyticsService } from '../services/analyticsService';
 
@@ -48,6 +50,7 @@ const COLORS = {
 };
 
 const Dashboard = () => {
+    const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [dashboardData, setDashboardData] = useState({
@@ -114,6 +117,13 @@ const Dashboard = () => {
                         <p className="text-[#509ca2]">Monitoreo en tiempo real de la actividad de la plataforma</p>
                     </div>
                     <div className="flex gap-4">
+                        <button
+                            onClick={() => navigate('/')}
+                            className="px-4 py-2 bg-[#509ca2] text-white rounded-lg hover:bg-[#509ca2]/90 flex items-center gap-2"
+                        >
+                            <Home className="w-4 h-4" />
+                            Volver al Inicio
+                        </button>
                         <select
                             value={timeRange}
                             onChange={(e) => setTimeRange(e.target.value)}
@@ -336,172 +346,174 @@ const Dashboard = () => {
                                                 ticks: {
                                                     color: COLORS.light,
                                                     maxRotation: 45,
+                                                    minmaxRotation: 45,
                                                     minRotation: 45
-                                                }
-                                            }
-                                        }
-                                    }}
-                                />
-                            )}
-                        </CardContent>
-                    </Card>
-
-                    <Card className="bg-[#1a1a1a] border border-[#509ca2]/20">
-                        <CardHeader>
-                            <h3 className="text-xl font-semibold text-[#eeede8]">Segmentos de Usuarios</h3>
-                        </CardHeader>
-                        <CardContent className="h-80">
-                            {engagement_metrics?.user_segments && (
-                                <Bar
-                                    data={{
-                                        labels: engagement_metrics.user_segments.map(
-                                            segment => segment.segment
-                                        ),
-                                        datasets: [{
-                                            label: 'Distribución de usuarios',
-                                            data: engagement_metrics.user_segments.map(
-                                                segment => segment.percentage
-                                            ),
-                                            backgroundColor: COLORS.secondary,
-                                        }]
-                                    }}
-                                    options={{
-                                        responsive: true,
-                                        maintainAspectRatio: false,
-                                        plugins: {
-                                            legend: {
-                                                position: 'top',
-                                                labels: { color: COLORS.light }
-                                            }
-                                        },
-                                        scales: {
-                                            y: {
-                                                grid: { color: 'rgba(238, 237, 232, 0.1)' },
-                                                ticks: {
-                                                    color: COLORS.light,
-                                                    callback: (value) => `${value}%`
-                                                }
-                                            },
-                                            x: {
-                                                grid: { color: 'rgba(238, 237, 232, 0.1)' },
-                                                ticks: { color: COLORS.light }
-                                            }
-                                        }
-                                    }}
-                                />
-                            )}
-                        </CardContent>
-                    </Card>
-                </div>
-
-                {/* Detalles adicionales */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
-                    {/* Horas pico */}
-                    <Card className="bg-[#1a1a1a] border border-[#d55b49]/20">
-                        <CardHeader>
-                            <h3 className="text-xl font-semibold text-[#eeede8]">Horas Pico</h3>
-                        </CardHeader>
-                        <CardContent>
-                            {engagement_metrics?.peak_activity_hours?.map((hour, index) => (
-                                <div key={hour.hour} className="mb-4">
-                                    <div className="flex justify-between text-sm text-[#eeede8] mb-1">
-                                        <span>{hour.hour}</span>
-                                        <span>{hour.percentage.toFixed(1)}%</span>
-                                    </div>
-                                    <div className="w-full bg-[#1a1a1a] rounded-full h-2">
-                                        <div
-                                            className="bg-[#d55b49] h-2 rounded-full"
-                                            style={{ width: `${hour.percentage}%` }}
-                                        />
+                                                                }
+                                                            }
+                                                        }
+                                                    }}
+                                                />
+                                            )}
+                                        </CardContent>
+                                    </Card>
+                
+                                    <Card className="bg-[#1a1a1a] border border-[#509ca2]/20">
+                                        <CardHeader>
+                                            <h3 className="text-xl font-semibold text-[#eeede8]">Segmentos de Usuarios</h3>
+                                        </CardHeader>
+                                        <CardContent className="h-80">
+                                            {engagement_metrics?.user_segments && (
+                                                <Bar
+                                                    data={{
+                                                        labels: engagement_metrics.user_segments.map(
+                                                            segment => segment.segment
+                                                        ),
+                                                        datasets: [{
+                                                            label: 'Distribución de usuarios',
+                                                            data: engagement_metrics.user_segments.map(
+                                                                segment => segment.percentage
+                                                            ),
+                                                            backgroundColor: COLORS.secondary,
+                                                        }]
+                                                    }}
+                                                    options={{
+                                                        responsive: true,
+                                                        maintainAspectRatio: false,
+                                                        plugins: {
+                                                            legend: {
+                                                                position: 'top',
+                                                                labels: { color: COLORS.light }
+                                                            }
+                                                        },
+                                                        scales: {
+                                                            y: {
+                                                                grid: { color: 'rgba(238, 237, 232, 0.1)' },
+                                                                ticks: {
+                                                                    color: COLORS.light,
+                                                                    callback: (value) => `${value}%`
+                                                                }
+                                                            },
+                                                            x: {
+                                                                grid: { color: 'rgba(238, 237, 232, 0.1)' },
+                                                                ticks: { color: COLORS.light }
+                                                            }
+                                                        }
+                                                    }}
+                                                />
+                                            )}
+                                        </CardContent>
+                                    </Card>
+                                </div>
+                
+                                {/* Detalles adicionales */}
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+                                    {/* Horas pico */}
+                                    <Card className="bg-[#1a1a1a] border border-[#d55b49]/20">
+                                        <CardHeader>
+                                            <h3 className="text-xl font-semibold text-[#eeede8]">Horas Pico</h3>
+                                        </CardHeader>
+                                        <CardContent>
+                                            {engagement_metrics?.peak_activity_hours?.map((hour, index) => (
+                                                <div key={hour.hour} className="mb-4">
+                                                    <div className="flex justify-between text-sm text-[#eeede8] mb-1">
+                                                        <span>{hour.hour}</span>
+                                                        <span>{hour.percentage.toFixed(1)}%</span>
+                                                    </div>
+                                                    <div className="w-full bg-[#1a1a1a] rounded-full h-2">
+                                                        <div
+                                                            className="bg-[#d55b49] h-2 rounded-full"
+                                                            style={{ width: `${hour.percentage}%` }}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </CardContent>
+                                    </Card>
+                
+                                    {/* Tipos de interacción */}
+                                    <Card className="bg-[#1a1a1a] border border-[#509ca2]/20">
+                                        <CardHeader>
+                                            <h3 className="text-xl font-semibold text-[#eeede8]">Tipos de Interacción</h3>
+                                        </CardHeader>
+                                        <CardContent>
+                                            {engagement_metrics?.interaction_types && Object.entries(engagement_metrics.interaction_types).map(([type, value]) => (
+                                                <div key={type} className="mb-4">
+                                                    <div className="flex justify-between text-sm text-[#eeede8] mb-1">
+                                                        <span>{type.replace('reaction_', '').replace('_', ' ').toUpperCase()}</span>
+                                                        <span>{value.toFixed(1)}%</span>
+                                                    </div>
+                                                    <div className="w-full bg-[#1a1a1a] rounded-full h-2">
+                                                        <div
+                                                            className="bg-[#509ca2] h-2 rounded-full"
+                                                            style={{ width: `${value}%` }}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </CardContent>
+                                    </Card>
+                
+                                    {/* Salud del sistema */}
+                                    <Card className="bg-[#1a1a1a] border border-[#d55b49]/20">
+                                        <CardHeader>
+                                            <h3 className="text-xl font-semibold text-[#eeede8]">Salud del Sistema</h3>
+                                        </CardHeader>
+                                        <CardContent>
+                                            {platform_metrics?.system_health && Object.entries(platform_metrics.system_health).map(([metric, data]) => (
+                                                <div key={metric} className="mb-4">
+                                                    <div className="flex justify-between text-sm text-[#eeede8] mb-1">
+                                                        <span>{metric.replace('_', ' ').toUpperCase()}</span>
+                                                        <span>{data.value.toFixed(1)}%</span>
+                                                    </div>
+                                                    <div className="w-full bg-[#1a1a1a] rounded-full h-2">
+                                                        <div
+                                                            className={`h-2 rounded-full ${
+                                                                data.value > 80 ? 'bg-red-500' :
+                                                                data.value > 60 ? 'bg-yellow-500' :
+                                                                'bg-green-500'
+                                                            }`}
+                                                            style={{ width: `${data.value}%` }}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </CardContent>
+                                    </Card>
+                                </div>
+                
+                                {/* Footer con exportación */}
+                                <div className="mt-6 p-4 bg-[#1a1a1a] border border-[#509ca2]/20 rounded-lg">
+                                    <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+                                        <div className="text-[#eeede8]">
+                                            <p>Última actualización: {new Date().toLocaleString()}</p>
+                                        </div>
+                                        <div className="flex gap-4">
+                                            <button
+                                                onClick={() => analyticsService.exportMetrics({
+                                                    metricsType: 'all',
+                                                    timeRange,
+                                                    format: 'csv'
+                                                })}
+                                                className="px-4 py-2 bg-[#509ca2] text-white rounded-lg hover:bg-[#509ca2]/90"
+                                            >
+                                                Exportar CSV
+                                            </button>
+                                            <button
+                                                onClick={() => analyticsService.exportMetrics({
+                                                    metricsType: 'all',
+                                                    timeRange,
+                                                    format: 'json'
+                                                })}
+                                                className="px-4 py-2 bg-[#d55b49] text-white rounded-lg hover:bg-[#d55b49]/90"
+                                            >
+                                                Exportar JSON
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
-                            ))}
-                        </CardContent>
-                    </Card>
-
-                    {/* Tipos de interacción */}
-                    <Card className="bg-[#1a1a1a] border border-[#509ca2]/20">
-                        <CardHeader>
-                            <h3 className="text-xl font-semibold text-[#eeede8]">Tipos de Interacción</h3>
-                        </CardHeader>
-                        <CardContent>
-                            {engagement_metrics?.interaction_types && Object.entries(engagement_metrics.interaction_types).map(([type, value]) => (
-                                <div key={type} className="mb-4">
-                                    <div className="flex justify-between text-sm text-[#eeede8] mb-1">
-                                        <span>{type.replace('reaction_', '').replace('_', ' ').toUpperCase()}</span>
-                                        <span>{value.toFixed(1)}%</span>
-                                    </div>
-                                    <div className="w-full bg-[#1a1a1a] rounded-full h-2">
-                                        <div
-                                            className="bg-[#509ca2] h-2 rounded-full"
-                                            style={{ width: `${value}%` }}
-                                        />
-                                    </div>
-                                </div>
-                            ))}
-                        </CardContent>
-                    </Card>
-
-                    {/* Salud del sistema */}
-                    <Card className="bg-[#1a1a1a] border border-[#d55b49]/20">
-                        <CardHeader>
-                            <h3 className="text-xl font-semibold text-[#eeede8]">Salud del Sistema</h3>
-                        </CardHeader>
-                        <CardContent>
-                            {platform_metrics?.system_health && Object.entries(platform_metrics.system_health).map(([metric, data]) => (
-                                <div key={metric} className="mb-4">
-                                    <div className="flex justify-between text-sm text-[#eeede8] mb-1">
-                                        <span>{metric.replace('_', ' ').toUpperCase()}</span>
-                                        <span>{data.value.toFixed(1)}%</span>
-                                    </div>
-                                    <div className="w-full bg-[#1a1a1a] rounded-full h-2">
-                                        <div
-                                            className={`h-2 rounded-full ${data.value > 80 ? 'bg-red-500' :
-                                                    data.value > 60 ? 'bg-yellow-500' :
-                                                        'bg-green-500'
-                                                }`}
-                                            style={{ width: `${data.value}%` }}
-                                        />
-                                    </div>
-                                </div>
-                            ))}
-                        </CardContent>
-                    </Card>
-                </div>
-
-                {/* Footer con exportación */}
-                <div className="mt-6 p-4 bg-[#1a1a1a] border border-[#509ca2]/20 rounded-lg">
-                    <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-                        <div className="text-[#eeede8]">
-                            <p>Última actualización: {new Date().toLocaleString()}</p>
+                            </div>
                         </div>
-                        <div className="flex gap-4">
-                            <button
-                                onClick={() => analyticsService.exportMetrics({
-                                    metricsType: 'all',
-                                    timeRange,
-                                    format: 'csv'
-                                })}
-                                className="px-4 py-2 bg-[#509ca2] text-white rounded-lg hover:bg-[#509ca2]/90"
-                            >
-                                Exportar CSV
-                            </button>
-                            <button
-                                onClick={() => analyticsService.exportMetrics({
-                                    metricsType: 'all',
-                                    timeRange,
-                                    format: 'json'
-                                })}
-                                className="px-4 py-2 bg-[#d55b49] text-white rounded-lg hover:bg-[#d55b49]/90"
-                            >
-                                Exportar JSON
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
-};
-
-export default Dashboard;
+                    );
+                };
+                
+                export default Dashboard;

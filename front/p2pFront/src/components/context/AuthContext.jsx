@@ -9,10 +9,13 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const token = localStorage.getItem('token');
     const storedUser = localStorage.getItem('user');
-    
+   
     if (token && storedUser) {
       try {
         const userData = JSON.parse(storedUser);
+        console.log('Datos cargados del localStorage:', userData);
+        // Aseguramos que role_id esté presente
+        userData.role_id = userData.role_id || userData.rol_id;
         setUser({ ...userData, token });
       } catch (error) {
         console.error('Error parsing stored user:', error);
@@ -24,10 +27,19 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = (userData) => {
-    const { access_token, ...rest } = userData;
+    const { access_token, user: userDetails } = userData;
+    console.log('Datos completos recibidos en login:', userData);
+    console.log('Datos del usuario:', userDetails);
+
+    // Aseguramos que role_id esté presente
+    const userToStore = {
+      ...userDetails,
+      role_id: userDetails.role_id || userDetails.rol_id
+    };
+
     localStorage.setItem('token', access_token);
-    localStorage.setItem('user', JSON.stringify(rest));
-    setUser({ ...rest, token: access_token });
+    localStorage.setItem('user', JSON.stringify(userToStore));
+    setUser({ ...userToStore, token: access_token });
   };
 
   const logout = () => {
@@ -36,18 +48,18 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
   };
 
-  // Añadimos la función para verificar si es SuperAdmin
-  const isAdmin = user && user.rol_id === 2;
+  // Verificamos ambas posibilidades role_id y rol_id
+  const isAdmin = user?.role_id === 2 || user?.rol_id === 2;
 
   return (
-    <AuthContext.Provider 
-      value={{ 
-        user, 
-        login, 
-        logout, 
+    <AuthContext.Provider
+      value={{
+        user,
+        login,
+        logout,
         loading,
-        isAdmin, // Exportamos la función isAdmin
-        isAuthenticated: !!user // Añadimos isAuthenticated
+        isAdmin,
+        isAuthenticated: !!user
       }}
     >
       {!loading && children}
