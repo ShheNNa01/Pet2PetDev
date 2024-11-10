@@ -15533,3 +15533,1280 @@ engagement_metrics
 2024-11-08 21:23:58,958 - multipart.multipart - DEBUG - Calling on_field_end with no data
 2024-11-08 21:23:58,958 - multipart.multipart - DEBUG - Calling on_end with no data
 2024-11-08 21:28:17,826 - api_gateway.app - INFO - Shutting down Pet2Pet API Gateway...
+2024-11-09 18:35:30,542 - api_gateway.app - INFO - PYTHONPATH: ['C:\\Pet2PetDevWeb\\back\\microserviciosConArquitectura\\pet2pet', 'C:\\Users\\londo\\AppData\\Local\\Programs\\Python\\Python313\\python313.zip', 'C:\\Users\\londo\\AppData\\Local\\Programs\\Python\\Python313\\DLLs', 'C:\\Users\\londo\\AppData\\Local\\Programs\\Python\\Python313\\Lib', 'C:\\Users\\londo\\AppData\\Local\\Programs\\Python\\Python313', 'C:\\Users\\londo\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages', 'C:\\Pet2PetDevWeb\\back\\microserviciosConArquitectura\\pet2pet', 'C:\\Pet2PetDevWeb\\back\\microserviciosConArquitectura\\pet2pet']
+2024-11-09 18:35:30,544 - api_gateway.app - INFO - Loading routes for auth service from services.auth.app.api.routes
+2024-11-09 18:35:30,859 - api_gateway.app - ERROR - Error loading auth service: Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__firstlineno__', '__static_attributes__'}.
+2024-11-09 18:35:30,859 - api_gateway.app - ERROR - Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__firstlineno__', '__static_attributes__'}.
+Traceback (most recent call last):
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\api_gateway\app.py", line 124, in create_app
+    module = __import__(service['module'], fromlist=['api_router'])
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\services\auth\app\api\routes.py", line 2, in <module>
+    from services.auth.app.api.endpoints import router as auth_router
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\services\auth\app\api\endpoints.py", line 4, in <module>
+    from sqlalchemy.orm import Session
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\__init__.py", line 13, in <module>
+    from .engine import AdaptedConnection as AdaptedConnection
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\__init__.py", line 18, in <module>
+    from . import events as events
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\events.py", line 19, in <module>
+    from .base import Connection
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 30, in <module>
+    from .interfaces import BindTyping
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\interfaces.py", line 38, in <module>
+    from ..sql.compiler import Compiled as Compiled
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\__init__.py", line 14, in <module>
+    from .compiler import COLLECT_CARTESIAN_PRODUCTS as COLLECT_CARTESIAN_PRODUCTS
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\compiler.py", line 61, in <module>
+    from . import crud
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\crud.py", line 34, in <module>
+    from . import dml
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\dml.py", line 34, in <module>
+    from . import util as sql_util
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\util.py", line 46, in <module>
+    from .ddl import sort_tables as sort_tables  # noqa: F401
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\ddl.py", line 30, in <module>
+    from .elements import ClauseElement
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\elements.py", line 808, in <module>
+    class SQLCoreOperations(Generic[_T_co], ColumnOperators, TypingOnly):
+    ...<472 lines>...
+                ...
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\typing.py", line 1257, in _generic_init_subclass
+    super(Generic, cls).__init_subclass__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 1988, in __init_subclass__
+    raise AssertionError(
+    ...<2 lines>...
+    )
+AssertionError: Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__firstlineno__', '__static_attributes__'}.
+2024-11-09 18:35:30,924 - api_gateway.app - INFO - Loading routes for pets service from services.pets.app.api.routes
+2024-11-09 18:35:31,009 - api_gateway.app - ERROR - Error loading pets service: Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__firstlineno__', '__static_attributes__'}.
+2024-11-09 18:35:31,009 - api_gateway.app - ERROR - Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__firstlineno__', '__static_attributes__'}.
+Traceback (most recent call last):
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\api_gateway\app.py", line 124, in create_app
+    module = __import__(service['module'], fromlist=['api_router'])
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\services\pets\app\api\routes.py", line 2, in <module>
+    from services.pets.app.api.endpoints import (
+    ...<3 lines>...
+    )
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\services\pets\app\api\endpoints.py", line 6, in <module>
+    from sqlalchemy.orm import Session
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\__init__.py", line 13, in <module>
+    from .engine import AdaptedConnection as AdaptedConnection
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\__init__.py", line 18, in <module>
+    from . import events as events
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\events.py", line 19, in <module>
+    from .base import Connection
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 30, in <module>
+    from .interfaces import BindTyping
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\interfaces.py", line 38, in <module>
+    from ..sql.compiler import Compiled as Compiled
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\__init__.py", line 14, in <module>
+    from .compiler import COLLECT_CARTESIAN_PRODUCTS as COLLECT_CARTESIAN_PRODUCTS
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\compiler.py", line 61, in <module>
+    from . import crud
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\crud.py", line 34, in <module>
+    from . import dml
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\dml.py", line 34, in <module>
+    from . import util as sql_util
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\util.py", line 46, in <module>
+    from .ddl import sort_tables as sort_tables  # noqa: F401
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\ddl.py", line 30, in <module>
+    from .elements import ClauseElement
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\elements.py", line 808, in <module>
+    class SQLCoreOperations(Generic[_T_co], ColumnOperators, TypingOnly):
+    ...<472 lines>...
+                ...
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\typing.py", line 1257, in _generic_init_subclass
+    super(Generic, cls).__init_subclass__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 1988, in __init_subclass__
+    raise AssertionError(
+    ...<2 lines>...
+    )
+AssertionError: Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__firstlineno__', '__static_attributes__'}.
+2024-11-09 18:35:31,028 - api_gateway.app - INFO - Loading routes for posts service from services.posts.app.api.routes
+2024-11-09 18:35:31,114 - api_gateway.app - ERROR - Error loading posts service: Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__firstlineno__', '__static_attributes__'}.
+2024-11-09 18:35:31,115 - api_gateway.app - ERROR - Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__firstlineno__', '__static_attributes__'}.
+Traceback (most recent call last):
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\api_gateway\app.py", line 124, in create_app
+    module = __import__(service['module'], fromlist=['api_router'])
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\services\posts\app\api\routes.py", line 2, in <module>
+    from services.posts.app.api.endpoints import router as posts_router
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\services\posts\app\api\endpoints.py", line 4, in <module>
+    from sqlalchemy.orm import Session
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\__init__.py", line 13, in <module>
+    from .engine import AdaptedConnection as AdaptedConnection
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\__init__.py", line 18, in <module>
+    from . import events as events
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\events.py", line 19, in <module>
+    from .base import Connection
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 30, in <module>
+    from .interfaces import BindTyping
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\interfaces.py", line 38, in <module>
+    from ..sql.compiler import Compiled as Compiled
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\__init__.py", line 14, in <module>
+    from .compiler import COLLECT_CARTESIAN_PRODUCTS as COLLECT_CARTESIAN_PRODUCTS
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\compiler.py", line 61, in <module>
+    from . import crud
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\crud.py", line 34, in <module>
+    from . import dml
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\dml.py", line 34, in <module>
+    from . import util as sql_util
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\util.py", line 46, in <module>
+    from .ddl import sort_tables as sort_tables  # noqa: F401
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\ddl.py", line 30, in <module>
+    from .elements import ClauseElement
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\elements.py", line 808, in <module>
+    class SQLCoreOperations(Generic[_T_co], ColumnOperators, TypingOnly):
+    ...<472 lines>...
+                ...
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\typing.py", line 1257, in _generic_init_subclass
+    super(Generic, cls).__init_subclass__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 1988, in __init_subclass__
+    raise AssertionError(
+    ...<2 lines>...
+    )
+AssertionError: Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__firstlineno__', '__static_attributes__'}.
+2024-11-09 18:35:31,137 - api_gateway.app - INFO - Loading routes for messages service from services.messages.app.api.routes
+2024-11-09 18:35:31,233 - api_gateway.app - ERROR - Error loading messages service: Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__firstlineno__', '__static_attributes__'}.
+2024-11-09 18:35:31,233 - api_gateway.app - ERROR - Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__firstlineno__', '__static_attributes__'}.
+Traceback (most recent call last):
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\api_gateway\app.py", line 124, in create_app
+    module = __import__(service['module'], fromlist=['api_router'])
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\services\messages\app\api\routes.py", line 2, in <module>
+    from services.messages.app.api.endpoints import router as messages_router
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\services\messages\app\api\endpoints.py", line 2, in <module>
+    from sqlalchemy.orm import Session
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\__init__.py", line 13, in <module>
+    from .engine import AdaptedConnection as AdaptedConnection
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\__init__.py", line 18, in <module>
+    from . import events as events
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\events.py", line 19, in <module>
+    from .base import Connection
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 30, in <module>
+    from .interfaces import BindTyping
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\interfaces.py", line 38, in <module>
+    from ..sql.compiler import Compiled as Compiled
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\__init__.py", line 14, in <module>
+    from .compiler import COLLECT_CARTESIAN_PRODUCTS as COLLECT_CARTESIAN_PRODUCTS
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\compiler.py", line 61, in <module>
+    from . import crud
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\crud.py", line 34, in <module>
+    from . import dml
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\dml.py", line 34, in <module>
+    from . import util as sql_util
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\util.py", line 46, in <module>
+    from .ddl import sort_tables as sort_tables  # noqa: F401
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\ddl.py", line 30, in <module>
+    from .elements import ClauseElement
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\elements.py", line 808, in <module>
+    class SQLCoreOperations(Generic[_T_co], ColumnOperators, TypingOnly):
+    ...<472 lines>...
+                ...
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\typing.py", line 1257, in _generic_init_subclass
+    super(Generic, cls).__init_subclass__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 1988, in __init_subclass__
+    raise AssertionError(
+    ...<2 lines>...
+    )
+AssertionError: Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__firstlineno__', '__static_attributes__'}.
+2024-11-09 18:35:31,252 - api_gateway.app - INFO - Loading routes for notifications service from services.notifications.app.api.routes
+2024-11-09 18:35:31,359 - api_gateway.app - ERROR - Error loading notifications service: Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__firstlineno__', '__static_attributes__'}.
+2024-11-09 18:35:31,360 - api_gateway.app - ERROR - Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__firstlineno__', '__static_attributes__'}.
+Traceback (most recent call last):
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\api_gateway\app.py", line 124, in create_app
+    module = __import__(service['module'], fromlist=['api_router'])
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\services\notifications\app\api\routes.py", line 2, in <module>
+    from services.notifications.app.api.endpoints import router as notifications_router
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\services\notifications\app\api\endpoints.py", line 2, in <module>
+    from sqlalchemy.orm import Session
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\__init__.py", line 13, in <module>
+    from .engine import AdaptedConnection as AdaptedConnection
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\__init__.py", line 18, in <module>
+    from . import events as events
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\events.py", line 19, in <module>
+    from .base import Connection
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 30, in <module>
+    from .interfaces import BindTyping
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\interfaces.py", line 38, in <module>
+    from ..sql.compiler import Compiled as Compiled
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\__init__.py", line 14, in <module>
+    from .compiler import COLLECT_CARTESIAN_PRODUCTS as COLLECT_CARTESIAN_PRODUCTS
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\compiler.py", line 61, in <module>
+    from . import crud
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\crud.py", line 34, in <module>
+    from . import dml
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\dml.py", line 34, in <module>
+    from . import util as sql_util
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\util.py", line 46, in <module>
+    from .ddl import sort_tables as sort_tables  # noqa: F401
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\ddl.py", line 30, in <module>
+    from .elements import ClauseElement
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\elements.py", line 808, in <module>
+    class SQLCoreOperations(Generic[_T_co], ColumnOperators, TypingOnly):
+    ...<472 lines>...
+                ...
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\typing.py", line 1257, in _generic_init_subclass
+    super(Generic, cls).__init_subclass__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 1988, in __init_subclass__
+    raise AssertionError(
+    ...<2 lines>...
+    )
+AssertionError: Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__firstlineno__', '__static_attributes__'}.
+2024-11-09 18:35:31,379 - api_gateway.app - INFO - Loading routes for groups service from services.groups.app.api.routes
+2024-11-09 18:35:31,477 - api_gateway.app - ERROR - Error loading groups service: Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__firstlineno__', '__static_attributes__'}.
+2024-11-09 18:35:31,478 - api_gateway.app - ERROR - Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__firstlineno__', '__static_attributes__'}.
+Traceback (most recent call last):
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\api_gateway\app.py", line 124, in create_app
+    module = __import__(service['module'], fromlist=['api_router'])
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\services\groups\app\api\routes.py", line 2, in <module>
+    from services.groups.app.api.endpoints import router as groups_router
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\services\groups\app\api\endpoints.py", line 2, in <module>
+    from sqlalchemy.orm import Session
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\__init__.py", line 13, in <module>
+    from .engine import AdaptedConnection as AdaptedConnection
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\__init__.py", line 18, in <module>
+    from . import events as events
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\events.py", line 19, in <module>
+    from .base import Connection
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 30, in <module>
+    from .interfaces import BindTyping
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\interfaces.py", line 38, in <module>
+    from ..sql.compiler import Compiled as Compiled
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\__init__.py", line 14, in <module>
+    from .compiler import COLLECT_CARTESIAN_PRODUCTS as COLLECT_CARTESIAN_PRODUCTS
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\compiler.py", line 61, in <module>
+    from . import crud
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\crud.py", line 34, in <module>
+    from . import dml
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\dml.py", line 34, in <module>
+    from . import util as sql_util
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\util.py", line 46, in <module>
+    from .ddl import sort_tables as sort_tables  # noqa: F401
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\ddl.py", line 30, in <module>
+    from .elements import ClauseElement
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\elements.py", line 808, in <module>
+    class SQLCoreOperations(Generic[_T_co], ColumnOperators, TypingOnly):
+    ...<472 lines>...
+                ...
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\typing.py", line 1257, in _generic_init_subclass
+    super(Generic, cls).__init_subclass__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 1988, in __init_subclass__
+    raise AssertionError(
+    ...<2 lines>...
+    )
+AssertionError: Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__firstlineno__', '__static_attributes__'}.
+2024-11-09 18:35:31,496 - api_gateway.app - INFO - Loading routes for search service from services.search.app.api.routes
+2024-11-09 18:35:31,591 - api_gateway.app - ERROR - Error loading search service: Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__firstlineno__', '__static_attributes__'}.
+2024-11-09 18:35:31,591 - api_gateway.app - ERROR - Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__firstlineno__', '__static_attributes__'}.
+Traceback (most recent call last):
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\api_gateway\app.py", line 124, in create_app
+    module = __import__(service['module'], fromlist=['api_router'])
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\services\search\app\api\routes.py", line 2, in <module>
+    from services.search.app.api.endpoints import router as search_router
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\services\search\app\api\endpoints.py", line 2, in <module>
+    from sqlalchemy.orm import Session
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\__init__.py", line 13, in <module>
+    from .engine import AdaptedConnection as AdaptedConnection
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\__init__.py", line 18, in <module>
+    from . import events as events
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\events.py", line 19, in <module>
+    from .base import Connection
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 30, in <module>
+    from .interfaces import BindTyping
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\interfaces.py", line 38, in <module>
+    from ..sql.compiler import Compiled as Compiled
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\__init__.py", line 14, in <module>
+    from .compiler import COLLECT_CARTESIAN_PRODUCTS as COLLECT_CARTESIAN_PRODUCTS
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\compiler.py", line 61, in <module>
+    from . import crud
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\crud.py", line 34, in <module>
+    from . import dml
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\dml.py", line 34, in <module>
+    from . import util as sql_util
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\util.py", line 46, in <module>
+    from .ddl import sort_tables as sort_tables  # noqa: F401
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\ddl.py", line 30, in <module>
+    from .elements import ClauseElement
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\elements.py", line 808, in <module>
+    class SQLCoreOperations(Generic[_T_co], ColumnOperators, TypingOnly):
+    ...<472 lines>...
+                ...
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\typing.py", line 1257, in _generic_init_subclass
+    super(Generic, cls).__init_subclass__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 1988, in __init_subclass__
+    raise AssertionError(
+    ...<2 lines>...
+    )
+AssertionError: Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__firstlineno__', '__static_attributes__'}.
+2024-11-09 18:35:31,611 - api_gateway.app - INFO - Loading routes for feed service from services.feed.app.api.routes
+2024-11-09 18:35:31,703 - api_gateway.app - ERROR - Error loading feed service: Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__firstlineno__', '__static_attributes__'}.
+2024-11-09 18:35:31,704 - api_gateway.app - ERROR - Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__firstlineno__', '__static_attributes__'}.
+Traceback (most recent call last):
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\api_gateway\app.py", line 124, in create_app
+    module = __import__(service['module'], fromlist=['api_router'])
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\services\feed\app\api\routes.py", line 2, in <module>
+    from services.feed.app.api.endpoints import router as feed_router
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\services\feed\app\api\endpoints.py", line 2, in <module>
+    from sqlalchemy.orm import Session
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\__init__.py", line 13, in <module>
+    from .engine import AdaptedConnection as AdaptedConnection
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\__init__.py", line 18, in <module>
+    from . import events as events
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\events.py", line 19, in <module>
+    from .base import Connection
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 30, in <module>
+    from .interfaces import BindTyping
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\interfaces.py", line 38, in <module>
+    from ..sql.compiler import Compiled as Compiled
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\__init__.py", line 14, in <module>
+    from .compiler import COLLECT_CARTESIAN_PRODUCTS as COLLECT_CARTESIAN_PRODUCTS
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\compiler.py", line 61, in <module>
+    from . import crud
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\crud.py", line 34, in <module>
+    from . import dml
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\dml.py", line 34, in <module>
+    from . import util as sql_util
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\util.py", line 46, in <module>
+    from .ddl import sort_tables as sort_tables  # noqa: F401
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\ddl.py", line 30, in <module>
+    from .elements import ClauseElement
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\elements.py", line 808, in <module>
+    class SQLCoreOperations(Generic[_T_co], ColumnOperators, TypingOnly):
+    ...<472 lines>...
+                ...
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\typing.py", line 1257, in _generic_init_subclass
+    super(Generic, cls).__init_subclass__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 1988, in __init_subclass__
+    raise AssertionError(
+    ...<2 lines>...
+    )
+AssertionError: Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__firstlineno__', '__static_attributes__'}.
+2024-11-09 18:35:31,724 - api_gateway.app - INFO - Loading routes for moderation service from services.moderation.app.api.routes
+2024-11-09 18:35:31,808 - api_gateway.app - ERROR - Error loading moderation service: Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__firstlineno__', '__static_attributes__'}.
+2024-11-09 18:35:31,809 - api_gateway.app - ERROR - Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__firstlineno__', '__static_attributes__'}.
+Traceback (most recent call last):
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\api_gateway\app.py", line 124, in create_app
+    module = __import__(service['module'], fromlist=['api_router'])
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\services\moderation\app\api\routes.py", line 2, in <module>
+    from services.moderation.app.api.endpoints import router as moderation_router
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\services\moderation\app\api\endpoints.py", line 4, in <module>
+    from sqlalchemy.orm import Session
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\__init__.py", line 13, in <module>
+    from .engine import AdaptedConnection as AdaptedConnection
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\__init__.py", line 18, in <module>
+    from . import events as events
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\events.py", line 19, in <module>
+    from .base import Connection
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 30, in <module>
+    from .interfaces import BindTyping
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\interfaces.py", line 38, in <module>
+    from ..sql.compiler import Compiled as Compiled
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\__init__.py", line 14, in <module>
+    from .compiler import COLLECT_CARTESIAN_PRODUCTS as COLLECT_CARTESIAN_PRODUCTS
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\compiler.py", line 61, in <module>
+    from . import crud
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\crud.py", line 34, in <module>
+    from . import dml
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\dml.py", line 34, in <module>
+    from . import util as sql_util
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\util.py", line 46, in <module>
+    from .ddl import sort_tables as sort_tables  # noqa: F401
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\ddl.py", line 30, in <module>
+    from .elements import ClauseElement
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\elements.py", line 808, in <module>
+    class SQLCoreOperations(Generic[_T_co], ColumnOperators, TypingOnly):
+    ...<472 lines>...
+                ...
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\typing.py", line 1257, in _generic_init_subclass
+    super(Generic, cls).__init_subclass__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 1988, in __init_subclass__
+    raise AssertionError(
+    ...<2 lines>...
+    )
+AssertionError: Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__firstlineno__', '__static_attributes__'}.
+2024-11-09 18:35:31,826 - api_gateway.app - INFO - Loading routes for virtual_pet service from services.virtual_pet.app.api.routes
+2024-11-09 18:35:31,909 - api_gateway.app - ERROR - Error loading virtual_pet service: Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__firstlineno__', '__static_attributes__'}.
+2024-11-09 18:35:31,910 - api_gateway.app - ERROR - Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__firstlineno__', '__static_attributes__'}.
+Traceback (most recent call last):
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\api_gateway\app.py", line 124, in create_app
+    module = __import__(service['module'], fromlist=['api_router'])
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\services\virtual_pet\app\api\routes.py", line 3, in <module>
+    from services.virtual_pet.app.api.endpoints import router as virtualPetRouter
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\services\virtual_pet\app\api\endpoints.py", line 3, in <module>
+    from sqlalchemy.orm import Session
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\__init__.py", line 13, in <module>
+    from .engine import AdaptedConnection as AdaptedConnection
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\__init__.py", line 18, in <module>
+    from . import events as events
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\events.py", line 19, in <module>
+    from .base import Connection
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 30, in <module>
+    from .interfaces import BindTyping
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\interfaces.py", line 38, in <module>
+    from ..sql.compiler import Compiled as Compiled
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\__init__.py", line 14, in <module>
+    from .compiler import COLLECT_CARTESIAN_PRODUCTS as COLLECT_CARTESIAN_PRODUCTS
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\compiler.py", line 61, in <module>
+    from . import crud
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\crud.py", line 34, in <module>
+    from . import dml
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\dml.py", line 34, in <module>
+    from . import util as sql_util
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\util.py", line 46, in <module>
+    from .ddl import sort_tables as sort_tables  # noqa: F401
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\ddl.py", line 30, in <module>
+    from .elements import ClauseElement
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\elements.py", line 808, in <module>
+    class SQLCoreOperations(Generic[_T_co], ColumnOperators, TypingOnly):
+    ...<472 lines>...
+                ...
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\typing.py", line 1257, in _generic_init_subclass
+    super(Generic, cls).__init_subclass__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 1988, in __init_subclass__
+    raise AssertionError(
+    ...<2 lines>...
+    )
+AssertionError: Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__firstlineno__', '__static_attributes__'}.
+2024-11-09 18:35:31,929 - api_gateway.app - INFO - Loading routes for analytics service from services.analytics.app.api.routes
+2024-11-09 18:35:32,013 - api_gateway.app - ERROR - Error loading analytics service: Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__firstlineno__', '__static_attributes__'}.
+2024-11-09 18:35:32,014 - api_gateway.app - ERROR - Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__firstlineno__', '__static_attributes__'}.
+Traceback (most recent call last):
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\api_gateway\app.py", line 124, in create_app
+    module = __import__(service['module'], fromlist=['api_router'])
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\services\analytics\app\api\routes.py", line 3, in <module>
+    from services.analytics.app.api.endpoints import router as analytics_router
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\services\analytics\app\api\endpoints.py", line 5, in <module>
+    from sqlalchemy.orm import Session
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\__init__.py", line 13, in <module>
+    from .engine import AdaptedConnection as AdaptedConnection
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\__init__.py", line 18, in <module>
+    from . import events as events
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\events.py", line 19, in <module>
+    from .base import Connection
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 30, in <module>
+    from .interfaces import BindTyping
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\interfaces.py", line 38, in <module>
+    from ..sql.compiler import Compiled as Compiled
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\__init__.py", line 14, in <module>
+    from .compiler import COLLECT_CARTESIAN_PRODUCTS as COLLECT_CARTESIAN_PRODUCTS
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\compiler.py", line 61, in <module>
+    from . import crud
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\crud.py", line 34, in <module>
+    from . import dml
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\dml.py", line 34, in <module>
+    from . import util as sql_util
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\util.py", line 46, in <module>
+    from .ddl import sort_tables as sort_tables  # noqa: F401
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\ddl.py", line 30, in <module>
+    from .elements import ClauseElement
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\elements.py", line 808, in <module>
+    class SQLCoreOperations(Generic[_T_co], ColumnOperators, TypingOnly):
+    ...<472 lines>...
+                ...
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\typing.py", line 1257, in _generic_init_subclass
+    super(Generic, cls).__init_subclass__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 1988, in __init_subclass__
+    raise AssertionError(
+    ...<2 lines>...
+    )
+AssertionError: Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__firstlineno__', '__static_attributes__'}.
+2024-11-09 18:35:32,030 - api_gateway.app - INFO - Starting Pet2Pet API Gateway...
+2024-11-09 18:35:32,031 - api_gateway.app - INFO - Registered route: /api/v1/openapi.json
+2024-11-09 18:35:32,031 - api_gateway.app - INFO - Registered route: /api/v1/docs
+2024-11-09 18:35:32,031 - api_gateway.app - INFO - Registered route: /docs/oauth2-redirect
+2024-11-09 18:35:32,032 - api_gateway.app - INFO - Registered route: /api/v1/redoc
+2024-11-09 18:35:32,032 - api_gateway.app - INFO - Registered route: /health
+2024-11-09 18:39:33,775 - api_gateway.app - INFO - Shutting down Pet2Pet API Gateway...
+2024-11-09 18:46:05,058 - api_gateway.app - INFO - PYTHONPATH: ['C:\\Pet2PetDevWeb\\back\\microserviciosConArquitectura\\pet2pet', 'C:\\Users\\londo\\AppData\\Local\\Programs\\Python\\Python313\\python313.zip', 'C:\\Users\\londo\\AppData\\Local\\Programs\\Python\\Python313\\DLLs', 'C:\\Users\\londo\\AppData\\Local\\Programs\\Python\\Python313\\Lib', 'C:\\Users\\londo\\AppData\\Local\\Programs\\Python\\Python313', 'C:\\Users\\londo\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages', 'C:\\Pet2PetDevWeb\\back\\microserviciosConArquitectura\\pet2pet', 'C:\\Pet2PetDevWeb\\back\\microserviciosConArquitectura\\pet2pet']
+2024-11-09 18:46:05,060 - api_gateway.app - INFO - Loading routes for auth service from services.auth.app.api.routes
+2024-11-09 18:46:05,354 - api_gateway.app - ERROR - Error loading auth service: Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__static_attributes__', '__firstlineno__'}.
+2024-11-09 18:46:05,354 - api_gateway.app - ERROR - Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__static_attributes__', '__firstlineno__'}.
+Traceback (most recent call last):
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\api_gateway\app.py", line 124, in create_app
+    module = __import__(service['module'], fromlist=['api_router'])
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\services\auth\app\api\routes.py", line 2, in <module>
+    from services.auth.app.api.endpoints import router as auth_router
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\services\auth\app\api\endpoints.py", line 4, in <module>
+    from sqlalchemy.orm import Session
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\__init__.py", line 13, in <module>
+    from .engine import AdaptedConnection as AdaptedConnection
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\__init__.py", line 18, in <module>
+    from . import events as events
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\events.py", line 19, in <module>
+    from .base import Connection
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 30, in <module>
+    from .interfaces import BindTyping
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\interfaces.py", line 38, in <module>
+    from ..sql.compiler import Compiled as Compiled
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\__init__.py", line 14, in <module>
+    from .compiler import COLLECT_CARTESIAN_PRODUCTS as COLLECT_CARTESIAN_PRODUCTS
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\compiler.py", line 61, in <module>
+    from . import crud
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\crud.py", line 34, in <module>
+    from . import dml
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\dml.py", line 34, in <module>
+    from . import util as sql_util
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\util.py", line 46, in <module>
+    from .ddl import sort_tables as sort_tables  # noqa: F401
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\ddl.py", line 30, in <module>
+    from .elements import ClauseElement
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\elements.py", line 808, in <module>
+    class SQLCoreOperations(Generic[_T_co], ColumnOperators, TypingOnly):
+    ...<472 lines>...
+                ...
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\typing.py", line 1257, in _generic_init_subclass
+    super(Generic, cls).__init_subclass__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 1988, in __init_subclass__
+    raise AssertionError(
+    ...<2 lines>...
+    )
+AssertionError: Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__static_attributes__', '__firstlineno__'}.
+2024-11-09 18:46:05,745 - api_gateway.app - INFO - Loading routes for pets service from services.pets.app.api.routes
+2024-11-09 18:46:05,782 - api_gateway.app - ERROR - Error loading pets service: Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__static_attributes__', '__firstlineno__'}.
+2024-11-09 18:46:05,782 - api_gateway.app - ERROR - Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__static_attributes__', '__firstlineno__'}.
+Traceback (most recent call last):
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\api_gateway\app.py", line 124, in create_app
+    module = __import__(service['module'], fromlist=['api_router'])
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\services\pets\app\api\routes.py", line 2, in <module>
+    from services.pets.app.api.endpoints import (
+    ...<3 lines>...
+    )
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\services\pets\app\api\endpoints.py", line 6, in <module>
+    from sqlalchemy.orm import Session
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\__init__.py", line 13, in <module>
+    from .engine import AdaptedConnection as AdaptedConnection
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\__init__.py", line 18, in <module>
+    from . import events as events
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\events.py", line 19, in <module>
+    from .base import Connection
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 30, in <module>
+    from .interfaces import BindTyping
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\interfaces.py", line 38, in <module>
+    from ..sql.compiler import Compiled as Compiled
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\__init__.py", line 14, in <module>
+    from .compiler import COLLECT_CARTESIAN_PRODUCTS as COLLECT_CARTESIAN_PRODUCTS
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\compiler.py", line 61, in <module>
+    from . import crud
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\crud.py", line 34, in <module>
+    from . import dml
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\dml.py", line 34, in <module>
+    from . import util as sql_util
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\util.py", line 46, in <module>
+    from .ddl import sort_tables as sort_tables  # noqa: F401
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\ddl.py", line 30, in <module>
+    from .elements import ClauseElement
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\elements.py", line 808, in <module>
+    class SQLCoreOperations(Generic[_T_co], ColumnOperators, TypingOnly):
+    ...<472 lines>...
+                ...
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\typing.py", line 1257, in _generic_init_subclass
+    super(Generic, cls).__init_subclass__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 1988, in __init_subclass__
+    raise AssertionError(
+    ...<2 lines>...
+    )
+AssertionError: Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__static_attributes__', '__firstlineno__'}.
+2024-11-09 18:46:05,828 - api_gateway.app - INFO - Loading routes for posts service from services.posts.app.api.routes
+2024-11-09 18:46:05,866 - api_gateway.app - ERROR - Error loading posts service: Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__static_attributes__', '__firstlineno__'}.
+2024-11-09 18:46:05,866 - api_gateway.app - ERROR - Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__static_attributes__', '__firstlineno__'}.
+Traceback (most recent call last):
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\api_gateway\app.py", line 124, in create_app
+    module = __import__(service['module'], fromlist=['api_router'])
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\services\posts\app\api\routes.py", line 2, in <module>
+    from services.posts.app.api.endpoints import router as posts_router
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\services\posts\app\api\endpoints.py", line 4, in <module>
+    from sqlalchemy.orm import Session
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\__init__.py", line 13, in <module>
+    from .engine import AdaptedConnection as AdaptedConnection
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\__init__.py", line 18, in <module>
+    from . import events as events
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\events.py", line 19, in <module>
+    from .base import Connection
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 30, in <module>
+    from .interfaces import BindTyping
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\interfaces.py", line 38, in <module>
+    from ..sql.compiler import Compiled as Compiled
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\__init__.py", line 14, in <module>
+    from .compiler import COLLECT_CARTESIAN_PRODUCTS as COLLECT_CARTESIAN_PRODUCTS
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\compiler.py", line 61, in <module>
+    from . import crud
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\crud.py", line 34, in <module>
+    from . import dml
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\dml.py", line 34, in <module>
+    from . import util as sql_util
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\util.py", line 46, in <module>
+    from .ddl import sort_tables as sort_tables  # noqa: F401
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\ddl.py", line 30, in <module>
+    from .elements import ClauseElement
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\elements.py", line 808, in <module>
+    class SQLCoreOperations(Generic[_T_co], ColumnOperators, TypingOnly):
+    ...<472 lines>...
+                ...
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\typing.py", line 1257, in _generic_init_subclass
+    super(Generic, cls).__init_subclass__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 1988, in __init_subclass__
+    raise AssertionError(
+    ...<2 lines>...
+    )
+AssertionError: Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__static_attributes__', '__firstlineno__'}.
+2024-11-09 18:46:05,917 - api_gateway.app - INFO - Loading routes for messages service from services.messages.app.api.routes
+2024-11-09 18:46:05,953 - api_gateway.app - ERROR - Error loading messages service: Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__static_attributes__', '__firstlineno__'}.
+2024-11-09 18:46:05,953 - api_gateway.app - ERROR - Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__static_attributes__', '__firstlineno__'}.
+Traceback (most recent call last):
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\api_gateway\app.py", line 124, in create_app
+    module = __import__(service['module'], fromlist=['api_router'])
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\services\messages\app\api\routes.py", line 2, in <module>
+    from services.messages.app.api.endpoints import router as messages_router
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\services\messages\app\api\endpoints.py", line 2, in <module>
+    from sqlalchemy.orm import Session
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\__init__.py", line 13, in <module>
+    from .engine import AdaptedConnection as AdaptedConnection
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\__init__.py", line 18, in <module>
+    from . import events as events
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\events.py", line 19, in <module>
+    from .base import Connection
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 30, in <module>
+    from .interfaces import BindTyping
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\interfaces.py", line 38, in <module>
+    from ..sql.compiler import Compiled as Compiled
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\__init__.py", line 14, in <module>
+    from .compiler import COLLECT_CARTESIAN_PRODUCTS as COLLECT_CARTESIAN_PRODUCTS
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\compiler.py", line 61, in <module>
+    from . import crud
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\crud.py", line 34, in <module>
+    from . import dml
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\dml.py", line 34, in <module>
+    from . import util as sql_util
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\util.py", line 46, in <module>
+    from .ddl import sort_tables as sort_tables  # noqa: F401
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\ddl.py", line 30, in <module>
+    from .elements import ClauseElement
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\elements.py", line 808, in <module>
+    class SQLCoreOperations(Generic[_T_co], ColumnOperators, TypingOnly):
+    ...<472 lines>...
+                ...
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\typing.py", line 1257, in _generic_init_subclass
+    super(Generic, cls).__init_subclass__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 1988, in __init_subclass__
+    raise AssertionError(
+    ...<2 lines>...
+    )
+AssertionError: Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__static_attributes__', '__firstlineno__'}.
+2024-11-09 18:46:05,997 - api_gateway.app - INFO - Loading routes for notifications service from services.notifications.app.api.routes
+2024-11-09 18:46:06,033 - api_gateway.app - ERROR - Error loading notifications service: Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__static_attributes__', '__firstlineno__'}.
+2024-11-09 18:46:06,033 - api_gateway.app - ERROR - Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__static_attributes__', '__firstlineno__'}.
+Traceback (most recent call last):
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\api_gateway\app.py", line 124, in create_app
+    module = __import__(service['module'], fromlist=['api_router'])
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\services\notifications\app\api\routes.py", line 2, in <module>
+    from services.notifications.app.api.endpoints import router as notifications_router
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\services\notifications\app\api\endpoints.py", line 2, in <module>
+    from sqlalchemy.orm import Session
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\__init__.py", line 13, in <module>
+    from .engine import AdaptedConnection as AdaptedConnection
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\__init__.py", line 18, in <module>
+    from . import events as events
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\events.py", line 19, in <module>
+    from .base import Connection
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 30, in <module>
+    from .interfaces import BindTyping
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\interfaces.py", line 38, in <module>
+    from ..sql.compiler import Compiled as Compiled
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\__init__.py", line 14, in <module>
+    from .compiler import COLLECT_CARTESIAN_PRODUCTS as COLLECT_CARTESIAN_PRODUCTS
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\compiler.py", line 61, in <module>
+    from . import crud
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\crud.py", line 34, in <module>
+    from . import dml
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\dml.py", line 34, in <module>
+    from . import util as sql_util
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\util.py", line 46, in <module>
+    from .ddl import sort_tables as sort_tables  # noqa: F401
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\ddl.py", line 30, in <module>
+    from .elements import ClauseElement
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\elements.py", line 808, in <module>
+    class SQLCoreOperations(Generic[_T_co], ColumnOperators, TypingOnly):
+    ...<472 lines>...
+                ...
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\typing.py", line 1257, in _generic_init_subclass
+    super(Generic, cls).__init_subclass__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 1988, in __init_subclass__
+    raise AssertionError(
+    ...<2 lines>...
+    )
+AssertionError: Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__static_attributes__', '__firstlineno__'}.
+2024-11-09 18:46:06,078 - api_gateway.app - INFO - Loading routes for groups service from services.groups.app.api.routes
+2024-11-09 18:46:06,110 - api_gateway.app - ERROR - Error loading groups service: Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__static_attributes__', '__firstlineno__'}.
+2024-11-09 18:46:06,111 - api_gateway.app - ERROR - Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__static_attributes__', '__firstlineno__'}.
+Traceback (most recent call last):
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\api_gateway\app.py", line 124, in create_app
+    module = __import__(service['module'], fromlist=['api_router'])
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\services\groups\app\api\routes.py", line 2, in <module>
+    from services.groups.app.api.endpoints import router as groups_router
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\services\groups\app\api\endpoints.py", line 2, in <module>
+    from sqlalchemy.orm import Session
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\__init__.py", line 13, in <module>
+    from .engine import AdaptedConnection as AdaptedConnection
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\__init__.py", line 18, in <module>
+    from . import events as events
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\events.py", line 19, in <module>
+    from .base import Connection
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 30, in <module>
+    from .interfaces import BindTyping
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\interfaces.py", line 38, in <module>
+    from ..sql.compiler import Compiled as Compiled
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\__init__.py", line 14, in <module>
+    from .compiler import COLLECT_CARTESIAN_PRODUCTS as COLLECT_CARTESIAN_PRODUCTS
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\compiler.py", line 61, in <module>
+    from . import crud
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\crud.py", line 34, in <module>
+    from . import dml
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\dml.py", line 34, in <module>
+    from . import util as sql_util
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\util.py", line 46, in <module>
+    from .ddl import sort_tables as sort_tables  # noqa: F401
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\ddl.py", line 30, in <module>
+    from .elements import ClauseElement
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\elements.py", line 808, in <module>
+    class SQLCoreOperations(Generic[_T_co], ColumnOperators, TypingOnly):
+    ...<472 lines>...
+                ...
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\typing.py", line 1257, in _generic_init_subclass
+    super(Generic, cls).__init_subclass__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 1988, in __init_subclass__
+    raise AssertionError(
+    ...<2 lines>...
+    )
+AssertionError: Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__static_attributes__', '__firstlineno__'}.
+2024-11-09 18:46:06,157 - api_gateway.app - INFO - Loading routes for search service from services.search.app.api.routes
+2024-11-09 18:46:06,191 - api_gateway.app - ERROR - Error loading search service: Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__static_attributes__', '__firstlineno__'}.
+2024-11-09 18:46:06,191 - api_gateway.app - ERROR - Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__static_attributes__', '__firstlineno__'}.
+Traceback (most recent call last):
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\api_gateway\app.py", line 124, in create_app
+    module = __import__(service['module'], fromlist=['api_router'])
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\services\search\app\api\routes.py", line 2, in <module>
+    from services.search.app.api.endpoints import router as search_router
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\services\search\app\api\endpoints.py", line 2, in <module>
+    from sqlalchemy.orm import Session
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\__init__.py", line 13, in <module>
+    from .engine import AdaptedConnection as AdaptedConnection
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\__init__.py", line 18, in <module>
+    from . import events as events
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\events.py", line 19, in <module>
+    from .base import Connection
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 30, in <module>
+    from .interfaces import BindTyping
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\interfaces.py", line 38, in <module>
+    from ..sql.compiler import Compiled as Compiled
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\__init__.py", line 14, in <module>
+    from .compiler import COLLECT_CARTESIAN_PRODUCTS as COLLECT_CARTESIAN_PRODUCTS
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\compiler.py", line 61, in <module>
+    from . import crud
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\crud.py", line 34, in <module>
+    from . import dml
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\dml.py", line 34, in <module>
+    from . import util as sql_util
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\util.py", line 46, in <module>
+    from .ddl import sort_tables as sort_tables  # noqa: F401
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\ddl.py", line 30, in <module>
+    from .elements import ClauseElement
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\elements.py", line 808, in <module>
+    class SQLCoreOperations(Generic[_T_co], ColumnOperators, TypingOnly):
+    ...<472 lines>...
+                ...
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\typing.py", line 1257, in _generic_init_subclass
+    super(Generic, cls).__init_subclass__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 1988, in __init_subclass__
+    raise AssertionError(
+    ...<2 lines>...
+    )
+AssertionError: Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__static_attributes__', '__firstlineno__'}.
+2024-11-09 18:46:06,239 - api_gateway.app - INFO - Loading routes for feed service from services.feed.app.api.routes
+2024-11-09 18:46:06,287 - api_gateway.app - ERROR - Error loading feed service: Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__static_attributes__', '__firstlineno__'}.
+2024-11-09 18:46:06,289 - api_gateway.app - ERROR - Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__static_attributes__', '__firstlineno__'}.
+Traceback (most recent call last):
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\api_gateway\app.py", line 124, in create_app
+    module = __import__(service['module'], fromlist=['api_router'])
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\services\feed\app\api\routes.py", line 2, in <module>
+    from services.feed.app.api.endpoints import router as feed_router
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\services\feed\app\api\endpoints.py", line 2, in <module>
+    from sqlalchemy.orm import Session
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\__init__.py", line 13, in <module>
+    from .engine import AdaptedConnection as AdaptedConnection
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\__init__.py", line 18, in <module>
+    from . import events as events
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\events.py", line 19, in <module>
+    from .base import Connection
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 30, in <module>
+    from .interfaces import BindTyping
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\interfaces.py", line 38, in <module>
+    from ..sql.compiler import Compiled as Compiled
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\__init__.py", line 14, in <module>
+    from .compiler import COLLECT_CARTESIAN_PRODUCTS as COLLECT_CARTESIAN_PRODUCTS
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\compiler.py", line 61, in <module>
+    from . import crud
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\crud.py", line 34, in <module>
+    from . import dml
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\dml.py", line 34, in <module>
+    from . import util as sql_util
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\util.py", line 46, in <module>
+    from .ddl import sort_tables as sort_tables  # noqa: F401
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\ddl.py", line 30, in <module>
+    from .elements import ClauseElement
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\elements.py", line 808, in <module>
+    class SQLCoreOperations(Generic[_T_co], ColumnOperators, TypingOnly):
+    ...<472 lines>...
+                ...
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\typing.py", line 1257, in _generic_init_subclass
+    super(Generic, cls).__init_subclass__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 1988, in __init_subclass__
+    raise AssertionError(
+    ...<2 lines>...
+    )
+AssertionError: Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__static_attributes__', '__firstlineno__'}.
+2024-11-09 18:46:06,338 - api_gateway.app - INFO - Loading routes for moderation service from services.moderation.app.api.routes
+2024-11-09 18:46:06,383 - api_gateway.app - ERROR - Error loading moderation service: Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__static_attributes__', '__firstlineno__'}.
+2024-11-09 18:46:06,383 - api_gateway.app - ERROR - Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__static_attributes__', '__firstlineno__'}.
+Traceback (most recent call last):
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\api_gateway\app.py", line 124, in create_app
+    module = __import__(service['module'], fromlist=['api_router'])
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\services\moderation\app\api\routes.py", line 2, in <module>
+    from services.moderation.app.api.endpoints import router as moderation_router
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\services\moderation\app\api\endpoints.py", line 4, in <module>
+    from sqlalchemy.orm import Session
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\__init__.py", line 13, in <module>
+    from .engine import AdaptedConnection as AdaptedConnection
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\__init__.py", line 18, in <module>
+    from . import events as events
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\events.py", line 19, in <module>
+    from .base import Connection
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 30, in <module>
+    from .interfaces import BindTyping
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\interfaces.py", line 38, in <module>
+    from ..sql.compiler import Compiled as Compiled
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\__init__.py", line 14, in <module>
+    from .compiler import COLLECT_CARTESIAN_PRODUCTS as COLLECT_CARTESIAN_PRODUCTS
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\compiler.py", line 61, in <module>
+    from . import crud
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\crud.py", line 34, in <module>
+    from . import dml
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\dml.py", line 34, in <module>
+    from . import util as sql_util
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\util.py", line 46, in <module>
+    from .ddl import sort_tables as sort_tables  # noqa: F401
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\ddl.py", line 30, in <module>
+    from .elements import ClauseElement
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\elements.py", line 808, in <module>
+    class SQLCoreOperations(Generic[_T_co], ColumnOperators, TypingOnly):
+    ...<472 lines>...
+                ...
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\typing.py", line 1257, in _generic_init_subclass
+    super(Generic, cls).__init_subclass__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 1988, in __init_subclass__
+    raise AssertionError(
+    ...<2 lines>...
+    )
+AssertionError: Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__static_attributes__', '__firstlineno__'}.
+2024-11-09 18:46:06,434 - api_gateway.app - INFO - Loading routes for virtual_pet service from services.virtual_pet.app.api.routes
+2024-11-09 18:46:06,471 - api_gateway.app - ERROR - Error loading virtual_pet service: Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__static_attributes__', '__firstlineno__'}.
+2024-11-09 18:46:06,472 - api_gateway.app - ERROR - Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__static_attributes__', '__firstlineno__'}.
+Traceback (most recent call last):
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\api_gateway\app.py", line 124, in create_app
+    module = __import__(service['module'], fromlist=['api_router'])
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\services\virtual_pet\app\api\routes.py", line 3, in <module>
+    from services.virtual_pet.app.api.endpoints import router as virtualPetRouter
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\services\virtual_pet\app\api\endpoints.py", line 3, in <module>
+    from sqlalchemy.orm import Session
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\__init__.py", line 13, in <module>
+    from .engine import AdaptedConnection as AdaptedConnection
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\__init__.py", line 18, in <module>
+    from . import events as events
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\events.py", line 19, in <module>
+    from .base import Connection
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 30, in <module>
+    from .interfaces import BindTyping
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\interfaces.py", line 38, in <module>
+    from ..sql.compiler import Compiled as Compiled
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\__init__.py", line 14, in <module>
+    from .compiler import COLLECT_CARTESIAN_PRODUCTS as COLLECT_CARTESIAN_PRODUCTS
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\compiler.py", line 61, in <module>
+    from . import crud
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\crud.py", line 34, in <module>
+    from . import dml
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\dml.py", line 34, in <module>
+    from . import util as sql_util
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\util.py", line 46, in <module>
+    from .ddl import sort_tables as sort_tables  # noqa: F401
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\ddl.py", line 30, in <module>
+    from .elements import ClauseElement
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\elements.py", line 808, in <module>
+    class SQLCoreOperations(Generic[_T_co], ColumnOperators, TypingOnly):
+    ...<472 lines>...
+                ...
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\typing.py", line 1257, in _generic_init_subclass
+    super(Generic, cls).__init_subclass__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 1988, in __init_subclass__
+    raise AssertionError(
+    ...<2 lines>...
+    )
+AssertionError: Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__static_attributes__', '__firstlineno__'}.
+2024-11-09 18:46:06,516 - api_gateway.app - INFO - Loading routes for analytics service from services.analytics.app.api.routes
+2024-11-09 18:46:06,561 - api_gateway.app - ERROR - Error loading analytics service: Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__static_attributes__', '__firstlineno__'}.
+2024-11-09 18:46:06,562 - api_gateway.app - ERROR - Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__static_attributes__', '__firstlineno__'}.
+Traceback (most recent call last):
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\api_gateway\app.py", line 124, in create_app
+    module = __import__(service['module'], fromlist=['api_router'])
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\services\analytics\app\api\routes.py", line 3, in <module>
+    from services.analytics.app.api.endpoints import router as analytics_router
+  File "C:\Pet2PetDevWeb\back\microserviciosConArquitectura\pet2pet\services\analytics\app\api\endpoints.py", line 5, in <module>
+    from sqlalchemy.orm import Session
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\__init__.py", line 13, in <module>
+    from .engine import AdaptedConnection as AdaptedConnection
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\__init__.py", line 18, in <module>
+    from . import events as events
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\events.py", line 19, in <module>
+    from .base import Connection
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 30, in <module>
+    from .interfaces import BindTyping
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\interfaces.py", line 38, in <module>
+    from ..sql.compiler import Compiled as Compiled
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\__init__.py", line 14, in <module>
+    from .compiler import COLLECT_CARTESIAN_PRODUCTS as COLLECT_CARTESIAN_PRODUCTS
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\compiler.py", line 61, in <module>
+    from . import crud
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\crud.py", line 34, in <module>
+    from . import dml
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\dml.py", line 34, in <module>
+    from . import util as sql_util
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\util.py", line 46, in <module>
+    from .ddl import sort_tables as sort_tables  # noqa: F401
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\ddl.py", line 30, in <module>
+    from .elements import ClauseElement
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\elements.py", line 808, in <module>
+    class SQLCoreOperations(Generic[_T_co], ColumnOperators, TypingOnly):
+    ...<472 lines>...
+                ...
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\typing.py", line 1257, in _generic_init_subclass
+    super(Generic, cls).__init_subclass__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\londo\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 1988, in __init_subclass__
+    raise AssertionError(
+    ...<2 lines>...
+    )
+AssertionError: Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__static_attributes__', '__firstlineno__'}.
+2024-11-09 18:46:06,612 - api_gateway.app - INFO - Starting Pet2Pet API Gateway...
+2024-11-09 18:46:06,613 - api_gateway.app - INFO - Registered route: /api/v1/openapi.json
+2024-11-09 18:46:06,613 - api_gateway.app - INFO - Registered route: /api/v1/docs
+2024-11-09 18:46:06,613 - api_gateway.app - INFO - Registered route: /docs/oauth2-redirect
+2024-11-09 18:46:06,614 - api_gateway.app - INFO - Registered route: /api/v1/redoc
+2024-11-09 18:46:06,614 - api_gateway.app - INFO - Registered route: /health
+2024-11-09 18:52:57,274 - api_gateway.app - INFO - Shutting down Pet2Pet API Gateway...
+2024-11-09 19:13:23,097 - api_gateway.app - INFO - PYTHONPATH: ['C:\\Pet2PetDevWeb\\back\\microserviciosConArquitectura\\pet2pet', 'C:\\Users\\londo\\AppData\\Local\\Programs\\Python\\Python311\\python311.zip', 'C:\\Users\\londo\\AppData\\Local\\Programs\\Python\\Python311\\DLLs', 'C:\\Users\\londo\\AppData\\Local\\Programs\\Python\\Python311\\Lib', 'C:\\Users\\londo\\AppData\\Local\\Programs\\Python\\Python311', 'C:\\Users\\londo\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages', 'C:\\Pet2PetDevWeb\\back\\microserviciosConArquitectura\\pet2pet', 'C:\\Pet2PetDevWeb\\back\\microserviciosConArquitectura\\pet2pet']
+2024-11-09 19:13:23,099 - api_gateway.app - INFO - Loading routes for auth service from services.auth.app.api.routes
+2024-11-09 19:13:24,957 - passlib.utils.compat - DEBUG - loaded lazy attr 'SafeConfigParser': <class 'configparser.ConfigParser'>
+2024-11-09 19:13:24,957 - passlib.utils.compat - DEBUG - loaded lazy attr 'NativeStringIO': <class '_io.StringIO'>
+2024-11-09 19:13:24,957 - passlib.utils.compat - DEBUG - loaded lazy attr 'BytesIO': <class '_io.BytesIO'>
+2024-11-09 19:13:25,285 - passlib.registry - DEBUG - registered 'bcrypt' handler: <class 'passlib.handlers.bcrypt.bcrypt'>
+2024-11-09 19:13:25,375 - api_gateway.app - INFO - Successfully loaded routes for auth service
+2024-11-09 19:13:25,377 - api_gateway.app - INFO - Loading routes for pets service from services.pets.app.api.routes
+2024-11-09 19:13:25,877 - api_gateway.app - INFO - Successfully loaded routes for pets service
+2024-11-09 19:13:25,877 - api_gateway.app - INFO - Loading routes for posts service from services.posts.app.api.routes
+2024-11-09 19:13:26,160 - api_gateway.app - INFO - Successfully loaded routes for posts service
+2024-11-09 19:13:26,161 - api_gateway.app - INFO - Loading routes for messages service from services.messages.app.api.routes
+2024-11-09 19:13:26,335 - api_gateway.app - INFO - Successfully loaded routes for messages service
+2024-11-09 19:13:26,335 - api_gateway.app - INFO - Loading routes for notifications service from services.notifications.app.api.routes
+2024-11-09 19:13:26,423 - api_gateway.app - INFO - Successfully loaded routes for notifications service
+2024-11-09 19:13:26,423 - api_gateway.app - INFO - Loading routes for groups service from services.groups.app.api.routes
+2024-11-09 19:13:26,800 - api_gateway.app - INFO - Successfully loaded routes for groups service
+2024-11-09 19:13:26,800 - api_gateway.app - INFO - Loading routes for search service from services.search.app.api.routes
+2024-11-09 19:13:27,027 - api_gateway.app - INFO - Successfully loaded routes for search service
+2024-11-09 19:13:27,027 - api_gateway.app - INFO - Loading routes for feed service from services.feed.app.api.routes
+2024-11-09 19:13:27,514 - api_gateway.app - INFO - Successfully loaded routes for feed service
+2024-11-09 19:13:27,515 - api_gateway.app - INFO - Loading routes for moderation service from services.moderation.app.api.routes
+2024-11-09 19:13:27,985 - api_gateway.app - INFO - Successfully loaded routes for moderation service
+2024-11-09 19:13:27,985 - api_gateway.app - INFO - Loading routes for virtual_pet service from services.virtual_pet.app.api.routes
+2024-11-09 19:13:28,253 - api_gateway.app - INFO - Successfully loaded routes for virtual_pet service
+2024-11-09 19:13:28,253 - api_gateway.app - INFO - Loading routes for analytics service from services.analytics.app.api.routes
+2024-11-09 19:13:32,575 - services.analytics.app.core.cache - WARNING - Redis cache unavailable, running without cache: Error 10061 connecting to localhost:6379. No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión.
+2024-11-09 19:13:40,244 - services.analytics.app.services.platform_analytics - WARNING - Redis cache unavailable, running without cache
+2024-11-09 19:13:40,306 - api_gateway.app - INFO - Successfully loaded routes for analytics service
+2024-11-09 19:13:40,310 - api_gateway.app - INFO - Starting Pet2Pet API Gateway...
+2024-11-09 19:13:40,310 - api_gateway.app - INFO - Registered route: /api/v1/openapi.json
+2024-11-09 19:13:40,310 - api_gateway.app - INFO - Registered route: /api/v1/docs
+2024-11-09 19:13:40,310 - api_gateway.app - INFO - Registered route: /docs/oauth2-redirect
+2024-11-09 19:13:40,312 - api_gateway.app - INFO - Registered route: /api/v1/redoc
+2024-11-09 19:13:40,312 - api_gateway.app - INFO - Registered route: /health
+2024-11-09 19:13:40,312 - api_gateway.app - INFO - Registered route: /api/v1/auth/register
+2024-11-09 19:13:40,312 - api_gateway.app - INFO - Registered route: /api/v1/auth/login
+2024-11-09 19:13:40,312 - api_gateway.app - INFO - Registered route: /api/v1/auth/me
+2024-11-09 19:13:40,312 - api_gateway.app - INFO - Registered route: /api/v1/auth/me
+2024-11-09 19:13:40,313 - api_gateway.app - INFO - Registered route: /api/v1/auth/change-password
+2024-11-09 19:13:40,313 - api_gateway.app - INFO - Registered route: /api/v1/auth/password-reset-request
+2024-11-09 19:13:40,314 - api_gateway.app - INFO - Registered route: /api/v1/auth/reset-password
+2024-11-09 19:13:40,314 - api_gateway.app - INFO - Registered route: /api/v1/pets/types
+2024-11-09 19:13:40,315 - api_gateway.app - INFO - Registered route: /api/v1/pets/breeds
+2024-11-09 19:13:40,315 - api_gateway.app - INFO - Registered route: /api/v1/pets/
+2024-11-09 19:13:40,315 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}/image
+2024-11-09 19:13:40,315 - api_gateway.app - INFO - Registered route: /api/v1/pets/
+2024-11-09 19:13:40,316 - api_gateway.app - INFO - Registered route: /api/v1/pets/my-pets
+2024-11-09 19:13:40,316 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}
+2024-11-09 19:13:40,316 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}
+2024-11-09 19:13:40,316 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}
+2024-11-09 19:13:40,316 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}/follow
+2024-11-09 19:13:40,316 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}/unfollow
+2024-11-09 19:13:40,316 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}/followers
+2024-11-09 19:13:40,316 - api_gateway.app - INFO - Registered route: /api/v1/pets/{pet_id}/following
+2024-11-09 19:13:40,316 - api_gateway.app - INFO - Registered route: /api/v1/posts/
+2024-11-09 19:13:40,316 - api_gateway.app - INFO - Registered route: /api/v1/posts/
+2024-11-09 19:13:40,318 - api_gateway.app - INFO - Registered route: /api/v1/posts/my-posts
+2024-11-09 19:13:40,318 - api_gateway.app - INFO - Registered route: /api/v1/posts/{post_id}
+2024-11-09 19:13:40,318 - api_gateway.app - INFO - Registered route: /api/v1/posts/{post_id}
+2024-11-09 19:13:40,318 - api_gateway.app - INFO - Registered route: /api/v1/posts/{post_id}
+2024-11-09 19:13:40,318 - api_gateway.app - INFO - Registered route: /api/v1/posts/{post_id}/media
+2024-11-09 19:13:40,318 - api_gateway.app - INFO - Registered route: /api/v1/posts/{post_id}/comments
+2024-11-09 19:13:40,318 - api_gateway.app - INFO - Registered route: /api/v1/posts/comments/{comment_id}
+2024-11-09 19:13:40,318 - api_gateway.app - INFO - Registered route: /api/v1/posts/{post_id}/reactions
+2024-11-09 19:13:40,318 - api_gateway.app - INFO - Registered route: /api/v1/posts/reactions/{reaction_id}
+2024-11-09 19:13:40,318 - api_gateway.app - INFO - Registered route: /api/v1/messages/
+2024-11-09 19:13:40,318 - api_gateway.app - INFO - Registered route: /api/v1/messages/conversations
+2024-11-09 19:13:40,319 - api_gateway.app - INFO - Registered route: /api/v1/messages/conversation/{other_pet_id}
+2024-11-09 19:13:40,320 - api_gateway.app - INFO - Registered route: /api/v1/messages/conversation/{other_pet_id}/read
+2024-11-09 19:13:40,320 - api_gateway.app - INFO - Registered route: /api/v1/messages/unread/count
+2024-11-09 19:13:40,320 - api_gateway.app - INFO - Registered route: /api/v1/messages/conversation/{other_pet_id}
+2024-11-09 19:13:40,320 - api_gateway.app - INFO - Registered route: /api/v1/messages/search
+2024-11-09 19:13:40,321 - api_gateway.app - INFO - Registered route: /api/v1/notifications/
+2024-11-09 19:13:40,321 - api_gateway.app - INFO - Registered route: /api/v1/notifications/count
+2024-11-09 19:13:40,321 - api_gateway.app - INFO - Registered route: /api/v1/notifications/{notification_id}/read
+2024-11-09 19:13:40,321 - api_gateway.app - INFO - Registered route: /api/v1/notifications/read-all
+2024-11-09 19:13:40,321 - api_gateway.app - INFO - Registered route: /api/v1/notifications/{notification_id}
+2024-11-09 19:13:40,321 - api_gateway.app - INFO - Registered route: /api/v1/notifications/internal/create
+2024-11-09 19:13:40,321 - api_gateway.app - INFO - Registered route: /api/v1/groups/
+2024-11-09 19:13:40,321 - api_gateway.app - INFO - Registered route: /api/v1/groups/
+2024-11-09 19:13:40,321 - api_gateway.app - INFO - Registered route: /api/v1/groups/my-groups
+2024-11-09 19:13:40,321 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}
+2024-11-09 19:13:40,323 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}
+2024-11-09 19:13:40,323 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/image
+2024-11-09 19:13:40,323 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/join
+2024-11-09 19:13:40,323 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/leave
+2024-11-09 19:13:40,323 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/members
+2024-11-09 19:13:40,324 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/members/{user_id}/make-admin
+2024-11-09 19:13:40,324 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/posts
+2024-11-09 19:13:40,324 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/posts
+2024-11-09 19:13:40,324 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/posts/{post_id}/comments
+2024-11-09 19:13:40,324 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/members/{user_id}/remove
+2024-11-09 19:13:40,324 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/posts/{post_id}
+2024-11-09 19:13:40,324 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/posts/{post_id}/media
+2024-11-09 19:13:40,324 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/transfer-ownership/{new_owner_id}
+2024-11-09 19:13:40,326 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/posts/{post_id}/comments
+2024-11-09 19:13:40,326 - api_gateway.app - INFO - Registered route: /api/v1/groups/{group_id}/comments/{comment_id}
+2024-11-09 19:13:40,326 - api_gateway.app - INFO - Registered route: /api/v1/search/
+2024-11-09 19:13:40,326 - api_gateway.app - INFO - Registered route: /api/v1/search/quick
+2024-11-09 19:13:40,326 - api_gateway.app - INFO - Registered route: /api/v1/search/suggestions
+2024-11-09 19:13:40,327 - api_gateway.app - INFO - Registered route: /api/v1/search/trending
+2024-11-09 19:13:40,327 - api_gateway.app - INFO - Registered route: /api/v1/search/recent
+2024-11-09 19:13:40,327 - api_gateway.app - INFO - Registered route: /api/v1/search/index/{content_type}/{content_id}
+2024-11-09 19:13:40,327 - api_gateway.app - INFO - Registered route: /api/v1/search/reindex
+2024-11-09 19:13:40,327 - api_gateway.app - INFO - Registered route: /api/v1/feed/
+2024-11-09 19:13:40,327 - api_gateway.app - INFO - Registered route: /api/v1/feed/trending
+2024-11-09 19:13:40,327 - api_gateway.app - INFO - Registered route: /api/v1/feed/following
+2024-11-09 19:13:40,327 - api_gateway.app - INFO - Registered route: /api/v1/feed/groups
+2024-11-09 19:13:40,327 - api_gateway.app - INFO - Registered route: /api/v1/feed/preferences
+2024-11-09 19:13:40,327 - api_gateway.app - INFO - Registered route: /api/v1/feed/preferences
+2024-11-09 19:13:40,327 - api_gateway.app - INFO - Registered route: /api/v1/feed/action
+2024-11-09 19:13:40,327 - api_gateway.app - INFO - Registered route: /api/v1/feed/refresh/{item_id}
+2024-11-09 19:13:40,327 - api_gateway.app - INFO - Registered route: /api/v1/feed/hide/{item_id}
+2024-11-09 19:13:40,327 - api_gateway.app - INFO - Registered route: /api/v1/moderation/reports
+2024-11-09 19:13:40,329 - api_gateway.app - INFO - Registered route: /api/v1/moderation/reports
+2024-11-09 19:13:40,329 - api_gateway.app - INFO - Registered route: /api/v1/moderation/reports/{report_id}
+2024-11-09 19:13:40,329 - api_gateway.app - INFO - Registered route: /api/v1/moderation/reports/{report_id}
+2024-11-09 19:13:40,329 - api_gateway.app - INFO - Registered route: /api/v1/moderation/queue/stats
+2024-11-09 19:13:40,329 - api_gateway.app - INFO - Registered route: /api/v1/moderation/queue/next
+2024-11-09 19:13:40,329 - api_gateway.app - INFO - Registered route: /api/v1/moderation/content/review
+2024-11-09 19:13:40,329 - api_gateway.app - INFO - Registered route: /api/v1/moderation/actions
+2024-11-09 19:13:40,329 - api_gateway.app - INFO - Registered route: /api/v1/moderation/stats
+2024-11-09 19:13:40,329 - api_gateway.app - INFO - Registered route: /api/v1/moderation/users/{user_id}/history
+2024-11-09 19:13:40,329 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter
+2024-11-09 19:13:40,330 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter/batch
+2024-11-09 19:13:40,330 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter/configurations
+2024-11-09 19:13:40,330 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter/configurations
+2024-11-09 19:13:40,330 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter/configurations/{config_id}
+2024-11-09 19:13:40,330 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter/configurations/{config_id}
+2024-11-09 19:13:40,330 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter/custom-rules
+2024-11-09 19:13:40,330 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter/custom-rules
+2024-11-09 19:13:40,330 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter/custom-rules/{rule_id}
+2024-11-09 19:13:40,332 - api_gateway.app - INFO - Registered route: /api/v1/moderation/filter/custom-rules/{rule_id}
+2024-11-09 19:13:40,332 - api_gateway.app - INFO - Registered route: /api/v1/virtual_pet/
+2024-11-09 19:13:40,332 - api_gateway.app - INFO - Registered route: /api/v1/virtual_pet/{pet_id}
+2024-11-09 19:13:40,332 - api_gateway.app - INFO - Registered route: /api/v1/virtual_pet/{pet_id}/actions/{action_type}
+2024-11-09 19:13:40,332 - api_gateway.app - INFO - Registered route: /api/v1/virtual_pet/{pet_id}/daily-tasks
+2024-11-09 19:13:40,333 - api_gateway.app - INFO - Registered route: /api/v1/virtual_pet/{pet_id}/stats
+2024-11-09 19:13:40,333 - api_gateway.app - INFO - Registered route: /api/v1/virtual_pet/{pet_id}/feed
+2024-11-09 19:13:40,334 - api_gateway.app - INFO - Registered route: /api/v1/virtual_pet/{pet_id}/play
+2024-11-09 19:13:40,334 - api_gateway.app - INFO - Registered route: /api/v1/virtual_pet/{pet_id}/rest
+2024-11-09 19:13:40,334 - api_gateway.app - INFO - Registered route: /api/v1/analytics/dashboard
+2024-11-09 19:13:40,335 - api_gateway.app - INFO - Registered route: /api/v1/analytics/users
+2024-11-09 19:13:40,335 - api_gateway.app - INFO - Registered route: /api/v1/analytics/users/growth
+2024-11-09 19:13:40,335 - api_gateway.app - INFO - Registered route: /api/v1/analytics/content
+2024-11-09 19:13:40,335 - api_gateway.app - INFO - Registered route: /api/v1/analytics/content/popular-categories
+2024-11-09 19:13:40,335 - api_gateway.app - INFO - Registered route: /api/v1/analytics/engagement
+2024-11-09 19:13:40,336 - api_gateway.app - INFO - Registered route: /api/v1/analytics/engagement/peak-hours
+2024-11-09 19:13:40,336 - api_gateway.app - INFO - Registered route: /api/v1/analytics/engagement/user-segments
+2024-11-09 19:13:40,336 - api_gateway.app - INFO - Registered route: /api/v1/analytics/platform
+2024-11-09 19:13:40,336 - api_gateway.app - INFO - Registered route: /api/v1/analytics/platform/health
+2024-11-09 19:13:40,336 - api_gateway.app - INFO - Registered route: /api/v1/analytics/export
+2024-11-09 19:13:40,336 - api_gateway.app - INFO - Registered route: /api/v1/analytics/export/status/{job_id}
+2024-11-09 19:13:40,336 - api_gateway.app - INFO - Registered route: /api/v1/analytics/exports/{filename}
+2024-11-09 19:13:40,337 - api_gateway.app - INFO - Registered route: /api/v1/analytics/export/cleanup
+2024-11-09 19:14:24,537 - multipart.multipart - DEBUG - Calling on_field_start with no data
+2024-11-09 19:14:24,538 - multipart.multipart - DEBUG - Calling on_field_name with data[0:8]
+2024-11-09 19:14:24,538 - multipart.multipart - DEBUG - Calling on_field_data with data[9:26]
+2024-11-09 19:14:24,538 - multipart.multipart - DEBUG - Calling on_field_end with no data
+2024-11-09 19:14:24,538 - multipart.multipart - DEBUG - Calling on_field_start with no data
+2024-11-09 19:14:24,538 - multipart.multipart - DEBUG - Calling on_field_name with data[27:35]
+2024-11-09 19:14:24,540 - multipart.multipart - DEBUG - Calling on_field_data with data[36:44]
+2024-11-09 19:14:24,540 - multipart.multipart - DEBUG - Calling on_field_end with no data
+2024-11-09 19:14:24,540 - multipart.multipart - DEBUG - Calling on_end with no data
+2024-11-09 19:14:27,147 - passlib.handlers.bcrypt - DEBUG - detected 'bcrypt' backend, version '4.0.1'
+2024-11-09 19:14:27,148 - passlib.handlers.bcrypt - DEBUG - 'bcrypt' backend lacks $2$ support, enabling workaround
+2024-11-09 19:15:10,326 - services.analytics.app.services.platform_analytics - WARNING - Redis cache unavailable, running without cache
+2024-11-09 19:18:20,222 - multipart.multipart - DEBUG - Calling on_field_start with no data
+2024-11-09 19:18:20,223 - multipart.multipart - DEBUG - Calling on_field_name with data[0:8]
+2024-11-09 19:18:20,223 - multipart.multipart - DEBUG - Calling on_field_data with data[9:26]
+2024-11-09 19:18:20,223 - multipart.multipart - DEBUG - Calling on_field_end with no data
+2024-11-09 19:18:20,223 - multipart.multipart - DEBUG - Calling on_field_start with no data
+2024-11-09 19:18:20,224 - multipart.multipart - DEBUG - Calling on_field_name with data[27:35]
+2024-11-09 19:18:20,224 - multipart.multipart - DEBUG - Calling on_field_data with data[36:44]
+2024-11-09 19:18:20,224 - multipart.multipart - DEBUG - Calling on_field_end with no data
+2024-11-09 19:18:20,225 - multipart.multipart - DEBUG - Calling on_end with no data
+2024-11-09 19:28:49,435 - multipart.multipart - DEBUG - Calling on_field_start with no data
+2024-11-09 19:28:49,436 - multipart.multipart - DEBUG - Calling on_field_name with data[0:8]
+2024-11-09 19:28:49,436 - multipart.multipart - DEBUG - Calling on_field_data with data[9:26]
+2024-11-09 19:28:49,436 - multipart.multipart - DEBUG - Calling on_field_end with no data
+2024-11-09 19:28:49,436 - multipart.multipart - DEBUG - Calling on_field_start with no data
+2024-11-09 19:28:49,437 - multipart.multipart - DEBUG - Calling on_field_name with data[27:35]
+2024-11-09 19:28:49,437 - multipart.multipart - DEBUG - Calling on_field_data with data[36:44]
+2024-11-09 19:28:49,438 - multipart.multipart - DEBUG - Calling on_field_end with no data
+2024-11-09 19:28:49,438 - multipart.multipart - DEBUG - Calling on_end with no data
+2024-11-09 20:16:01,374 - multipart.multipart - DEBUG - Calling on_field_start with no data
+2024-11-09 20:16:01,378 - multipart.multipart - DEBUG - Calling on_field_name with data[0:8]
+2024-11-09 20:16:01,378 - multipart.multipart - DEBUG - Calling on_field_data with data[9:31]
+2024-11-09 20:16:01,380 - multipart.multipart - DEBUG - Calling on_field_end with no data
+2024-11-09 20:16:01,380 - multipart.multipart - DEBUG - Calling on_field_start with no data
+2024-11-09 20:16:01,380 - multipart.multipart - DEBUG - Calling on_field_name with data[32:40]
+2024-11-09 20:16:01,380 - multipart.multipart - DEBUG - Calling on_field_data with data[41:52]
+2024-11-09 20:16:01,384 - multipart.multipart - DEBUG - Calling on_field_end with no data
+2024-11-09 20:16:01,384 - multipart.multipart - DEBUG - Calling on_end with no data
+2024-11-09 20:19:03,304 - multipart.multipart - DEBUG - Calling on_field_start with no data
+2024-11-09 20:19:03,305 - multipart.multipart - DEBUG - Calling on_field_name with data[0:8]
+2024-11-09 20:19:03,305 - multipart.multipart - DEBUG - Calling on_field_data with data[9:26]
+2024-11-09 20:19:03,305 - multipart.multipart - DEBUG - Calling on_field_end with no data
+2024-11-09 20:19:03,306 - multipart.multipart - DEBUG - Calling on_field_start with no data
+2024-11-09 20:19:03,306 - multipart.multipart - DEBUG - Calling on_field_name with data[27:35]
+2024-11-09 20:19:03,306 - multipart.multipart - DEBUG - Calling on_field_data with data[36:44]
+2024-11-09 20:19:03,306 - multipart.multipart - DEBUG - Calling on_field_end with no data
+2024-11-09 20:19:03,306 - multipart.multipart - DEBUG - Calling on_end with no data
+2024-11-09 20:59:11,995 - multipart.multipart - DEBUG - Calling on_field_start with no data
+2024-11-09 20:59:11,996 - multipart.multipart - DEBUG - Calling on_field_name with data[0:8]
+2024-11-09 20:59:11,997 - multipart.multipart - DEBUG - Calling on_field_data with data[9:31]
+2024-11-09 20:59:11,997 - multipart.multipart - DEBUG - Calling on_field_end with no data
+2024-11-09 20:59:11,997 - multipart.multipart - DEBUG - Calling on_field_start with no data
+2024-11-09 20:59:11,997 - multipart.multipart - DEBUG - Calling on_field_name with data[32:40]
+2024-11-09 20:59:11,997 - multipart.multipart - DEBUG - Calling on_field_data with data[41:52]
+2024-11-09 20:59:11,997 - multipart.multipart - DEBUG - Calling on_field_end with no data
+2024-11-09 20:59:11,998 - multipart.multipart - DEBUG - Calling on_end with no data
+2024-11-09 20:59:31,565 - multipart.multipart - DEBUG - Calling on_field_start with no data
+2024-11-09 20:59:31,566 - multipart.multipart - DEBUG - Calling on_field_name with data[0:8]
+2024-11-09 20:59:31,566 - multipart.multipart - DEBUG - Calling on_field_data with data[9:31]
+2024-11-09 20:59:31,566 - multipart.multipart - DEBUG - Calling on_field_end with no data
+2024-11-09 20:59:31,566 - multipart.multipart - DEBUG - Calling on_field_start with no data
+2024-11-09 20:59:31,566 - multipart.multipart - DEBUG - Calling on_field_name with data[32:40]
+2024-11-09 20:59:31,568 - multipart.multipart - DEBUG - Calling on_field_data with data[41:52]
+2024-11-09 20:59:31,568 - multipart.multipart - DEBUG - Calling on_field_end with no data
+2024-11-09 20:59:31,568 - multipart.multipart - DEBUG - Calling on_end with no data
+2024-11-09 20:59:40,876 - multipart.multipart - DEBUG - Calling on_field_start with no data
+2024-11-09 20:59:40,878 - multipart.multipart - DEBUG - Calling on_field_name with data[0:8]
+2024-11-09 20:59:40,878 - multipart.multipart - DEBUG - Calling on_field_data with data[9:31]
+2024-11-09 20:59:40,878 - multipart.multipart - DEBUG - Calling on_field_end with no data
+2024-11-09 20:59:40,879 - multipart.multipart - DEBUG - Calling on_field_start with no data
+2024-11-09 20:59:40,879 - multipart.multipart - DEBUG - Calling on_field_name with data[32:40]
+2024-11-09 20:59:40,879 - multipart.multipart - DEBUG - Calling on_field_data with data[41:52]
+2024-11-09 20:59:40,879 - multipart.multipart - DEBUG - Calling on_field_end with no data
+2024-11-09 20:59:40,879 - multipart.multipart - DEBUG - Calling on_end with no data
+2024-11-09 20:59:46,480 - multipart.multipart - DEBUG - Calling on_field_start with no data
+2024-11-09 20:59:46,480 - multipart.multipart - DEBUG - Calling on_field_name with data[0:8]
+2024-11-09 20:59:46,480 - multipart.multipart - DEBUG - Calling on_field_data with data[9:31]
+2024-11-09 20:59:46,480 - multipart.multipart - DEBUG - Calling on_field_end with no data
+2024-11-09 20:59:46,480 - multipart.multipart - DEBUG - Calling on_field_start with no data
+2024-11-09 20:59:46,481 - multipart.multipart - DEBUG - Calling on_field_name with data[32:40]
+2024-11-09 20:59:46,481 - multipart.multipart - DEBUG - Calling on_field_data with data[41:52]
+2024-11-09 20:59:46,481 - multipart.multipart - DEBUG - Calling on_field_end with no data
+2024-11-09 20:59:46,481 - multipart.multipart - DEBUG - Calling on_end with no data
+2024-11-09 20:59:54,179 - multipart.multipart - DEBUG - Calling on_field_start with no data
+2024-11-09 20:59:54,179 - multipart.multipart - DEBUG - Calling on_field_name with data[0:8]
+2024-11-09 20:59:54,179 - multipart.multipart - DEBUG - Calling on_field_data with data[9:31]
+2024-11-09 20:59:54,180 - multipart.multipart - DEBUG - Calling on_field_end with no data
+2024-11-09 20:59:54,180 - multipart.multipart - DEBUG - Calling on_field_start with no data
+2024-11-09 20:59:54,180 - multipart.multipart - DEBUG - Calling on_field_name with data[32:40]
+2024-11-09 20:59:54,180 - multipart.multipart - DEBUG - Calling on_field_data with data[41:52]
+2024-11-09 20:59:54,180 - multipart.multipart - DEBUG - Calling on_field_end with no data
+2024-11-09 20:59:54,182 - multipart.multipart - DEBUG - Calling on_end with no data
+2024-11-09 21:00:40,220 - multipart.multipart - DEBUG - Calling on_field_start with no data
+2024-11-09 21:00:40,221 - multipart.multipart - DEBUG - Calling on_field_name with data[0:8]
+2024-11-09 21:00:40,221 - multipart.multipart - DEBUG - Calling on_field_data with data[9:26]
+2024-11-09 21:00:40,221 - multipart.multipart - DEBUG - Calling on_field_end with no data
+2024-11-09 21:00:40,222 - multipart.multipart - DEBUG - Calling on_field_start with no data
+2024-11-09 21:00:40,222 - multipart.multipart - DEBUG - Calling on_field_name with data[27:35]
+2024-11-09 21:00:40,222 - multipart.multipart - DEBUG - Calling on_field_data with data[36:44]
+2024-11-09 21:00:40,222 - multipart.multipart - DEBUG - Calling on_field_end with no data
+2024-11-09 21:00:40,223 - multipart.multipart - DEBUG - Calling on_end with no data
+2024-11-09 21:03:40,162 - multipart.multipart - DEBUG - Calling on_field_start with no data
+2024-11-09 21:03:40,163 - multipart.multipart - DEBUG - Calling on_field_name with data[0:8]
+2024-11-09 21:03:40,163 - multipart.multipart - DEBUG - Calling on_field_data with data[9:28]
+2024-11-09 21:03:40,163 - multipart.multipart - DEBUG - Calling on_field_end with no data
+2024-11-09 21:03:40,163 - multipart.multipart - DEBUG - Calling on_field_start with no data
+2024-11-09 21:03:40,164 - multipart.multipart - DEBUG - Calling on_field_name with data[29:37]
+2024-11-09 21:03:40,164 - multipart.multipart - DEBUG - Calling on_field_data with data[38:46]
+2024-11-09 21:03:40,164 - multipart.multipart - DEBUG - Calling on_field_end with no data
+2024-11-09 21:03:40,164 - multipart.multipart - DEBUG - Calling on_end with no data
