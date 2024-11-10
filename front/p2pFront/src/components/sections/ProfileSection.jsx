@@ -1,7 +1,7 @@
 // components/sections/ProfileSection.jsx
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader } from "../ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { Button } from "../ui/button";
 
 export default function ProfileSection() {
     const userProfile = {
