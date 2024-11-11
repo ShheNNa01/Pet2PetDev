@@ -267,7 +267,7 @@ export default function Header() {
                                     </DropdownMenuItem>
                                 ))}
                                 <DropdownMenuItem 
-                                    onClick={() => navigate('/register-pet')}
+                                    onClick={() => navigate('/registerPet')}
                                     className="cursor-pointer mt-2 pt-2 border-t border-gray-100"
                                 >
                                     <div className="flex items-center space-x-2 text-[#509ca2]">
