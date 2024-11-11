@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { 
     Bone, Dog, CircleDot, User, Fish, Video, 
     MessageCircle, Send, PawPrint, ChevronLeft, Menu,
@@ -7,6 +7,8 @@ import {
 import logo from '../../assets/icons/Mesa de trabajo 50.png';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { usePet } from '../context/PetContext';
+import { petService } from '../services/petService';
 import { Button } from "../ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
@@ -17,10 +19,36 @@ import { Avatar, AvatarImage, AvatarFallback } from "../ui/avatar";
 export default function Header() {
     const navigate = useNavigate();
     const { user, logout } = useAuth();
+    const { currentPet, setCurrentPet } = usePet();
+    const [myPets, setMyPets] = useState([]);
     const [chatOpen, setChatOpen] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [selectedChat, setSelectedChat] = useState(null);
     const [chatMessage, setChatMessage] = useState("");
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const loadMyPets = async () => {
+            try {
+                const response = await petService.getMyPets();
+                setMyPets(response.data || []);
+                setLoading(false);
+            } catch (error) {
+                console.error('Error loading pets:', error);
+                setLoading(false);
+            }
+        };
+
+        loadMyPets();
+    }, []);
+
+    const handlePetChange = async (pet) => {
+        try {
+            setCurrentPet(pet);
+        } catch (error) {
+            console.error('Error changing pet:', error);
+        }
+    };
 
     console.log('Datos del usuario en Header:', user);
     console.log('Rol ID en Header:', user?.role_id);
@@ -160,14 +188,40 @@ export default function Header() {
 
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
-                                <Button variant="ghost" size="icon" aria-label="Cambiar mascota">
+                                <Button 
+                                    variant="ghost" 
+                                    size="icon" 
+                                    aria-label="Cambiar mascota"
+                                    disabled={loading || myPets.length === 0}
+                                >
                                     <PawPrint className="h-5 w-5 text-pink-500" />
                                 </Button>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="end">
-                                <DropdownMenuItem>Firulais</DropdownMenuItem>
-                                <DropdownMenuItem>Mittens</DropdownMenuItem>
-                                <DropdownMenuItem>Rocky</DropdownMenuItem>
+                                {myPets.map((pet) => (
+                                    <DropdownMenuItem 
+                                        key={pet.id}
+                                        onClick={() => handlePetChange(pet)}
+                                        className="cursor-pointer flex items-center space-x-2"
+                                    >
+                                        <Avatar className="h-6 w-6">
+                                            <AvatarImage 
+                                                src={pet.image_url || '/placeholder-pet.png'} 
+                                                alt={pet.name} 
+                                            />
+                                            <AvatarFallback>{pet.name[0]}</AvatarFallback>
+                                        </Avatar>
+                                        <span className={currentPet?.id === pet.id ? "font-bold" : ""}>
+                                            {pet.name}
+                                        </span>
+                                    </DropdownMenuItem>
+                                ))}
+                                <DropdownMenuItem 
+                                    onClick={() => navigate('/pets/new')}
+                                    className="cursor-pointer text-[#509ca2]"
+                                >
+                                    + Agregar mascota
+                                </DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>
 

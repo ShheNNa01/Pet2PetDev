@@ -14,8 +14,9 @@ export const AuthProvider = ({ children }) => {
       try {
         const userData = JSON.parse(storedUser);
         console.log('Datos cargados del localStorage:', userData);
-        // Aseguramos que role_id esté presente
+        // Aseguramos que role_id y city estén presentes
         userData.role_id = userData.role_id || userData.rol_id;
+        userData.city = userData.city || 'global'; // Valor por defecto si no hay ciudad
         setUser({ ...userData, token });
       } catch (error) {
         console.error('Error parsing stored user:', error);
@@ -30,13 +31,14 @@ export const AuthProvider = ({ children }) => {
     const { access_token, user: userDetails } = userData;
     console.log('Datos completos recibidos en login:', userData);
     console.log('Datos del usuario:', userDetails);
-
-    // Aseguramos que role_id esté presente
+    
+    // Aseguramos que role_id y city estén presentes
     const userToStore = {
       ...userDetails,
-      role_id: userDetails.role_id || userDetails.rol_id
+      role_id: userDetails.role_id || userDetails.rol_id,
+      city: userDetails.city || 'global' // Valor por defecto si no hay ciudad
     };
-
+    
     localStorage.setItem('token', access_token);
     localStorage.setItem('user', JSON.stringify(userToStore));
     setUser({ ...userToStore, token: access_token });
@@ -59,7 +61,9 @@ export const AuthProvider = ({ children }) => {
         logout,
         loading,
         isAdmin,
-        isAuthenticated: !!user
+        isAuthenticated: !!user,
+        // Agregamos método helper para obtener la ciudad
+        getUserCity: () => user?.city || 'global'
       }}
     >
       {!loading && children}

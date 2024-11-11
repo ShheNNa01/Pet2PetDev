@@ -41,7 +41,7 @@ export default function PostCard({ post: initialPost }) {
                             ...(comment.replies || []),
                             {
                                 id: Date.now(),
-                                user: "CurrentUser",
+                                user: "CurrentUser ",
                                 content: data.content,
                                 image: data.image,
                                 likes: 0
@@ -60,7 +60,7 @@ export default function PostCard({ post: initialPost }) {
                 ...prev.comments,
                 {
                     id: Date.now(),
-                    user: "CurrentUser",
+                    user: "CurrentUser ",
                     content: data.content,
                     image: data.image,
                     likes: 0,
@@ -99,27 +99,31 @@ export default function PostCard({ post: initialPost }) {
                         {/* Solo muestra el contenido si hay texto */}
                         {post.content && <p className="mb-4 text-[#1a1a1a]">{post.content}</p>}
 
-                        {/* Mostrar archivo multimedia solo si está presente */}
+                        {/* Mostrar archivos multimedia */}
                         {post.media_urls && post.media_urls.length > 0 && (
                             <div className="relative rounded-lg overflow-hidden">
-                                {post.media_urls[0].endsWith(".mp4") ? (
-                                    <video 
-                                        controls 
-                                        src={post.media_urls[0]} 
-                                        className="w-full rounded-lg transform hover:scale-[1.02] transition-transform duration-200"
-                                    />
-                                ) : (
-                                    <img 
-                                        src={post.media_urls[0]} 
-                                        alt="Contenido de la publicación" 
-                                        className="w-full rounded-lg transform hover:scale-[1.02] transition-transform duration-200"
-                                    />
-                                )}
+                                {post.media_urls.map((url, index) => (
+                                    url.endsWith(".mp4") ? (
+                                        <video 
+                                            key={index}
+                                            controls 
+                                            src={url} 
+                                            className="w-full rounded-lg transform hover:scale-[1.02] transition-transform duration-200"
+                                        />
+                                    ) : (
+                                        <img 
+                                            key={index}
+                                            src={url} 
+                                            alt="Contenido de la publicación" 
+                                            className="w-full rounded-lg transform hover:scale-[1.02] transition-transform duration-200"
+                                        />
+                                    )
+                                ))}
                             </div>
                         )}
 
                         {post.location && (
-                            <p className="text-sm text-gray-500 mt-2">📍 {post.location}</p>
+                            < p className="text-sm text-gray-500 mt-2">📍 {post.location}</p>
                         )}
                     </>
                 )}
@@ -172,7 +176,7 @@ export default function PostCard({ post: initialPost }) {
                     <div className="w-full pt-3 space-y-3">
                         {displayedComments.map((comment) => (
                             <Comment
-                                key={comment.id || comment.comment_id} // Verifica que tenga un `id` único
+                                key={comment.id || comment.comment_id} 
                                 comment={comment}
                                 onLike={handleCommentLike}
                                 onReply={handleReply}
