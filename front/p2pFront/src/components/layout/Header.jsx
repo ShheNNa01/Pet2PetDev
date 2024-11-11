@@ -26,38 +26,61 @@ export default function Header() {
     const [selectedChat, setSelectedChat] = useState(null);
     const [chatMessage, setChatMessage] = useState("");
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
+    // Cargar mascotas del usuario
     useEffect(() => {
         const loadMyPets = async () => {
             try {
+                setLoading(true);
+                setError(null);
+                const token = localStorage.getItem('token');
+                
+                if (!token) {
+                    console.error('No token found');
+                    return;
+                }
+
                 const response = await petService.getMyPets();
-                setMyPets(response.data || []);
-                setLoading(false);
+                console.log('Respuesta de mascotas:', response);
+                
+                const petsData = Array.isArray(response) ? response : response.data || [];
+                console.log('Mascotas cargadas:', petsData);
+                
+                setMyPets(petsData);
+
+                // Si no hay mascota seleccionada y hay mascotas disponibles, seleccionar la primera
+                if (!currentPet && petsData.length > 0) {
+                    setCurrentPet(petsData[0]);
+                }
             } catch (error) {
                 console.error('Error loading pets:', error);
+                setError('Error al cargar las mascotas');
+            } finally {
                 setLoading(false);
             }
         };
 
-        loadMyPets();
-    }, []);
+        if (user) {
+            loadMyPets();
+        }
+    }, [user, currentPet, setCurrentPet]);
 
-    const handlePetChange = async (pet) => {
+    const handlePetChange = (pet) => {
+        console.log('Cambiando a mascota:', pet);
+        setCurrentPet(pet);
+    };
+
+    const handleLogout = async () => {
         try {
-            setCurrentPet(pet);
+            await logout();
+            navigate('/');
         } catch (error) {
-            console.error('Error changing pet:', error);
+            console.error('Error during logout:', error);
         }
     };
 
-    console.log('Datos del usuario en Header:', user);
-    console.log('Rol ID en Header:', user?.role_id);
-
-    const handleLogout = async () => {
-        await logout();
-        navigate('/');
-    };
-
+    // Datos de ejemplo para el chat (puedes reemplazarlos con datos reales)
     const petChats = [
         { id: 1, pet: 'Firulais', lastMessage: 'Hola!', avatar: 'path-to-avatar.jpg' },
         { id: 2, pet: 'Mittens', lastMessage: '¿Cómo estás?', avatar: 'path-to-avatar.jpg' },
@@ -68,9 +91,12 @@ export default function Header() {
         <nav className="bg-white shadow-sm sticky top-0 z-10">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-16">
+                    {/* Logo */}
                     <div className="flex items-center">
                         <img src={logo} alt="Logo de Pet2Pet" className="h-16 w-32" />
                     </div>
+
+                    {/* Navigation Links - Desktop */}
                     <div className="hidden md:flex items-center justify-center space-x-8">
                         <NavItem icon={<Bone className="text-pink-500" />} text="Nido" onClick={() => navigate('/')} />
                         <NavItem icon={<CircleDot className="text-green-500" />} text="Descubrir" onClick={() => navigate('/discover')} />
@@ -78,10 +104,13 @@ export default function Header() {
                         <NavItem icon={<Fish className="text-blue-500" />} text="Chismes" onClick={() => navigate('/gossip')} />
                         <NavItem icon={<Video className="text-red-500" />} text="Cine" onClick={() => navigate('/cinema')} />
                     </div>
+
+                    {/* Right Side Icons */}
                     <div className="flex items-center space-x-4">
+                        {/* Chat Button */}
                         <Sheet open={chatOpen} onOpenChange={setChatOpen}>
                             <SheetTrigger asChild>
-                                <Button variant="ghost" size="icon" className="relative" aria-label="Chat de mascotas">
+                                <Button variant="ghost" size="icon" className="relative">
                                     <MessageCircle className="h-5 w-5" />
                                     <span className="absolute top-0 right-0 h-2 w-2 bg-red-500 rounded-full"></span>
                                 </Button>
@@ -143,9 +172,10 @@ export default function Header() {
                             </SheetContent>
                         </Sheet>
 
+                        {/* User Menu */}
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
-                                <Button variant="ghost" size="icon" aria-label="Perfil de usuario">
+                                <Button variant="ghost" size="icon">
                                     <User className="h-5 w-5" />
                                 </Button>
                             </DropdownMenuTrigger>
@@ -186,48 +216,72 @@ export default function Header() {
                             </DropdownMenuContent>
                         </DropdownMenu>
 
+                        {/* Pet Selector */}
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
                                 <Button 
                                     variant="ghost" 
                                     size="icon" 
-                                    aria-label="Cambiar mascota"
-                                    disabled={loading || myPets.length === 0}
+                                    className="relative bg-white rounded-full shadow-sm hover:bg-gray-50"
+                                    disabled={loading}
                                 >
-                                    <PawPrint className="h-5 w-5 text-pink-500" />
+                                    <PawPrint className="h-5 w-5 text-[#509ca2]" />
                                 </Button>
                             </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end">
+                            <DropdownMenuContent 
+                                align="end" 
+                                className="w-56 p-2 bg-white rounded-lg shadow-lg"
+                            >
+                                <div className="px-2 py-1.5 text-sm font-medium text-gray-500">
+                                    Mis Mascotas
+                                </div>
                                 {myPets.map((pet) => (
                                     <DropdownMenuItem 
-                                        key={pet.id}
+                                        key={`pet-${pet.pet_id}`}
                                         onClick={() => handlePetChange(pet)}
-                                        className="cursor-pointer flex items-center space-x-2"
+                                        className="cursor-pointer rounded-md my-1 p-2 hover:bg-gray-50"
                                     >
-                                        <Avatar className="h-6 w-6">
-                                            <AvatarImage 
-                                                src={pet.image_url || '/placeholder-pet.png'} 
-                                                alt={pet.name} 
-                                            />
-                                            <AvatarFallback>{pet.name[0]}</AvatarFallback>
-                                        </Avatar>
-                                        <span className={currentPet?.id === pet.id ? "font-bold" : ""}>
-                                            {pet.name}
-                                        </span>
+                                        <div className="flex items-center space-x-2">
+                                            <Avatar className="h-8 w-8">
+                                                <AvatarImage 
+                                                    src={pet.pet_picture || '/placeholder-pet.png'} 
+                                                    alt={pet.name} 
+                                                />
+                                                <AvatarFallback>
+                                                    {pet.name ? pet.name[0].toUpperCase() : 'P'}
+                                                </AvatarFallback>
+                                            </Avatar>
+                                            <div className="flex-1">
+                                                <p className={`text-sm font-medium ${
+                                                    currentPet?.pet_id === pet.pet_id 
+                                                    ? "text-[#d55b49]" 
+                                                    : "text-gray-700"
+                                                }`}>
+                                                    {pet.name}
+                                                </p>
+                                            </div>
+                                            {currentPet?.pet_id === pet.pet_id && (
+                                                <span className="h-2 w-2 bg-[#d55b49] rounded-full"/>
+                                            )}
+                                        </div>
                                     </DropdownMenuItem>
                                 ))}
                                 <DropdownMenuItem 
-                                    onClick={() => navigate('/pets/new')}
-                                    className="cursor-pointer text-[#509ca2]"
+                                    onClick={() => navigate('/register-pet')}
+                                    className="cursor-pointer mt-2 pt-2 border-t border-gray-100"
                                 >
-                                    + Agregar mascota
+                                    <div className="flex items-center space-x-2 text-[#509ca2]">
+                                        <PawPrint className="h-4 w-4" />
+                                        <span className="text-sm font-medium">Agregar mascota</span>
+                                    </div>
                                 </DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>
 
+                        {/* Mobile Menu */}
                         <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
                             <SheetTrigger asChild>
-                                <Button variant="ghost" size="icon" className="md:hidden" aria-label="Menú">
+                                <Button variant="ghost" size="icon" className="md:hidden">
                                     <Menu className="h-5 w-5" />
                                 </Button>
                             </SheetTrigger>

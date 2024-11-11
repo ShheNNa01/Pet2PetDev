@@ -12,6 +12,7 @@ import Dashboard from './components/pages/Dashboard';
 import WelcomePage from './components/pages/WelcomePage';
 import NotFoundPage from './components/pages/NotFoundPage';
 import RegisterMascotaPage from './components/pages/RegisterMascotaPage';
+import PetProfiles from './components/pages/PetProfiles';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
               <Route path="/welcome" element={<WelcomePage />} />
               <Route path="/home" element={<HomePage />} />
               <Route path="/registerPet" element={<RegisterMascotaPage />} />
+              <Route path="/pet-profiles" element={<PetProfiles />} />
             </Route>
           </Route>
 
