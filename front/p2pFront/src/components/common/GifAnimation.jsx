@@ -1,15 +1,19 @@
 import React from 'react';
-import gifAnimation from '../../assets/icons/huella.gif'; // Asegúrate de que la ruta sea correcta
+import gifAnimation from '../../assets/icons/huella.gif';
 
 const GifAnimation = () => {
   return (
-    <div className="flex flex-col justify-center items-center h-screen"> {/* Cambié flex-direction a columna */}
-      <img src={gifAnimation} alt="Animación de GIF" className="w-64 h-auto" /> {/* Ajusta el tamaño según sea necesario */}
-      <h1 className="mt-4 text-center text-2xl font-bold text-black">
-      {/* Cambié text-4xl y font-bold para hacerlo más grande y oscuro */}
-      "Un registro para recordar que cada huella deja una historia." 🐾 {/* Usé <br /> para el salto de línea */}
-      </h1>
-
+    <div className="flex flex-col justify-center items-center text-center space-y-2">
+      <div className="relative">
+        <img
+          src={gifAnimation}
+          alt="Animación de GIF"
+          className="w-32 h-auto" 
+        />
+      </div>
+      <p className="text-lg font-medium text-[#509ca2] italic">
+        "Un registro para recordar que cada huella deja una historia."
+      </p>
     </div>
   );
 };

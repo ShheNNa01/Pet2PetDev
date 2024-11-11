@@ -41,13 +41,15 @@ export const petService = {
             if (!petData.name || !petData.birthdate || !petData.breed_id || !petData.gender) {
                 throw new Error('Faltan datos requeridos para crear la mascota');
             }
-
+    
             const response = await axiosInstance.post('/pets', {
                 name: petData.name,
                 birthdate: petData.birthdate,
                 breed_id: petData.breed_id,
-                gender: petData.gender
+                gender: petData.gender,
+                bio: petData.bio
             });
+            
             return response.data;
         } catch (error) {
             console.error('Error creando mascota:', error);
