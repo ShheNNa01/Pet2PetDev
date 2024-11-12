@@ -14,11 +14,21 @@ export const AuthService = {
                 user_bio: userData.bio || ''
             });
             
-            // Guardamos el email temporalmente para la verificación
             localStorage.setItem('pendingVerificationEmail', userData.correo);
             
             return response.data;
         } catch (error) {
+            throw error.response?.data || error.message;
+        }
+    },
+
+    async verifyEmail(token) {
+        try {
+            // Enviamos el token como query parameter
+            const response = await api.post(`/auth/verify-email?token=${token}`);
+            return response.data;
+        } catch (error) {
+            console.log('Error completo:', error.response);
             throw error.response?.data || error.message;
         }
     },

@@ -13,6 +13,7 @@ import WelcomePage from './components/pages/WelcomePage';
 import NotFoundPage from './components/pages/NotFoundPage';
 import RegisterMascotaPage from './components/pages/RegisterMascotaPage';
 import PetProfiles from './components/pages/PetProfiles';
+import Verification from './components/pages/Verification';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
           <Route element={<GuestGuard />}>
             <Route path="/" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
+            <Route path="/verify-email" element={<Verification />} />
           </Route>
           
           {/* Rutas protegidas (requieren autenticación) */}
@@ -33,6 +35,7 @@ function App() {
               <Route path="/home" element={<HomePage />} />
               <Route path="/registerPet" element={<RegisterMascotaPage />} />
               <Route path="/pets" element={<PetProfiles />} />
+              
             </Route>
           </Route>
 
