@@ -13,6 +13,10 @@ export const AuthService = {
                 user_number: userData.phoneNumber || '',
                 user_bio: userData.bio || ''
             });
+            
+            // Guardamos el email temporalmente para la verificación
+            localStorage.setItem('pendingVerificationEmail', userData.correo);
+            
             return response.data;
         } catch (error) {
             throw error.response?.data || error.message;
@@ -21,22 +25,21 @@ export const AuthService = {
 
     async login(credentials) {
         try {
-            // Crear URLSearchParams en lugar de FormData
             const formData = new URLSearchParams();
             formData.append('username', credentials.username);
             formData.append('password', credentials.password);
-    
+            
             const response = await api.post('/auth/login', formData, {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
             });
-    
+            
             if (response.data.access_token) {
                 localStorage.setItem('token', response.data.access_token);
                 localStorage.setItem('user', JSON.stringify(response.data.user));
             }
-    
+            
             return response.data;
         } catch (error) {
             throw error.response?.data || error.message;
@@ -56,3 +59,5 @@ export const AuthService = {
         return !!localStorage.getItem('token');
     }
 };
+
+export default AuthService;

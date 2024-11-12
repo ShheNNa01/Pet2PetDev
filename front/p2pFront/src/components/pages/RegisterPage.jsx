@@ -1,12 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { AuthService } from '../services/auth.service';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
+import { Alert, AlertTitle, AlertDescription } from '../ui/alert';
+import { XCircle } from 'lucide-react';
+import EmailVerificationPage from './EmailVerificationPage';
 import '../styles/RegisterPage.css';
 
 export default function RegisterPage() {
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [error, setError] = useState('');
   const { register, handleSubmit, watch, formState: { errors } } = useForm({
     defaultValues: {
       ownerName: '',
@@ -23,30 +28,43 @@ export default function RegisterPage() {
 
   async function onSubmit(data) {
     try {
+      setError(''); // Limpiar error anterior
       await AuthService.register({
         ownerName: data.ownerName,
         ownerLastName: data.ownerLastName,
         correo: data.correo,
         contrasena: data.contrasena
       });
-      alert("Registro exitoso");
-      navigate('/welcome');
+      setShowConfirmation(true);
     } catch (error) {
-      alert("Error al registrar el usuario");
+      setError(error.message || "Error al registrar el usuario");
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
+  }
+
+  if (showConfirmation) {
+    return <EmailVerificationPage email={watch("correo")} />;
   }
 
   return (
     <div className="container-register">
-      <div className="container-form">
-        <form onSubmit={handleSubmit(onSubmit)} className="form-container space-y-4">
-          <h1 className="text-center heading-register text-2xl font-bold">Registrarse</h1>
+      <div className="container-form max-w-md mx-auto">
+        {error && (
+          <Alert variant="destructive" className="mb-4">
+            <XCircle className="h-4 w-4" />
+            <AlertTitle>Error</AlertTitle>
+            <AlertDescription>{error}</AlertDescription>
+          </Alert>
+        )}
+
+        <form onSubmit={handleSubmit(onSubmit)} className="form-container space-y-6 bg-white p-6 rounded-lg shadow-sm">
+          <h1 className="text-center text-2xl font-bold text-primary">Registrarse</h1>
           
-          <h3 className="text-lg font-semibold">Datos del Dueño</h3>
+          <h3 className="text-lg font-semibold text-foreground">Datos del Dueño</h3>
           
           <div className="space-y-2">
-            <label className="text-sm font-medium">
-              <i className="fas fa-user"></i> Nombre
+            <label className="text-sm font-medium text-foreground">
+              Nombre
             </label>
             <Input
               {...register("ownerName", {
@@ -54,16 +72,16 @@ export default function RegisterPage() {
               })}
               type="text"
               placeholder="Ingrese su nombre"
-              className={errors.ownerName ? "border-red-500" : ""}
+              className={errors.ownerName ? "border-destructive" : ""}
             />
             {errors.ownerName && (
-              <p className="text-sm text-red-500">{errors.ownerName.message}</p>
+              <p className="text-sm text-destructive">{errors.ownerName.message}</p>
             )}
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm font-medium">
-              <i className="fas fa-user"></i> Apellido
+            <label className="text-sm font-medium text-foreground">
+              Apellido
             </label>
             <Input
               {...register("ownerLastName", {
@@ -71,16 +89,16 @@ export default function RegisterPage() {
               })}
               type="text"
               placeholder="Ingrese su apellido"
-              className={errors.ownerLastName ? "border-red-500" : ""}
+              className={errors.ownerLastName ? "border-destructive" : ""}
             />
             {errors.ownerLastName && (
-              <p className="text-sm text-red-500">{errors.ownerLastName.message}</p>
+              <p className="text-sm text-destructive">{errors.ownerLastName.message}</p>
             )}
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm font-medium">
-              <i className="fas fa-envelope"></i> Correo Electrónico
+            <label className="text-sm font-medium text-foreground">
+              Correo Electrónico
             </label>
             <Input
               {...register("correo", {
@@ -92,16 +110,16 @@ export default function RegisterPage() {
               })}
               type="email"
               placeholder="ejemplo@correo.com"
-              className={errors.correo ? "border-red-500" : ""}
+              className={errors.correo ? "border-destructive" : ""}
             />
             {errors.correo && (
-              <p className="text-sm text-red-500">{errors.correo.message}</p>
+              <p className="text-sm text-destructive">{errors.correo.message}</p>
             )}
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm font-medium">
-              <i className="fas fa-lock"></i> Contraseña
+            <label className="text-sm font-medium text-foreground">
+              Contraseña
             </label>
             <Input
               {...register("contrasena", {
@@ -113,16 +131,16 @@ export default function RegisterPage() {
               })}
               type="password"
               placeholder="Ingrese su contraseña"
-              className={errors.contrasena ? "border-red-500" : ""}
+              className={errors.contrasena ? "border-destructive" : ""}
             />
             {errors.contrasena && (
-              <p className="text-sm text-red-500">{errors.contrasena.message}</p>
+              <p className="text-sm text-destructive">{errors.contrasena.message}</p>
             )}
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm font-medium">
-              <i className="fas fa-lock"></i> Confirmar Contraseña
+            <label className="text-sm font-medium text-foreground">
+              Confirmar Contraseña
             </label>
             <Input
               {...register("contrasena2", {
@@ -132,10 +150,10 @@ export default function RegisterPage() {
               })}
               type="password"
               placeholder="Confirme su contraseña"
-              className={errors.contrasena2 ? "border-red-500" : ""}
+              className={errors.contrasena2 ? "border-destructive" : ""}
             />
             {errors.contrasena2 && (
-              <p className="text-sm text-red-500">{errors.contrasena2.message}</p>
+              <p className="text-sm text-destructive">{errors.contrasena2.message}</p>
             )}
           </div>
           
@@ -148,17 +166,17 @@ export default function RegisterPage() {
               })}
               className="h-4 w-4 rounded border-gray-300"
             />
-            <label htmlFor="termsCheck" className="text-sm text-gray-600">
+            <label htmlFor="termsCheck" className="text-sm text-muted-foreground">
               Acepto los términos y condiciones
             </label>
           </div>
           {errors.terms && (
-            <p className="text-sm text-red-500">{errors.terms.message}</p>
+            <p className="text-sm text-destructive">{errors.terms.message}</p>
           )}
 
           <Button 
             type="submit" 
-            className="w-full"
+            className="w-full bg-primary hover:bg-primary/90"
           >
             Registrarse
           </Button>
