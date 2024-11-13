@@ -1,9 +1,9 @@
-import api from './config/axios';
+import axiosInstance from './config/axios';
 
 export const AuthService = {
     async register(userData) {
         try {
-            const response = await api.post('/auth/register', {
+            const response = await axiosInstance.post('/auth/register', {
                 user_name: userData.ownerName,
                 user_last_name: userData.ownerLastName,
                 user_email: userData.correo,
@@ -25,7 +25,7 @@ export const AuthService = {
     async verifyEmail(token) {
         try {
             // Enviamos el token como query parameter
-            const response = await api.post(`/auth/verify-email?token=${token}`);
+            const response = await axiosInstance.post(`/auth/verify-email?token=${token}`);
             return response.data;
         } catch (error) {
             console.log('Error completo:', error.response);
@@ -39,7 +39,7 @@ export const AuthService = {
             formData.append('username', credentials.username);
             formData.append('password', credentials.password);
             
-            const response = await api.post('/auth/login', formData, {
+            const response = await axiosInstance.post('/auth/login', formData, {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
