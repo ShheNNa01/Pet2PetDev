@@ -14,6 +14,7 @@ import NotFoundPage from './components/pages/NotFoundPage';
 import RegisterMascotaPage from './components/pages/RegisterMascotaPage';
 import PetProfiles from './components/pages/PetProfiles';
 import Verification from './components/pages/Verification';
+import PetProfile from './components/pages/PetProfile';
 import PasswordRecovery from './components/pages/PasswordRecovery';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -37,6 +38,7 @@ function App() {
               <Route path="/home" element={<HomePage />} />
               <Route path="/registerPet" element={<RegisterMascotaPage />} />
               <Route path="/pets" element={<PetProfiles />} />
+              <Route path="/petProfile" element={<PetProfile />} />
               
             </Route>
           </Route>
