@@ -19,23 +19,6 @@ export default function PostList({ refreshTrigger }) {
             const skip = isInitial ? 0 : page * limit;
             const data = await postService.getPosts({ skip, limit });
             
-            // Debug: Ver estructura completa de los datos
-            console.log('Posts cargados:', data);
-            if (data.length > 0) {
-                console.log('Ejemplo de estructura de post:', {
-                    post_id: data[0].post_id,
-                    content: data[0].content,
-                    media_urls: data[0].media_urls,
-                    files: data[0].files,
-                    images: data[0].images,
-                });
-                
-                // Debug: Ver si hay imágenes y su estructura
-                if (data[0].media_urls) console.log('media_urls:', data[0].media_urls);
-                if (data[0].files) console.log('files:', data[0].files);
-                if (data[0].images) console.log('images:', data[0].images);
-            }
-            
             if (isInitial) {
                 setPosts(data);
                 setPage(1);
@@ -66,6 +49,16 @@ export default function PostList({ refreshTrigger }) {
         }
     }, [refreshTrigger]);
 
+    const handleDelete = async (postId) => {
+        try {
+            await postService.deletePost(postId);
+            // Actualiza el estado filtrando el post eliminado
+            setPosts(prevPosts => prevPosts.filter(post => post.post_id !== postId));
+        } catch (error) {
+            console.error("Error al eliminar post:", error);
+        }
+    };
+
     if (error) {
         return (
             <div className="text-center py-8">
@@ -83,15 +76,9 @@ export default function PostList({ refreshTrigger }) {
 
     return (
         <div className="space-y-8">
-            {posts.map((post) => {
-                // Debug: Ver datos de cada post antes de renderizar
-                console.log('Renderizando post:', {
-                    id: post.post_id,
-                    content: post.content,
-                    media: post.media_urls || post.files || post.images,
-                });
-                return <PostCard key={post.post_id} post={post} />;
-            })}
+            {posts.map((post) => (
+                <PostCard key={post.post_id} post={post} onDelete={() => handleDelete(post.post_id)} />
+            ))}
 
             {isLoading && (
                 <div className="flex justify-center py-4">
