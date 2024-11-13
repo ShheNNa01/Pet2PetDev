@@ -14,6 +14,7 @@ import NotFoundPage from './components/pages/NotFoundPage';
 import RegisterMascotaPage from './components/pages/RegisterMascotaPage';
 import PetProfiles from './components/pages/PetProfiles';
 import Verification from './components/pages/Verification';
+import PasswordRecovery from './components/pages/PasswordRecovery';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
             <Route path="/" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/verify-email" element={<Verification />} />
+            <Route path="/forgot-password" element={<PasswordRecovery />} />
           </Route>
           
           {/* Rutas protegidas (requieren autenticación) */}
