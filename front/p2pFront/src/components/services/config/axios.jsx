@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-    baseURL: 'https://pet2petbackdeploy-production.up.railway.app/api/v1',
+    //baseURL: 'https://pet2petbackdeploy-production.up.railway.app/api/v1',
+    baseURL: 'http://localhost:8000/api/v1',
     headers: {
         'Accept': 'application/json',
     },
