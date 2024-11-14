@@ -43,7 +43,7 @@ export default function RightSidebar({ featuredPosts = [] }) {
         </Card>
 
         {/* Tu Nueva Mascota */}
-        <Card className="bg-white shadow-md rounded-lg overflow-hidden">
+       {/*  <Card className="bg-white shadow-md rounded-lg overflow-hidden">
             <CardHeader>
             <h2 className="text-lg font-semibold text-[#d55b49]">Tu Nueva Mascota</h2>
             </CardHeader>
@@ -74,7 +74,7 @@ export default function RightSidebar({ featuredPosts = [] }) {
                 ))}
             </ul>
             </CardContent>
-        </Card>
+        </Card> */}
 
         {/* Publicaciones Destacadas */}
         <Card className="bg-white shadow-md rounded-lg overflow-hidden">
