@@ -13,29 +13,27 @@ export default function HomePage() {
   const { currentPet } = usePet();
   const [refreshTrigger, setRefreshTrigger] = useState(0);
 
-  // Función memoizada para actualizar los posts
-  const handlePostCreated = useCallback(() => {
+  const handleRefresh = useCallback(() => {
+    console.log("Triggering refresh in HomePage"); // Debug
     setRefreshTrigger(prev => prev + 1);
-  }, []);
+}, []);
+
 
   return (
     <div className="min-h-screen bg-[#eeede8] text-[#1a1a1a] font-sans">
       <Header />
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          {/* Left column */}
           <div className="hidden lg:block lg:col-span-3 space-y-6">
             <ProfileSection />
             <NewFriends />
           </div>
-
-          {/* Central column */}
           <div className="lg:col-span-6 space-y-8">
             <StoriesBar />
             {currentPet ? (
               <NewPost
                 activePetId={currentPet.id}
-                onPostCreated={handlePostCreated}
+                onPostCreated={handleRefresh}
                 petAvatar={currentPet.image_url}
                 petName={currentPet.name}
               />
@@ -46,10 +44,11 @@ export default function HomePage() {
                 </p>
               </div>
             )}
-            <PostList refreshTrigger={refreshTrigger} />
+            <PostList 
+              refreshTrigger={refreshTrigger}
+              onPostDeleted={handleRefresh}
+            />
           </div>
-
-          {/* Right column */}
           <div className="hidden lg:block lg:col-span-3">
             <RightSidebar />
           </div>

@@ -1,11 +1,14 @@
 import axiosInstance from './config/axios';
 
 export const petService = {
-    getPetTypes: async (params = {}) => {
+    // Obtener tipos de mascotas con límite máximo
+    getPetTypes: async () => {
         try {
-            const { skip = 0, limit = 10 } = params;
             const response = await axiosInstance.get('/pets/types', {
-                params: { skip, limit }
+                params: { 
+                    skip: 0,
+                    limit: 100  // Límite máximo permitido
+                }
             });
             return response.data;
         } catch (error) {
@@ -14,19 +17,15 @@ export const petService = {
         }
     },
 
+    // Obtener razas con límite máximo
     getBreeds: async (params = {}) => {
         try {
-            const { 
-                pet_type_id,
-                skip = 0, 
-                limit = 10 
-            } = params;
-            
+            const { pet_type_id } = params;
             const response = await axiosInstance.get('/pets/breeds', {
                 params: {
                     pet_type_id,
-                    skip,
-                    limit
+                    skip: 0,
+                    limit: 100  // Límite máximo permitido
                 }
             });
             return response.data;
@@ -36,20 +35,14 @@ export const petService = {
         }
     },
 
+    // Crear nueva mascota
     createPet: async (petData) => {
         try {
             if (!petData.name || !petData.birthdate || !petData.breed_id || !petData.gender) {
                 throw new Error('Faltan datos requeridos para crear la mascota');
             }
     
-            const response = await axiosInstance.post('/pets', {
-                name: petData.name,
-                birthdate: petData.birthdate,
-                breed_id: petData.breed_id,
-                gender: petData.gender,
-                bio: petData.bio
-            });
-            
+            const response = await axiosInstance.post('/pets', petData);
             return response.data;
         } catch (error) {
             console.error('Error creando mascota:', error);
@@ -57,6 +50,7 @@ export const petService = {
         }
     },
 
+    // Obtener mis mascotas (mantenemos paginación para la lista)
     getMyPets: async (params = {}) => {
         try {
             const { skip = 0, limit = 10 } = params;
@@ -70,6 +64,7 @@ export const petService = {
         }
     },
 
+    // Obtener mascota por ID
     getPetById: async (petId) => {
         try {
             if (!petId) throw new Error('Se requiere el ID de la mascota');
@@ -81,6 +76,7 @@ export const petService = {
         }
     },
 
+    // Actualizar mascota
     updatePet: async (petId, updateData) => {
         try {
             if (!petId) throw new Error('Se requiere el ID de la mascota');
@@ -89,6 +85,7 @@ export const petService = {
             if (updateData.name) validFields.name = updateData.name;
             if (updateData.birthdate) validFields.birthdate = updateData.birthdate;
             if (updateData.gender) validFields.gender = updateData.gender;
+            if (updateData.bio !== undefined) validFields.bio = updateData.bio;
 
             const response = await axiosInstance.put(`/pets/${petId}`, validFields);
             return response.data;
@@ -98,6 +95,7 @@ export const petService = {
         }
     },
 
+    // Subir imagen de mascota
     uploadPetImage: async (petId, file) => {
         try {
             if (!petId || !file) {
@@ -119,6 +117,7 @@ export const petService = {
         }
     },
 
+    // Eliminar mascota
     deletePet: async (petId) => {
         try {
             if (!petId) throw new Error('Se requiere el ID de la mascota');
@@ -130,7 +129,7 @@ export const petService = {
         }
     },
 
-    // [Actualizar los métodos de follow/unfollow según la nueva estructura]
+    // Seguir mascota
     followPet: async (petId, followerPetId) => {
         try {
             if (!petId || !followerPetId) {
@@ -147,6 +146,7 @@ export const petService = {
         }
     },
 
+    // Dejar de seguir mascota
     unfollowPet: async (petId, followerPetId) => {
         try {
             if (!petId || !followerPetId) {
@@ -163,7 +163,7 @@ export const petService = {
         }
     },
 
-    // [Actualizar los métodos de followers/following según la nueva estructura]
+    // Obtener seguidores (con paginación)
     getPetFollowers: async (petId, params = {}) => {
         try {
             if (!petId) throw new Error('Se requiere el ID de la mascota');
@@ -179,6 +179,7 @@ export const petService = {
         }
     },
 
+    // Obtener seguidos (con paginación)
     getPetFollowing: async (petId, params = {}) => {
         try {
             if (!petId) throw new Error('Se requiere el ID de la mascota');
@@ -194,7 +195,7 @@ export const petService = {
         }
     },
 
-    // [Mantener el método getPets tal cual]
+    // Obtener mascotas con filtros (con paginación)
     getPets: async (params = {}) => {
         try {
             const {

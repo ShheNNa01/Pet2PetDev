@@ -11,6 +11,23 @@ import { useNavigate } from 'react-router-dom';
 import { usePet } from '../context/PetContext';
 import GifAnimation from '../common/GifAnimation';
 
+const selectStyles = `
+  w-full 
+  rounded-md 
+  border 
+  border-[#509ca2] 
+  p-2 
+  focus:ring-[#d55b49] 
+  bg-white 
+  hover:cursor-pointer 
+  appearance-none
+`;
+
+const dropdownStyles = {
+  maxHeight: '256px',  // Altura para ~8 items
+  overflowY: 'auto'
+};
+
 export default function PetRegistrationForm() {
   const navigate = useNavigate();
   const { setMyPets } = usePet();
@@ -27,9 +44,6 @@ export default function PetRegistrationForm() {
     const fetchPetTypes = async () => {
       try {
         setIsLoading(true);
-        const token = localStorage.getItem('token');
-        console.log('Token actual:', token);
-
         const response = await petService.getPetTypes();
         console.log('Respuesta completa de tipos de mascotas:', response);
 
@@ -62,7 +76,7 @@ export default function PetRegistrationForm() {
           console.log('Cargando razas para el tipo:', selectedPetType);
           
           const response = await petService.getBreeds({ 
-            pet_type_id: parseInt(selectedPetType) 
+            pet_type_id: parseInt(selectedPetType)
           });
           console.log('Respuesta completa de razas:', response);
 
@@ -103,13 +117,12 @@ export default function PetRegistrationForm() {
     try {
       console.log('Datos del formulario:', data);
       
-      // Preparar los datos asegurando que bio se maneje correctamente
       const petData = {
         name: data.name,
         birthdate: data.birthdate,
         breed_id: parseInt(data.breed_id),
         gender: data.gender,
-        bio: data.bio ? data.bio.trim() : null // Si hay contenido en bio, lo limpiamos, si no, enviamos null
+        bio: data.bio ? data.bio.trim() : null
       };
 
       console.log('Enviando datos de mascota:', petData);
@@ -140,6 +153,7 @@ export default function PetRegistrationForm() {
   return (
     <div className="min-h-screen bg-[#eeede8] p-6">
       <div className="max-w-4xl mx-auto space-y-8">
+        {/* Botón de regresar */}
         <div className="flex justify-between items-center">
           <a
             href="/pets"
@@ -150,14 +164,14 @@ export default function PetRegistrationForm() {
           </a>
         </div>
 
-        {/* GIF and Quote Section */}
+        {/* Sección de GIF */}
         <div className="text-center space-y-4">
           <div className="rounded-lg overflow-hidden shadow-xl bg-white h-[200px] flex items-center justify-center">
             <GifAnimation />
           </div>
         </div>
 
-        {/* Form Card */}
+        {/* Tarjeta del formulario */}
         <Card className="bg-white shadow-xl rounded-2xl">
           <CardContent className="p-6">
             {error && (
@@ -167,6 +181,7 @@ export default function PetRegistrationForm() {
             )}
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+              {/* Encabezado del formulario */}
               <div className="text-center mb-6">
                 <h1 className="text-3xl font-bold text-[#d55b49]">Registrar Mascota</h1>
                 <div className="mt-1 flex justify-center">
@@ -174,7 +189,9 @@ export default function PetRegistrationForm() {
                 </div>
               </div>
 
+              {/* Campos del formulario */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Campo de nombre */}
                 <div className="space-y-2">
                   <Label htmlFor="name">Nombre</Label>
                   <Input
@@ -191,78 +208,106 @@ export default function PetRegistrationForm() {
                   )}
                 </div>
 
+                {/* Selector de tipo de mascota */}
                 <div className="space-y-2">
                   <Label htmlFor="petType">Tipo de mascota</Label>
-                  <select
-                    id="petType"
-                    value={selectedPetType}
-                    onChange={handlePetTypeChange}
-                    className="w-full rounded-md border border-[#509ca2] p-2 focus:ring-[#d55b49] bg-white"
-                  >
-                    <option key="default-type" value="">Seleccione un tipo</option>
-                    {petTypes && petTypes.map((type) => (
-                      <option 
-                        key={`pet-type-${type.pet_type_id}`} 
-                        value={type.pet_type_id}
-                      >
-                        {type.type_name}
-                      </option>
-                    ))}
-                  </select>
+                  <div className="relative">
+                    <select
+                      id="petType"
+                      value={selectedPetType}
+                      onChange={handlePetTypeChange}
+                      className={selectStyles}
+                      style={dropdownStyles}
+                    >
+                      <option key="default-type" value="">Seleccione un tipo</option>
+                      {petTypes && petTypes.map((type) => (
+                        <option 
+                          key={`pet-type-${type.pet_type_id}`} 
+                          value={type.pet_type_id}
+                        >
+                          {type.type_name}
+                        </option>
+                      ))}
+                    </select>
+                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                      <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                        <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                      </svg>
+                    </div>
+                  </div>
                 </div>
 
+                {/* Selector de raza */}
                 <div className="space-y-2">
                   <Label htmlFor="breed">Raza</Label>
-                  <select
-                    id="breed"
-                    {...register('breed_id', { required: 'La raza es requerida' })}
-                    disabled={!selectedPetType}
-                    className="w-full rounded-md border border-[#509ca2] p-2 focus:ring-[#d55b49] bg-white"
-                  >
-                    <option key="default-breed" value="">Seleccione una raza</option>
-                    {breeds && breeds.map((breed) => (
-                      <option 
-                        key={`breed-${breed.breed_id}`} 
-                        value={breed.breed_id}
-                      >
-                        {breed.breed_name}
-                      </option>
-                    ))}
-                  </select>
+                  <div className="relative">
+                    <select
+                      id="breed"
+                      {...register('breed_id', { required: 'La raza es requerida' })}
+                      disabled={!selectedPetType}
+                      className={`${selectStyles} ${!selectedPetType && 'bg-gray-100'}`}
+                      style={dropdownStyles}
+                    >
+                      <option key="default-breed" value="">Seleccione una raza</option>
+                      {breeds && breeds.map((breed) => (
+                        <option 
+                          key={`breed-${breed.breed_id}`} 
+                          value={breed.breed_id}
+                        >
+                          {breed.breed_name}
+                        </option>
+                      ))}
+                    </select>
+                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                      <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                        <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                      </svg>
+                    </div>
+                  </div>
                   {errors.breed_id && (
                     <span className="text-sm text-red-500">{errors.breed_id.message}</span>
                   )}
                 </div>
 
+                {/* Campo de fecha de nacimiento */}
                 <div className="space-y-2">
                   <Label htmlFor="birthdate">Fecha de nacimiento</Label>
                   <Input
                     type="date"
                     id="birthdate"
                     {...register('birthdate', { required: 'La fecha de nacimiento es requerida' })}
-                    className="border-[#509ca2] focus:ring-[#d55b49] bg-white"
+                    className="border-[#509ca2] focus:ring-[#d55b49] bg-white hover:cursor-pointer"
                   />
                   {errors.birthdate && (
                     <span className="text-sm text-red-500">{errors.birthdate.message}</span>
                   )}
                 </div>
 
+                {/* Selector de género */}
                 <div className="space-y-2">
                   <Label htmlFor="gender">Género</Label>
-                  <select
-                    id="gender"
-                    {...register('gender', { required: 'El género es requerido' })}
-                    className="w-full rounded-md border border-[#509ca2] p-2 focus:ring-[#d55b49] bg-white"
-                  >
-                    <option key="default-gender" value="">Seleccione un género</option>
-                    <option key="male" value="male">Macho</option>
-                    <option key="female" value="female">Hembra</option>
-                  </select>
+                  <div className="relative">
+                    <select
+                      id="gender"
+                      {...register('gender', { required: 'El género es requerido' })}
+                      className={selectStyles}
+                    >
+                      <option key="default-gender" value="">Seleccione un género</option>
+                      <option key="male" value="male">Macho</option>
+                      <option key="female" value="female">Hembra</option>
+                    </select>
+                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                      <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                        <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                      </svg>
+                    </div>
+                  </div>
                   {errors.gender && (
                     <span className="text-sm text-red-500">{errors.gender.message}</span>
                   )}
                 </div>
 
+                {/* Campo de biografía */}
                 <div className="space-y-2 md:col-span-2">
                   <Label htmlFor="bio">Biografía</Label>
                   <Textarea
@@ -270,12 +315,13 @@ export default function PetRegistrationForm() {
                     {...register('bio', {
                       setValueAs: (value) => value ? value.trim() : null
                     })}
-                    className="border-[#509ca2] focus:ring-[#d55b49] min-h-[120px]"
+                    className="border-[#509ca2] focus:ring-[#d55b49] min-h-[120px] resize-none"
                     placeholder="Cuéntanos sobre tu mascota..."
                   />
                 </div>
               </div>
 
+              {/* Botón de envío */}
               <div className="flex justify-center pt-4">
                 <Button
                   type="submit"
