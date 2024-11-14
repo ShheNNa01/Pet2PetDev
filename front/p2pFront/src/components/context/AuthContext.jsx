@@ -9,7 +9,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const token = localStorage.getItem('token');
     const storedUser = localStorage.getItem('user');
-   
+
     if (token && storedUser) {
       try {
         const userData = JSON.parse(storedUser);
@@ -31,14 +31,14 @@ export const AuthProvider = ({ children }) => {
     const { access_token, user: userDetails } = userData;
     console.log('Datos completos recibidos en login:', userData);
     console.log('Datos del usuario:', userDetails);
-    
+
     // Aseguramos que role_id y city estén presentes
     const userToStore = {
       ...userDetails,
       role_id: userDetails.role_id || userDetails.rol_id,
       city: userDetails.city || 'global' // Valor por defecto si no hay ciudad
     };
-    
+
     localStorage.setItem('token', access_token);
     localStorage.setItem('user', JSON.stringify(userToStore));
     setUser({ ...userToStore, token: access_token });
@@ -47,6 +47,7 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    localStorage.removeItem('currentPet');
     setUser(null);
   };
 

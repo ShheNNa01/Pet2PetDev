@@ -13,9 +13,9 @@ export const AuthService = {
                 user_number: userData.phoneNumber || '',
                 user_bio: userData.bio || ''
             });
-            
+
             localStorage.setItem('pendingVerificationEmail', userData.correo);
-            
+
             return response.data;
         } catch (error) {
             throw error.response?.data || error.message;
@@ -38,18 +38,18 @@ export const AuthService = {
             const formData = new URLSearchParams();
             formData.append('username', credentials.username);
             formData.append('password', credentials.password);
-            
+
             const response = await axiosInstance.post('/auth/login', formData, {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
             });
-            
+
             if (response.data.access_token) {
                 localStorage.setItem('token', response.data.access_token);
                 localStorage.setItem('user', JSON.stringify(response.data.user));
             }
-            
+
             return response.data;
         } catch (error) {
             throw error.response?.data || error.message;
@@ -59,6 +59,7 @@ export const AuthService = {
     logout() {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
+        localStorage.removeItem('currentPet');
     },
 
     getCurrentUser() {
