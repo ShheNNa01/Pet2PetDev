@@ -119,5 +119,32 @@ export const postService = {
         }
 
         return true;
-    }
+    },
+
+    getMyPosts: async (params = {}) => {
+        try {
+            const { skip = 0, limit = 10, pet_id } = params;
+            
+            const queryParams = {
+                skip,
+                limit,
+                ...(pet_id && { pet_id }) // Incluir pet_id solo si está definido
+            };
+
+            const response = await axiosInstance.get('/posts/my-posts', {
+                params: queryParams
+            });
+
+            // Procesar las URLs de las imágenes
+            const processedPosts = response.data.map(post => ({
+                ...post,
+                media_urls: post.media_urls ? post.media_urls.map(url => getMediaUrl(url)) : []
+            }));
+
+            return processedPosts;
+        } catch (error) {
+            console.error('Error obteniendo mis posts:', error);
+            throw error;
+        }
+    },
 };
