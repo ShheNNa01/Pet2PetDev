@@ -1,35 +1,80 @@
 import React, { useState } from 'react';
+import { Alert, AlertTitle, AlertDescription } from '../ui/alert';
+import { AuthService } from '../services/auth.service';
+import { AlertTriangle, CheckCircle } from 'lucide-react';
 import '../styles/PasswordRecovery.css';
 
 const PasswordRecovery = () => {
     const [email, setEmail] = useState('');
-    const [message, setMessage] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+    const [alert, setAlert] = useState(null);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        setTimeout(() => {
-            setMessage(`Se ha enviado un enlace de recuperación a ${email}`);
-            setEmail(''); // Limpia el campo después de enviar
-        }, 1000);
+        setIsLoading(true);
+        
+        try {
+            await AuthService.requestPasswordReset(email);
+            setAlert({
+                type: 'success',
+                title: '¡Correo enviado!',
+                description: `Te hemos enviado un correo electrónico a ${email} con las instrucciones para restablecer tu contraseña. Por favor revisa tu bandeja de entrada y la carpeta de spam.`
+            });
+            setEmail('');
+        } catch (error) {
+            setAlert({
+                type: 'destructive',
+                title: 'Error',
+                description: error.detail || 'Ocurrió un error al procesar tu solicitud. Por favor intenta nuevamente.'
+            });
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     return (
         <div className="background">
             <div className="container">
-                <h2>Recuperación de Contraseña</h2>
+                <h2 className="text-2xl font-bold mb-6">Recuperación de Contraseña</h2>
+                
+                {alert && (
+                    <Alert 
+                        variant={alert.type}
+                    >
+                        {alert.type === 'destructive' ? (
+                            <AlertTriangle className="h-4 w-4" />
+                        ) : (
+                            <CheckCircle className="h-4 w-4" />
+                        )}
+                        <AlertTitle>{alert.title}</AlertTitle>
+                        <AlertDescription>
+                            {alert.description}
+                        </AlertDescription>
+                    </Alert>
+                )}
+
                 <form onSubmit={handleSubmit} className="form">
-                    <label className="label">Correo Electrónico:</label>
-                    <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                        className="input"
-                        placeholder="Ingresa tu correo"
-                    />
-                    <button type="submit" className="button">Enviar Enlace</button>
+                    <label className="label">
+                        Correo Electrónico
+                        <input
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                            className="input"
+                            placeholder="Ingresa tu correo electrónico"
+                            disabled={isLoading}
+                        />
+                    </label>
+                    
+                    <button 
+                        type="submit" 
+                        className="button"
+                        disabled={isLoading}
+                    >
+                        {isLoading ? 'Enviando...' : 'Enviar Enlace'}
+                    </button>
                 </form>
-                {message && <p className="message">{message}</p>}
             </div>
         </div>
     );
