@@ -157,15 +157,15 @@ const PetProfile = () => {
           {/* Sección del perfil */}
           <div className="p-6">
             <div className="flex flex-col items-center">
-              {/* Avatar */}
-              <div className="relative mb-6">
-                <Avatar className="w-28 h-28 ring-4 ring-[#d55b49]">
+              {/* Avatar */} {/* Se modifica codigo para que la imagen de perfil se vea redondeada y este centrada */}
+              <div className="relative mb-6 flex justify-center items-center">
+                <Avatar className="w-28 h-28 ring-4 ring-[#d55b49] rounded-full overflow-hidden">
                   <AvatarImage 
                     src={pet.pet_picture}
                     alt={pet.name}
-                    className="object-cover"
+                    className="object-cover w-full h-full"
                   />
-                  <AvatarFallback className="bg-[#d55b49]/10 text-[#d55b49] text-2xl font-bold">
+                  <AvatarFallback className="bg-[#d55b49]/10 text-[#d55b49] text-2xl font-bold flex justify-center items-center rounded-full">
                     {pet.name[0]?.toUpperCase() || <PawPrint className="w-8 h-8" />}
                   </AvatarFallback>
                 </Avatar>
@@ -181,7 +181,7 @@ const PetProfile = () => {
 
               {/* Información básica */}
               <div className="text-center space-y-3 w-full max-w-sm mb-6">
-                <div className="flex items-center justify-center gap-2">
+                <div className="flex flex-col items-center justify-center"> {/* Centralización del pet.name */}
                   <h1 className="text-2xl font-bold text-[#1a1a1a]">{pet.name}</h1>
                   {isOwner && (
                     <button 
@@ -220,7 +220,7 @@ const PetProfile = () => {
               </div>
 
               {/* Botones de acción */}
-              <div className="w-full space-y-3">
+              <div className="w-full flex flex-col items-center space-y-3">  {/* Se centran botones */}
                 {isOwner ? (
                   <Button 
                     onClick={() => navigate(`/pets/${pet.pet_id}/edit`)}
