@@ -3,12 +3,14 @@ import { Heart, MessageCircle, Share2, Gift, MoreVertical, Edit2, Trash2 } from 
 import { useAuth } from '../context/AuthContext';
 import { usePet } from '../context/PetContext';
 import { postService } from '../services/PostService';
+import { useNavigate } from 'react-router-dom';
 import CommentInput from './CommentInput';
 import Comment from './Comment';
 import LikeButton from './LikeButton';
 import EditPostModal from '../sections/EditPostModal';
 
 export default function PostCard({ post: initialPost, onPostDeleted }) {
+    const navigate = useNavigate();
     const { user } = useAuth();
     const { currentPet } = usePet();
     const [post, setPost] = useState(initialPost);
@@ -18,6 +20,14 @@ export default function PostCard({ post: initialPost, onPostDeleted }) {
     const [isEditing, setIsEditing] = useState(false);
 
     const isOwner = user?.user_id === post.user_id;
+
+    const handlePetProfileClick = () => {
+        // Determinar si es la mascota actual viendo su propio perfil
+        const isCurrentPet = currentPet?.pet_id === post.pet_id;
+        navigate(`/petProfile?id=${post.pet_id}`, {
+            state: { fromProfileSection: isCurrentPet }
+        });
+    };
 
     const handleDelete = async () => {
         if (!window.confirm('¿Estás seguro de que quieres eliminar esta publicación?')) {
@@ -93,12 +103,25 @@ export default function PostCard({ post: initialPost, onPostDeleted }) {
         <div className="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-200">
             <div className="px-6 py-4 border-b border-gray-100">
                 <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-4">
-                        <div className="h-10 w-10 rounded-full bg-[#509ca2]/10 flex items-center justify-center text-[#509ca2]">
-                            {post.pet_id || 'P'}
+                    <div 
+                        className="flex items-center space-x-4 cursor-pointer hover:opacity-80 transition-opacity"
+                        onClick={handlePetProfileClick}
+                    >
+                        <div className="h-10 w-10 rounded-full bg-[#509ca2]/10 flex items-center justify-center text-[#509ca2] overflow-hidden">
+                            {post.pet_picture ? (
+                                <img 
+                                    src={post.pet_picture} 
+                                    alt={`Mascota #${post.pet_id}`} 
+                                    className="h-full w-full object-cover"
+                                />
+                            ) : (
+                                post.pet_id || 'P'
+                            )}
                         </div>
                         <div>
-                            <p className="font-semibold">Mascota #{post.pet_id}</p>
+                            <p className="font-semibold hover:text-[#509ca2] transition-colors">
+                                {post.pet_name || `Mascota #${post.pet_id}`}
+                            </p>
                             <p className="text-sm text-gray-500">Usuario #{post.user_id}</p>
                         </div>
                     </div>
@@ -168,11 +191,11 @@ export default function PostCard({ post: initialPost, onPostDeleted }) {
 
             <div className="px-6 py-4 border-t border-gray-100">
                 <div className="flex items-center justify-between">
-                <LikeButton 
-                    postId={post.post_id}
-                    initialLikes={post.reactions_count}
-                    initialPetReactionId={post.pet_reaction_id} // Asumiendo que el backend envía este dato
-                />
+                    <LikeButton 
+                        postId={post.post_id}
+                        initialLikes={post.reactions_count}
+                        initialPetReactionId={post.pet_reaction_id}
+                    />
                     <button 
                         onClick={() => {
                             if (!currentPet?.pet_id) {
@@ -191,14 +214,10 @@ export default function PostCard({ post: initialPost, onPostDeleted }) {
                         <MessageCircle className="h-5 w-5" /> 
                         <span>{post.comments_count}</span>
                     </button>
-                    <button  className="flex items-center justify-center gap-2 text-gray-500 hover:text-[#d55b49] transition-all duration-200 min-w-[80px]">
+                    <button className="flex items-center justify-center gap-2 text-gray-500 hover:text-[#d55b49] transition-all duration-200 min-w-[80px]">
                         <Share2 className="h-5 w-5" /> 
                         <span>Compartir</span>
                     </button>
-                    {/* <button className="flex items-center space-x-2 text-[#d55b49] hover:text-[#d55b49]/80">
-                        <Gift className="h-5 w-5" /> 
-                        <span>Regalar</span>
-                    </button> */}
                 </div>
 
                 {isCommenting && (

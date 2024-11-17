@@ -29,7 +29,7 @@ export default function HomePage() {
             <NewFriends />
           </div>
           <div className="lg:col-span-6 space-y-8">
-            <StoriesBar />
+            {/* <StoriesBar /> */}
             {currentPet ? (
               <NewPost
                 activePetId={currentPet.id}
