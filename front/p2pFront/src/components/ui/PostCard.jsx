@@ -181,20 +181,24 @@ export default function PostCard({ post: initialPost, onPostDeleted }) {
                             }
                             setIsCommenting(!isCommenting);
                         }} 
-                        className="flex items-center space-x-2 text-gray-500 hover:text-gray-700"
+                        className={`
+                            flex items-center justify-center gap-2 text-gray-500 hover:text-[#d55b49] 
+                            transition-all duration-200 min-w-[80px]
+                            ${!currentPet?.pet_id ? 'cursor-not-allowed opacity-50' : ''}
+                        `}
                         title={!currentPet?.pet_id ? 'Selecciona una mascota para comentar' : ''}
                     >
                         <MessageCircle className="h-5 w-5" /> 
                         <span>{post.comments_count}</span>
                     </button>
-                    <button className="flex items-center space-x-2 text-gray-500 hover:text-gray-700">
+                    <button  className="flex items-center justify-center gap-2 text-gray-500 hover:text-[#d55b49] transition-all duration-200 min-w-[80px]">
                         <Share2 className="h-5 w-5" /> 
                         <span>Compartir</span>
                     </button>
-                    <button className="flex items-center space-x-2 text-[#d55b49] hover:text-[#d55b49]/80">
+                    {/* <button className="flex items-center space-x-2 text-[#d55b49] hover:text-[#d55b49]/80">
                         <Gift className="h-5 w-5" /> 
                         <span>Regalar</span>
-                    </button>
+                    </button> */}
                 </div>
 
                 {isCommenting && (
