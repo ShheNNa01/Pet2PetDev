@@ -11,23 +11,31 @@ export const postService = {
                 }
             });
 
-            // Procesar las URLs de las imágenes
-            const processedPosts = response.data.map(post => {
-                console.log('Post original:', post);
-                return {
-                    ...post,
-                    media_urls: post.media_urls ? post.media_urls.map(url => {
-                        console.log('URL original:', url);
-                        const processedUrl = getMediaUrl(url);
-                        console.log('URL procesada:', processedUrl);
-                        return processedUrl;
-                    }) : []
-                };
-            });
+            // Solo procesamos las URLs de las imágenes, dejamos los comentarios tal cual vienen
+            const processedPosts = response.data.map(post => ({
+                ...post,
+                media_urls: post.media_urls ? post.media_urls.map(url => getMediaUrl(url)) : []
+            }));
 
             return processedPosts;
         } catch (error) {
             console.error('Error obteniendo posts:', error);
+            throw error;
+        }
+    },
+
+    getPostById: async (postId) => {
+        try {
+            const response = await axiosInstance.get(`/posts/${postId}`);
+            
+            return {
+                ...response.data,
+                media_urls: response.data.media_urls ? 
+                    response.data.media_urls.map(url => getMediaUrl(url)) : 
+                    []
+            };
+        } catch (error) {
+            console.error('Error obteniendo post:', error);
             throw error;
         }
     },
@@ -65,39 +73,69 @@ export const postService = {
         }
     },
 
+    // Método específico para subir un archivo
+    addMediaToPost: async (postId, file) => {
+        try {
+            const mediaFormData = new FormData();
+            mediaFormData.append('file', file);
+    
+            const response = await axiosInstance.post(
+                `/posts/${postId}/media`,
+                mediaFormData,
+                {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                }
+            );
+    
+            return response.data;
+        } catch (error) {
+            console.error('Error al subir archivo:', error);
+            throw new Error(`Error al subir el archivo ${file.name}`);
+        }
+    },
+
     updatePost: async (postId, postData) => {
         try {
-            const formData = new FormData();
-
-            if (postData.content) {
-                formData.append('content', postData.content);
-            }
-
-            if (postData.files) {
-                postData.files.forEach(file => {
-                    formData.append('files', file);
-                });
-            }
-
-            const response = await axiosInstance.put(`/posts/${postId}`, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
+            // 1. Primero actualizar solo content y location con PUT
+            const response = await axiosInstance.put(`/posts/${postId}`, {
+                content: postData.content || '',
+                location: postData.location || ''
             });
 
-            // Procesar las URLs de las imágenes en la respuesta
-            if (response.data.media_urls) {
-                response.data.media_urls = response.data.media_urls.map(url => 
-                    getMediaUrl(url)
-                );
+            let updatedPost = response.data;
+
+            // 2. Si hay archivos nuevos, subir cada uno usando addMediaToPost
+            if (postData.files && postData.files.length > 0) {
+                for (const file of postData.files) {
+                    try {
+                        const mediaResponse = await postService.addMediaToPost(postId, file);
+                        // Actualizar las URLs
+                        updatedPost.media_urls = [
+                            ...(updatedPost.media_urls || []),
+                            ...mediaResponse.media_urls
+                        ];
+                    } catch (mediaError) {
+                        console.error(`Error al subir archivo ${file.name}:`, mediaError);
+                        throw mediaError;
+                    }
+                }
             }
 
-            return response.data;
+            // Procesar todas las URLs al final
+            return {
+                ...updatedPost,
+                media_urls: updatedPost.media_urls ? 
+                    updatedPost.media_urls.map(url => getMediaUrl(url)) : 
+                    []
+            };
         } catch (error) {
             console.error('Error al actualizar post:', error);
             throw error;
         }
     },
+
 
     deletePost: async (postId) => {
         try {
@@ -109,6 +147,10 @@ export const postService = {
     },
 
     validateFile: (file) => {
+        if (!file) {
+            throw new Error('Archivo no válido');
+        }
+
         if (file.size > MAX_FILE_SIZE) {
             throw new Error(`El archivo ${file.name} excede el límite de 5MB`);
         }
@@ -147,4 +189,70 @@ export const postService = {
             throw error;
         }
     },
+    createComment: async (postId, commentData) => {
+        try {
+            const response = await axiosInstance.post(`/posts/${postId}/comments`, {
+                comment: commentData.content,
+                pet_id: commentData.pet_id
+            });
+            return response.data;
+        } catch (error) {
+            console.error('Error al crear comentario:', error);
+            throw error;
+        }
+    },
+
+    deleteComment: async (commentId) => {
+        try {
+            await axiosInstance.delete(`/posts/comments/${commentId}`);
+            return true;
+        } catch (error) {
+            console.error('Error al eliminar comentario:', error);
+            throw error;
+        }
+    },
+
+    createReaction: async (postId, petId) => {
+        try {
+            const response = await axiosInstance.post(`/posts/${postId}/reactions`, {
+                reaction_type: "like",
+                pet_id: petId
+            });
+            return response.data;
+        } catch (error) {
+            console.error('Error al crear reacción:', error);
+            throw error;
+        }
+    },
+    
+    deleteReaction: async (reactionId) => {
+        try {
+            await axiosInstance.delete(`/posts/reactions/${reactionId}`);
+            return true;
+        } catch (error) {
+            console.error('Error al eliminar reacción:', error);
+            throw error;
+        }
+    },
+    
+    toggleReaction: async (postId, existingReactionId = null, petId) => {
+        try {
+            if (existingReactionId) {
+                // Si ya existe una reacción, la eliminamos
+                await postService.deleteReaction(existingReactionId);
+                return { liked: false, reactionId: null };
+            } else {
+                // Si no existe una reacción, la creamos
+                const response = await postService.createReaction(postId, petId);
+                return { 
+                    liked: true, 
+                    reactionId: response.reaction_id 
+                };
+            }
+        } catch (error) {
+            console.error('Error al toggle reacción:', error);
+            throw error;
+        }
+    }
+    
 };

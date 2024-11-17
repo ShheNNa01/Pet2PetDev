@@ -19,7 +19,7 @@ export default function PostList({ refreshTrigger, onPostDeleted }) {
             setError(null);
             const skip = isInitial ? 0 : page * limit;
             const data = await postService.getPosts({ skip, limit });
-           
+            
             if (isInitial) {
                 setPosts(data);
                 setPage(1);
@@ -27,7 +27,7 @@ export default function PostList({ refreshTrigger, onPostDeleted }) {
                 setPosts(prev => [...prev, ...data]);
                 setPage(prev => prev + 1);
             }  
-           
+            
             setHasMore(data.length === limit);
         } catch (error) {
             setError('Error al cargar las publicaciones');
