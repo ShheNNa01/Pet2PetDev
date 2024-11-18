@@ -137,12 +137,34 @@ export const postService = {
     },
 
 
-    deletePost: async (postId) => {
+    deletePost : async (postId) => {
         try {
-            await axiosInstance.delete(`/posts/${postId}`);
+            console.log('Intentando eliminar post:', postId);
+            const response = await axiosInstance.delete(`/posts/${postId}`);
+            
+            console.log('Respuesta del servidor:', response);
+    
+            if (response.status === 204 || response.status === 200) {
+                return true;
+            }
+            
+            return response.data;
         } catch (error) {
-            console.error('Error al eliminar post:', error);
-            throw error;
+            // Log detallado del error
+            console.error('Error completo:', error);
+            console.error('Estado de la respuesta:', error.response?.status);
+            console.error('Datos del error:', error.response?.data);
+    
+            if (error.response?.status === 404) {
+                throw new Error('La publicación no existe o ya fue eliminada');
+            }
+            if (error.response?.status === 403) {
+                throw new Error('No tienes permiso para eliminar esta publicación');
+            }
+            if (error.response?.status === 500) {
+                throw new Error(`Error del servidor: ${error.response?.data?.message || 'Error interno del servidor'}`);
+            }
+            throw new Error('Error al eliminar la publicación. Por favor, intenta de nuevo.');
         }
     },
 
