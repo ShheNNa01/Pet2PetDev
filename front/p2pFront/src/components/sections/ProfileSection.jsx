@@ -20,7 +20,6 @@ export default function ProfileSection() {
     const [userData, setUserData] = useState(null);
 
     useEffect(() => {
-        // Cargar datos del usuario desde localStorage
         const storedUser = localStorage.getItem('user');
         if (storedUser) {
             setUserData(JSON.parse(storedUser));
@@ -59,7 +58,12 @@ export default function ProfileSection() {
 
     const handleEditClick = () => {
         if (currentPet) {
-            navigate(`/pets/${currentPet.pet_id}/edit`);
+            navigate('/editPet', { 
+                state: { 
+                    petId: currentPet.pet_id,
+                    fromProfileSection: true 
+                }
+            });
         } else {
             navigate('/profile/edit');
         }
@@ -73,7 +77,6 @@ export default function ProfileSection() {
         }
     };
 
-    // Si hay una mascota seleccionada, mostrar su perfil
     if (currentPet) {
         return (
             <Card className="bg-white shadow-lg rounded-xl overflow-hidden border border-gray-100">
@@ -155,7 +158,6 @@ export default function ProfileSection() {
         );
     }
 
-    // Si no hay mascota seleccionada, mostrar perfil del usuario
     return (
         <Card className="bg-white shadow-lg rounded-xl overflow-hidden border border-gray-100">
             <CardContent className="p-6">

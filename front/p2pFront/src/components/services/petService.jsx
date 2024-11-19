@@ -81,13 +81,24 @@ export const petService = {
         try {
             if (!petId) throw new Error('Se requiere el ID de la mascota');
             
-            const validFields = {};
-            if (updateData.name) validFields.name = updateData.name;
-            if (updateData.birthdate) validFields.birthdate = updateData.birthdate;
-            if (updateData.gender) validFields.gender = updateData.gender;
-            if (updateData.bio !== undefined) validFields.bio = updateData.bio;
+            const validFields = {
+                name: updateData.name,
+                breed_id: updateData.breed_id,
+                birthdate: updateData.birthdate,
+                gender: updateData.gender,
+                bio: updateData.bio,
+                status: updateData.status
+            };
 
-            const response = await axiosInstance.put(`/pets/${petId}`, validFields);
+            const cleanedFields = Object.entries(validFields)
+                .reduce((acc, [key, value]) => {
+                    if (value !== undefined && value !== null) {
+                        acc[key] = value;
+                    }
+                    return acc;
+                }, {});
+
+            const response = await axiosInstance.put(`/pets/${petId}`, cleanedFields);
             return response.data;
         } catch (error) {
             console.error('Error actualizando mascota:', error);

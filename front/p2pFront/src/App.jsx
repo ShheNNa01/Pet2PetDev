@@ -15,6 +15,7 @@ import RegisterMascotaPage from './components/pages/RegisterMascotaPage';
 import PetProfiles from './components/pages/PetProfiles';
 import Verification from './components/pages/Verification';
 import PetProfile from './components/pages/PetProfile';
+import UserProfile from './components/user/UserProfile';
 import PasswordRecovery from './components/pages/PasswordRecovery';
 import ResetPassword from './components/pages/ResetPassword';
 import CreateVirtualPet from './components/pages/CreateVirtualPet';
@@ -32,6 +33,7 @@ function App() {
             <Route path="/verify-email" element={<Verification />} />
             <Route path="/forgot-password" element={<PasswordRecovery />} />
             <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/userProfile" element={<UserProfile />} />
           </Route>
           
           {/* Rutas protegidas (requieren autenticación) */}
@@ -45,12 +47,10 @@ function App() {
               <Route path="/createVirtualPet" element={<CreateVirtualPet />} />
             </Route>
           </Route>
-
           {/* Ruta del dashboard (solo admin) */}
           <Route element={<AdminGuard />}>
             <Route path="/dashboard" element={<Dashboard />} />
           </Route>
-
           {/* Ruta 404 */}
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
