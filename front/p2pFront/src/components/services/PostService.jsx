@@ -275,6 +275,30 @@ export const postService = {
             console.error('Error al toggle reacción:', error);
             throw error;
         }
-    }
+    },
+
+    fetchTrendingPosts: async (days = 7, limit = 10) => {
+        try {
+            const response = await axiosInstance.get('/posts/trending', {
+                params: {
+                    days,
+                    limit
+                }
+            });
+    
+            // Asegurarnos de que la respuesta tenga el formato correcto
+            const trends = response.data.map(trend => ({
+                id: trend.id || String(Math.random()), // Fallback para ID si no existe
+                tag: trend.tag || 'Sin etiqueta',
+                total_interactions: trend.total_interactions || 0,
+                post_count: trend.post_count || 0
+            }));
+    
+            return trends;
+        } catch (error) {
+            console.error('Error al obtener las tendencias:', error);
+            throw error; // Relanzamos el error para que el componente pueda manejarlo
+        }
+    },
     
 };

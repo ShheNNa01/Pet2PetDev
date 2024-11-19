@@ -17,6 +17,7 @@ import Verification from './components/pages/Verification';
 import PetProfile from './components/pages/PetProfile';
 import PasswordRecovery from './components/pages/PasswordRecovery';
 import ResetPassword from './components/pages/ResetPassword';
+import CreateVirtualPet from './components/pages/CreateVirtualPet';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -41,7 +42,7 @@ function App() {
               <Route path="/registerPet" element={<RegisterMascotaPage />} />
               <Route path="/pets" element={<PetProfiles />} />
               <Route path="/petProfile" element={<PetProfile />} />
-              
+              <Route path="/createVirtualPet" element={<CreateVirtualPet />} />
             </Route>
           </Route>
 
