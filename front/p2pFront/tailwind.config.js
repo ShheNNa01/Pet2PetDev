@@ -1,15 +1,15 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: ["class"], // Activa el modo oscuro por clase
+  darkMode: ["class"],
   content: [
-    './pages/**/*.{js,jsx}',      // Archivos de la carpeta `pages`
-    './components/**/*.{js,jsx}', // Archivos de la carpeta `components`
-    './app/**/*.{js,jsx}',        // Archivos de la carpeta `app`
-    './src/**/*.{js,jsx}',        // Archivos de la carpeta `src`
+    './pages/**/*.{js,jsx}',
+    './components/**/*.{js,jsx}',
+    './app/**/*.{js,jsx}',
+    './src/**/*.{js,jsx}',
   ],
   theme: {
     container: {
-      center: false,  // ancho total de la pagina
+      center: false,
       padding: "2rem",
       screens: {
         "2xl": "1400px",
@@ -65,14 +65,36 @@ module.exports = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: 0 },
         },
+        "modal-open": {
+          '0%': { 
+            opacity: '0',
+            transform: 'scale(0.95)',
+            filter: 'blur(8px)'
+          },
+          '100%': { 
+            opacity: '1',
+            transform: 'scale(1)',
+            filter: 'blur(0)'
+          },
+        },
+        "modal-slide": {
+          '0%': {
+            transform: 'translateX(-100%)',
+            opacity: '0'
+          },
+          '100%': {
+            transform: 'translateX(0)',
+            opacity: '1'
+          }
+        }
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "modal-open": "modal-open 0.3s ease-out",
+        "modal-slide": "modal-slide 0.3s ease-out"
       },
     },
   },
-  plugins: [
-    require("tailwindcss-animate"), // Agrega el plugin de animaciones
-  ],
+  plugins: [require("tailwindcss-animate")],
 };

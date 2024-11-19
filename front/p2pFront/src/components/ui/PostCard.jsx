@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { usePet } from '../context/PetContext';
 import { postService } from '../services/PostService';
 import { useNavigate } from 'react-router-dom';
+import { ImageGallery } from '../common/ImageGallery';
 import CommentInput from './CommentInput';
 import Comment from './Comment';
 import LikeButton from './LikeButton';
@@ -86,22 +87,26 @@ export default function PostCard({ post: initialPost, onPostDeleted }) {
         }
     };
 
-    const handleLike = async () => {
-        setPost(prev => ({
-            ...prev,
-            reactions_count: prev.reactions_count + 1
-        }));
-    };
-
     const sortedComments = post.comments ? [...post.comments].sort((a, b) => {
         return new Date(b.created_at) - new Date(a.created_at);
     }) : [];
     
     const displayedComments = showAllComments ? sortedComments : sortedComments.slice(0, 3);
 
+    // Separar videos e imágenes
+    const mediaFiles = post.media_urls ? post.media_urls.reduce((acc, url) => {
+        if (url.toLowerCase().endsWith('.mp4')) {
+            acc.videos.push(url);
+        } else {
+            acc.images.push(url);
+        }
+        return acc;
+    }, { images: [], videos: [] }) : { images: [], videos: [] };
+
     return (
         <>
             <div className="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-200">
+                {/* Header del Post */}
                 <div className="px-6 py-4 border-b border-gray-100">
                     <div className="flex items-center justify-between">
                         <div 
@@ -127,6 +132,7 @@ export default function PostCard({ post: initialPost, onPostDeleted }) {
                             </div>
                         </div>
 
+                        {/* Menú de opciones */}
                         {isOwner && (
                             <div className="relative">
                                 <button 
@@ -156,40 +162,34 @@ export default function PostCard({ post: initialPost, onPostDeleted }) {
                     </div>
                 </div>
 
+                {/* Contenido del Post */}
                 <div className="px-6 py-4">
                     {post.content && <p className="mb-4">{post.content}</p>}
-                    {post.media_urls && post.media_urls.length > 0 && (
-                        <div className="grid gap-2 grid-cols-1 md:grid-cols-2">
-                            {post.media_urls.map((url, index) => {
-                                const normalizedUrl = url.replace(/\\/g, '/');
-                                const fullUrl = normalizedUrl.startsWith('http')
-                                    ? normalizedUrl
-                                    : `${import.meta.env.VITE_API_URL}/api/v1/media/${normalizedUrl}`;
-
-                                return url.toLowerCase().endsWith('.mp4') ? (
-                                    <video 
-                                        key={index} 
-                                        controls 
-                                        src={fullUrl} 
-                                        className="w-full h-64 object-cover rounded-lg" 
-                                    />
-                                ) : (
-                                    <img 
-                                        key={index} 
-                                        src={fullUrl} 
-                                        alt={`Contenido ${index + 1}`} 
-                                        className="w-full h-64 object-cover rounded-lg" 
-                                        onError={(e) => { e.target.src = '/placeholder.svg'; }} 
-                                    />
-                                );
-                            })}
+                    
+                    {/* Galería de imágenes */}
+                    {mediaFiles.images.length > 0 && (
+                        <div className="mb-4">
+                            <ImageGallery images={mediaFiles.images} />
                         </div>
                     )}
+
+                    {/* Videos */}
+                    {mediaFiles.videos.map((url, index) => (
+                        <div key={`video-${index}`} className="mb-4">
+                            <video 
+                                controls 
+                                src={url} 
+                                className="w-full rounded-lg" 
+                            />
+                        </div>
+                    ))}
+
                     {post.location && (
                         <p className="text-sm text-gray-500 mt-2">📍 {post.location}</p>
                     )}
                 </div>
 
+                {/* Acciones del Post */}
                 <div className="px-6 py-4 border-t border-gray-100">
                     <div className="flex items-center justify-between">
                         <LikeButton 
@@ -221,6 +221,7 @@ export default function PostCard({ post: initialPost, onPostDeleted }) {
                         </button>
                     </div>
 
+                    {/* Sección de comentarios */}
                     {isCommenting && (
                         <div className="mt-4">
                             {currentPet ? (
@@ -266,6 +267,7 @@ export default function PostCard({ post: initialPost, onPostDeleted }) {
                 </div>
             </div>
 
+            {/* Modales */}
             <EditPostModal 
                 isOpen={isEditing} 
                 onClose={() => setIsEditing(false)} 
