@@ -53,14 +53,14 @@ export const petService = {
     // Obtener mis mascotas
     getMyPets: async (params = {}) => {
         try {
-            const { skip = 0, limit = 10 } = params;
-            const response = await axiosInstance.get('/pets/my-pets', {
-                params: { skip, limit }
-            });
-            return response.data;
+          const { skip = 0, limit = 10 } = params;
+          const response = await axiosInstance.get('/pets/my-pets', {
+            params: { skip, limit }
+          });
+          return response.data;
         } catch (error) {
-            console.error('Error obteniendo mis mascotas:', error);
-            throw error;
+          console.error('Error obteniendo mis mascotas:', error);
+          throw error;
         }
     },
 
@@ -215,24 +215,22 @@ export const petService = {
     // Obtener seguidos con contador
     getPetFollowing: async (petId, params = {}) => {
         try {
-            if (!petId) throw new Error('Se requiere el ID de la mascota');
-            
-            const { skip = 0, limit = 10 } = params;
-            const response = await axiosInstance.get(`/pets/${petId}/following`, {
-                params: { skip, limit }
-            });
-
-            // Asegurarse de que la respuesta incluya el contador total
-            return {
-                following: response.data,
-                total: response.headers['x-total-count'] || response.data.length
-            };
+          if (!petId) throw new Error('Se requiere el ID de la mascota');
+          
+          const { skip = 0, limit = 50 } = params;
+          const response = await axiosInstance.get(`/pets/${petId}/following`, {
+            params: { skip, limit }
+          });
+    
+          return {
+            following: response.data,
+            total: response.headers['x-total-count'] || response.data.length
+          };
         } catch (error) {
-            console.error('Error obteniendo mascotas seguidas:', error);
-            throw error;
+          console.error('Error obteniendo mascotas seguidas:', error);
+          throw error;
         }
     },
-
     // Obtener contadores de seguidores y seguidos
     getFollowCounts: async (petId) => {
         try {
