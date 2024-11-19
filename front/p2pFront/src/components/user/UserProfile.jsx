@@ -1,5 +1,3 @@
-src/components/pages/UserProfile.jsx
-
 import React, { useState, useEffect } from "react";
 import { Camera, Edit, MapPin, Settings, PawPrintIcon as Paw, User } from "lucide-react";
 
