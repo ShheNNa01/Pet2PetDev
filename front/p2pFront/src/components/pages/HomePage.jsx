@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import Header from '../layout/Header';
+import Header from '../layout/header/Header';
 import Footer from '../layout/Footer';
 import ProfileSection from '../sections/ProfileSection';
 import StoriesBar from '../sections/StoriesBar';

@@ -33,7 +33,7 @@ function App() {
             <Route path="/verify-email" element={<Verification />} />
             <Route path="/forgot-password" element={<PasswordRecovery />} />
             <Route path="/reset-password" element={<ResetPassword />} />
-            <Route path="/userProfile" element={<UserProfile />} />
+            
           </Route>
           
           {/* Rutas protegidas (requieren autenticación) */}
@@ -45,6 +45,7 @@ function App() {
               <Route path="/pets" element={<PetProfiles />} />
               <Route path="/petProfile" element={<PetProfile />} />
               <Route path="/createVirtualPet" element={<CreateVirtualPet />} />
+              <Route path="/userProfile" element={<UserProfile />} />
             </Route>
           </Route>
           {/* Ruta del dashboard (solo admin) */}
