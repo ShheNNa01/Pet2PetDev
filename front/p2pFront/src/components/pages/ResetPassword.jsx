@@ -20,19 +20,19 @@ const PasswordInput = ({ label, value, onChange, placeholder }) => {
                     type={showPassword ? "text" : "password"}
                     value={value}
                     onChange={onChange}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#509ca2] focus:border-transparent transition-all bg-white/50 backdrop-blur-sm pr-12"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#509ca2] focus:border-transparent transition-all bg-white/50 backdrop-blur-sm pr-10"
                     placeholder={placeholder}
                 />
-                <button
-                    type="button"
+                <div 
+                    className="absolute inset-y-0 right-0 flex items-center pr-2 cursor-pointer"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-[#509ca2] transition-colors"
                 >
-                    {showPassword ? 
-                        <EyeOff className="w-5 h-5" /> : 
-                        <Eye className="w-5 h-5" />
-                    }
-                </button>
+                    {showPassword ? (
+                        <Eye className="h-5 w-5 text-gray-400 hover:text-gray-500" />
+                    ) : (
+                        <EyeOff className="h-5 w-5 text-gray-400 hover:text-gray-500" />
+                    )}
+                </div>
             </div>
         </div>
     );
@@ -145,7 +145,7 @@ const ResetPassword = () => {
 
                             <Button
                                 type="submit"
-                                className="w-full py-3 bg-[#d55b49] hover:bg-[#d55b49]/90 text-white rounded-lg transition-all transform hover:scale-[1.02] active:scale-[0.98]"
+                                className="w-full py-3 bg-[#d55b49] hover:bg-[#509ca2] text-white rounded-lg transition-all transform hover:scale-[1.02] active:scale-[0.98]"
                             >
                                 Cambiar Contraseña
                             </Button>
