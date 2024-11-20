@@ -5,11 +5,13 @@ import { usePet } from '../context/PetContext';
 import { postService } from '../services/PostService';
 import { useNavigate } from 'react-router-dom';
 import { ImageGallery } from '../common/ImageGallery';
+import { toast } from "../ui/use-toast";
 import CommentInput from './CommentInput';
 import Comment from './Comment';
 import LikeButton from './LikeButton';
 import EditPostModal from '../sections/EditPostModal';
 import DeletePostModal from '../sections/DeletePostModal';
+
 
 export default function PostCard({ post: initialPost, onPostDeleted }) {
     const navigate = useNavigate();
@@ -36,11 +38,20 @@ export default function PostCard({ post: initialPost, onPostDeleted }) {
         setIsDeleting(true);
         try {
             await postService.deletePost(post.post_id);
+            toast({
+                title: "Publicación eliminada",
+                description: "La publicación se ha eliminado correctamente",
+            });
             if (onPostDeleted) {
-                onPostDeleted(post.post_id);
+                onPostDeleted(); // Sin argumentos ya que handleRefresh no espera parámetros
             }
         } catch (error) {
             console.error('Error al eliminar:', error);
+            toast({
+                title: "Error al eliminar",
+                description: error.message || "No se pudo eliminar la publicación",
+                variant: "destructive"
+            });
         } finally {
             setIsDeleting(false);
             setIsDeleteModalOpen(false);

@@ -48,22 +48,6 @@ export default function PostList({ refreshTrigger, onPostDeleted }) {
         }
     }, []);
 
-    const handleDelete = async (postId) => {
-        try {
-            await postService.deletePost(postId);
-            setPosts(prevPosts => prevPosts.filter(post => post.post_id !== postId));
-            
-            console.log("Publicación eliminada, llamando a onPostDeleted"); // Debug
-            if (onPostDeleted) {
-                onPostDeleted();
-            }
-            
-            await refreshPosts();
-        } catch (error) {
-            console.error("Error al eliminar post:", error);
-        }
-    };
-
     useEffect(() => {
         loadPosts(true);
         return () => {
@@ -122,7 +106,7 @@ export default function PostList({ refreshTrigger, onPostDeleted }) {
                 >
                     <PostCard 
                         post={post} 
-                        onDelete={() => handleDelete(post.post_id)} 
+                        onPostDeleted={onPostDeleted} 
                     />
                 </div>
             ))}
