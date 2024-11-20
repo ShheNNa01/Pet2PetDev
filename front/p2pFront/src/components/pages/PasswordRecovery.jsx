@@ -54,21 +54,17 @@ const PasswordRecovery = () => {
                 )}
 
                 <form onSubmit={handleSubmit} className="form">
-                    <label className="label">
-                        Correo Electrónico
-                        <input
-                            type="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            required
-                            className="input"
-                            placeholder="Ingresa tu correo electrónico"
-                            disabled={isLoading}
-                        />
-                    </label>
-                    
-                    <button 
-                        type="submit" 
+                    <input
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                        className="input"
+                        placeholder="Ingresa tu correo electrónico"
+                        disabled={isLoading}
+                    />
+                    <button
+                        type="submit"
                         className="button"
                         disabled={isLoading}
                     >
