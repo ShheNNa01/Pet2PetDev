@@ -95,14 +95,14 @@ export default function RightSidebar() {
                                 <li key={post.id} className="flex items-center space-x-4 group">
                                     <Avatar className="ring-2 ring-[#509ca2]/10">
                                         <AvatarImage
-                                            src={post.pet?.avatar || `/placeholder.svg?height=40&width=40&text=${post.pet?.name || 'P'}`}
-                                            alt={post.pet?.name || "Avatar"}
+                                            src={post.pet?.avatar || `/placeholder.svg?height=40&width=40&text=${post.pet_name || 'P'}`}
+                                            alt={post.pet_name}
                                         />
-                                        <AvatarFallback>{(post.pet?.name || "P")[0]}</AvatarFallback>
+                                        <AvatarFallback>{(post.pet_name || "P")[0]}</AvatarFallback>
                                     </Avatar>
                                     <div className="flex-1">
                                         <p className="font-semibold group-hover:text-[#509ca2] transition-colors">
-                                            {post.pet?.name || "Mascota"}
+                                            {post.pet_name}
                                         </p>
                                         <p className="text-sm text-gray-500">
                                             {(post.content || "").slice(0, 50)}...

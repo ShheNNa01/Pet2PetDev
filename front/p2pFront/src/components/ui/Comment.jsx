@@ -5,13 +5,13 @@ import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 import CommentInput from './CommentInput';
 import LikeButton from './LikeButton';
 
-export default function Comment({ 
-    comment, 
-    onLike, 
-    onReply, 
+export default function Comment({
+    comment,
+    onLike,
+    onReply,
     onDelete,
-    isOwner, 
-    className = '' 
+    isOwner,
+    className = ''
 }) {
     const [isReplying, setIsReplying] = useState(false);
     const [showReplies, setShowReplies] = useState(false);
@@ -46,8 +46,8 @@ export default function Comment({
         <div className={`space-y-2 ${className}`}>
             <div className="flex items-start gap-3">
                 <Avatar className="h-8 w-8 rounded-full ring-2 ring-[#509ca2]/10">
-                    <AvatarImage 
-                        src={`/placeholder.svg?height=32&width=32&text=${petInitial}`} 
+                    <AvatarImage
+                        src={`/placeholder.svg?height=32&width=32&text=${petInitial}`}
                         alt={`Mascota ${comment.pet_id}`}
                         className="rounded-full"
                     />
@@ -60,7 +60,7 @@ export default function Comment({
                             <div className="flex justify-between items-start">
                                 <div>
                                     <p className="font-medium text-sm">
-                                        {comment.pet?.name || `Mascota #${comment.pet_id}`}
+                                        {comment.pet_name}
                                     </p>
                                     {comment.created_at && (
                                         <p className="text-xs text-gray-500">
@@ -68,19 +68,19 @@ export default function Comment({
                                         </p>
                                     )}
                                 </div>
-                                
+
                                 {isOwner && (
                                     <div className="relative">
-                                        <button 
+                                        <button
                                             onClick={() => setShowMenu(!showMenu)}
                                             className="p-1 hover:bg-gray-200 rounded-full"
                                         >
                                             <MoreVertical className="h-4 w-4 text-gray-500" />
                                         </button>
-                                        
+
                                         {showMenu && (
                                             <div className="absolute right-0 mt-1 w-32 bg-white rounded-md shadow-lg z-10 border">
-                                                <button 
+                                                <button
                                                     onClick={handleDelete}
                                                     className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 flex items-center"
                                                 >
@@ -91,51 +91,51 @@ export default function Comment({
                                     </div>
                                 )}
                             </div>
-                            
+
                             <p className="text-sm text-gray-600 break-words mt-1">
                                 {comment.comment} {/* Cambio principal: usando comment.comment en lugar de content */}
                             </p>
-                            
+
                             {comment.media_urls?.length > 0 && (
-                                <img 
-                                    src={comment.media_urls[0]} 
-                                    alt="Comment media" 
-                                    className="mt-2 max-h-40 rounded-md hover:scale-[1.02] transition-transform duration-200" 
+                                <img
+                                    src={comment.media_urls[0]}
+                                    alt="Comment media"
+                                    className="mt-2 max-h-40 rounded-md hover:scale-[1.02] transition-transform duration-200"
                                 />
                             )}
                         </div>
 
                         <div className="flex items-center gap-4 px-1">
-                            <LikeButton 
+                            <LikeButton
                                 count={comment.reactions_count || 0} // Cambiado de likes_count a reactions_count para mantener consistencia
                                 onLike={() => onLike?.(comment.comment_id)}
                                 size="small"
                             />
-                            
-                            <Button 
-                                variant="ghost" 
-                                size="sm" 
+
+                            <Button
+                                variant="ghost"
+                                size="sm"
                                 className="h-6 text-xs text-gray-600 hover:bg-[#509ca2]/10"
                                 onClick={() => setIsReplying(!isReplying)}
                             >
                                 <Reply className="mr-1 h-3 w-3" /> Responder
                             </Button>
-                            
+
                             {comment.replies?.length > 0 && (
-                                <Button 
-                                    variant="ghost" 
-                                    size="sm" 
+                                <Button
+                                    variant="ghost"
+                                    size="sm"
                                     className="h-6 text-xs text-gray-600 hover:bg-[#509ca2]/10"
                                     onClick={() => setShowReplies(!showReplies)}
                                 >
                                     {showReplies ? (
                                         <>
-                                            <ChevronUp className="mr-1 h-3 w-3" /> 
+                                            <ChevronUp className="mr-1 h-3 w-3" />
                                             Ocultar respuestas
                                         </>
                                     ) : (
                                         <>
-                                            <ChevronDown className="mr-1 h-3 w-3" /> 
+                                            <ChevronDown className="mr-1 h-3 w-3" />
                                             {comment.replies.length} Respuestas
                                         </>
                                     )}

@@ -8,6 +8,7 @@ import { postService } from '../services/PostService';
 import { toast } from "../ui/use-toast";
 import { usePet } from '../context/PetContext';
 import { useAuth } from '../context/AuthContext';
+import LocationPicker from '../common/LocationPicker';
 
 export default function NewPost({ onPostCreated, activePetId, petAvatar, petName }) {
     const { currentPet } = usePet();
@@ -17,22 +18,23 @@ export default function NewPost({ onPostCreated, activePetId, petAvatar, petName
     const [isLoading, setIsLoading] = useState(false);
     const [previewUrls, setPreviewUrls] = useState([]);
     const fileInputRef = useRef(null);
+    const [locationData, setLocationData] = useState(null);
 
     const handleFileSelect = (event) => {
         const selectedFiles = Array.from(event.target.files);
-        
+
         try {
             selectedFiles.forEach(file => {
                 postService.validateFile(file);
             });
 
             setFiles(prev => [...prev, ...selectedFiles]);
-            
+
             const newPreviewUrls = selectedFiles.map(file => ({
                 url: URL.createObjectURL(file),
                 type: file.type
             }));
-            
+
             setPreviewUrls(prev => [...prev, ...newPreviewUrls]);
         } catch (error) {
             console.error('Error al seleccionar archivo:', error);
@@ -55,6 +57,10 @@ export default function NewPost({ onPostCreated, activePetId, petAvatar, petName
         setFiles([]);
         previewUrls.forEach(preview => URL.revokeObjectURL(preview.url));
         setPreviewUrls([]);
+    };
+
+    const handleLocationSelect = (data) => {
+        setLocationData(data);
     };
 
     const handleSubmit = async () => {
@@ -80,28 +86,22 @@ export default function NewPost({ onPostCreated, activePetId, petAvatar, petName
         try {
             const postData = {
                 content: content.trim(),
-                location: user?.city, // Usar la ciudad del usuario directamente
+                location: locationData?.location_name || user?.city,
+                latitude: locationData?.latitude,
+                longitude: locationData?.longitude,
                 pet_id: currentPet.pet_id,
                 files
             };
 
-            console.log('Enviando post con:', {
-                content: postData.content,
-                location: postData.location,
-                pet_id: postData.pet_id,
-                filesCount: postData.files.length
-            });
-
             await postService.createPost(postData);
-            
+
             toast({
                 title: "¡Éxito!",
                 description: "Publicación creada correctamente"
             });
 
             clearForm();
-            
-            // Notificar al componente padre para actualizar la lista de posts
+
             if (onPostCreated) {
                 onPostCreated();
             }
@@ -123,9 +123,9 @@ export default function NewPost({ onPostCreated, activePetId, petAvatar, petName
             <CardContent className="pt-6 px-6">
                 <div className="flex space-x-4 mb-4">
                     <Avatar className="h-10 w-10 rounded-full ring-2 ring-[#509ca2]/10">
-                        <AvatarImage 
-                            src={currentPet?.pet_picture || "/placeholder.svg"} 
-                            alt={currentPet?.name} 
+                        <AvatarImage
+                            src={currentPet?.pet_picture || "/placeholder.svg"}
+                            alt={currentPet?.name}
                         />
                         <AvatarFallback>{currentPet?.name?.[0]?.toUpperCase()}</AvatarFallback>
                     </Avatar>
@@ -169,8 +169,11 @@ export default function NewPost({ onPostCreated, activePetId, petAvatar, petName
                         )}
                     </div>
                 </div>
+                <div className="mt-4">
+                    <LocationPicker onLocationSelect={handleLocationSelect} />
+                </div>
             </CardContent>
-            
+
             <CardFooter className="flex items-center justify-between px-6 py-3 bg-gray-50">
                 <div className="flex gap-2">
                     <input
@@ -202,7 +205,7 @@ export default function NewPost({ onPostCreated, activePetId, petAvatar, petName
                         Video
                     </Button>
                 </div>
-                
+
                 <Button
                     type="button"
                     onClick={handleSubmit}

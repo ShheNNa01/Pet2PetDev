@@ -10,6 +10,7 @@ import Comment from './Comment';
 import LikeButton from './LikeButton';
 import EditPostModal from '../sections/EditPostModal';
 import DeletePostModal from '../sections/DeletePostModal';
+import SharePostModal from '../sections/SharePostModal';
 
 export default function PostCard({ post: initialPost, onPostDeleted }) {
     const navigate = useNavigate();
@@ -22,6 +23,7 @@ export default function PostCard({ post: initialPost, onPostDeleted }) {
     const [isEditing, setIsEditing] = useState(false);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
+    const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
     const isOwner = user?.user_id === post.user_id;
 
@@ -58,13 +60,13 @@ export default function PostCard({ post: initialPost, onPostDeleted }) {
                 content: commentData.content,
                 pet_id: currentPet.pet_id
             });
-            
+
             setPost(prev => ({
                 ...prev,
                 comments: [newComment, ...prev.comments],
                 comments_count: prev.comments_count + 1
             }));
-            
+
             setIsCommenting(false);
         } catch (error) {
             console.error('Error al crear comentario:', error);
@@ -75,7 +77,7 @@ export default function PostCard({ post: initialPost, onPostDeleted }) {
     const handleDeleteComment = async (commentId) => {
         try {
             await postService.deleteComment(commentId);
-            
+
             setPost(prev => ({
                 ...prev,
                 comments: prev.comments.filter(comment => comment.comment_id !== commentId),
@@ -90,7 +92,7 @@ export default function PostCard({ post: initialPost, onPostDeleted }) {
     const sortedComments = post.comments ? [...post.comments].sort((a, b) => {
         return new Date(b.created_at) - new Date(a.created_at);
     }) : [];
-    
+
     const displayedComments = showAllComments ? sortedComments : sortedComments.slice(0, 3);
 
     // Separar videos e imágenes
@@ -103,21 +105,23 @@ export default function PostCard({ post: initialPost, onPostDeleted }) {
         return acc;
     }, { images: [], videos: [] }) : { images: [], videos: [] };
 
+    console.log('Post data:', post);
+
     return (
         <>
             <div className="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-200">
                 {/* Header del Post */}
                 <div className="px-6 py-4 border-b border-gray-100">
                     <div className="flex items-center justify-between">
-                        <div 
+                        <div
                             className="flex items-center space-x-4 cursor-pointer hover:opacity-80 transition-opacity"
                             onClick={handlePetProfileClick}
                         >
                             <div className="h-10 w-10 rounded-full bg-[#509ca2]/10 flex items-center justify-center text-[#509ca2] overflow-hidden">
                                 {post.pet_picture ? (
-                                    <img 
-                                        src={post.pet_picture} 
-                                        alt={`Mascota #${post.pet_id}`} 
+                                    <img
+                                        src={post.pet_picture}
+                                        alt={`Mascota #${post.pet_id}`}
                                         className="h-full w-full object-cover"
                                     />
                                 ) : (
@@ -126,31 +130,32 @@ export default function PostCard({ post: initialPost, onPostDeleted }) {
                             </div>
                             <div>
                                 <p className="font-semibold hover:text-[#509ca2] transition-colors">
-                                    {post.pet_name || `Mascota #${post.pet_id}`}
+                                    {post.pet_name}
+                                    
                                 </p>
-                                <p className="text-sm text-gray-500">Usuario #{post.user_id}</p>
+
                             </div>
                         </div>
 
                         {/* Menú de opciones */}
                         {isOwner && (
                             <div className="relative">
-                                <button 
-                                    onClick={() => setShowMenu(!showMenu)} 
+                                <button
+                                    onClick={() => setShowMenu(!showMenu)}
                                     className="p-2 hover:bg-gray-100 rounded-full"
                                 >
                                     <MoreVertical className="h-5 w-5 text-gray-500" />
                                 </button>
                                 {showMenu && (
                                     <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10 border">
-                                        <button 
-                                            onClick={() => { setIsEditing(true); setShowMenu(false); }} 
+                                        <button
+                                            onClick={() => { setIsEditing(true); setShowMenu(false); }}
                                             className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center"
                                         >
                                             <Edit2 className="h-4 w-4 mr-2" /> Editar
                                         </button>
-                                        <button 
-                                            onClick={() => { setIsDeleteModalOpen(true); setShowMenu(false); }} 
+                                        <button
+                                            onClick={() => { setIsDeleteModalOpen(true); setShowMenu(false); }}
                                             className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 flex items-center"
                                         >
                                             <Trash2 className="h-4 w-4 mr-2" /> Eliminar
@@ -165,7 +170,7 @@ export default function PostCard({ post: initialPost, onPostDeleted }) {
                 {/* Contenido del Post */}
                 <div className="px-6 py-4">
                     {post.content && <p className="mb-4">{post.content}</p>}
-                    
+
                     {/* Galería de imágenes */}
                     {mediaFiles.images.length > 0 && (
                         <div className="mb-4">
@@ -176,10 +181,10 @@ export default function PostCard({ post: initialPost, onPostDeleted }) {
                     {/* Videos */}
                     {mediaFiles.videos.map((url, index) => (
                         <div key={`video-${index}`} className="mb-4">
-                            <video 
-                                controls 
-                                src={url} 
-                                className="w-full rounded-lg" 
+                            <video
+                                controls
+                                src={url}
+                                className="w-full rounded-lg"
                             />
                         </div>
                     ))}
@@ -192,19 +197,19 @@ export default function PostCard({ post: initialPost, onPostDeleted }) {
                 {/* Acciones del Post */}
                 <div className="px-6 py-4 border-t border-gray-100">
                     <div className="flex items-center justify-between">
-                        <LikeButton 
+                        <LikeButton
                             postId={post.post_id}
                             initialLikes={post.reactions_count}
                             initialPetReactionId={post.pet_reaction_id}
                         />
-                        <button 
+                        <button
                             onClick={() => {
                                 if (!currentPet?.pet_id) {
                                     alert('Selecciona una mascota para comentar');
                                     return;
                                 }
                                 setIsCommenting(!isCommenting);
-                            }} 
+                            }}
                             className={`
                                 flex items-center justify-center gap-2 text-gray-500 hover:text-[#d55b49] 
                                 transition-all duration-200 min-w-[80px]
@@ -212,12 +217,15 @@ export default function PostCard({ post: initialPost, onPostDeleted }) {
                             `}
                             title={!currentPet?.pet_id ? 'Selecciona una mascota para comentar' : ''}
                         >
-                            <MessageCircle className="h-5 w-5" /> 
+                            <MessageCircle className="h-5 w-5" />
                             <span>{post.comments_count}</span>
                         </button>
-                        <button className="flex items-center justify-center gap-2 text-gray-500 hover:text-[#d55b49] transition-all duration-200 min-w-[80px]">
-                            <Share2 className="h-5 w-5" /> 
-                            <span>Compartir</span>
+                        <button
+                            onClick={() => setIsShareModalOpen(true)}
+                            className="flex items-center justify-center gap-2 text-gray-500 hover:text-[#d55b49] transition-all duration-200 min-w-[80px]"
+                        >
+                            <Share2 className="h-5 w-5" />
+                            <span>{post.share_count || 0}</span>
                         </button>
                     </div>
 
@@ -229,14 +237,14 @@ export default function PostCard({ post: initialPost, onPostDeleted }) {
                                     Comentando como: Mascota #{currentPet.pet_id}
                                 </div>
                             ) : null}
-                            <CommentInput 
+                            <CommentInput
                                 onSubmit={handleComment}
                                 onCancel={() => setIsCommenting(false)}
                                 postId={post.post_id}
                                 disabled={!currentPet?.pet_id}
                                 placeholder={
-                                    currentPet?.pet_id 
-                                        ? "Escribe un comentario..." 
+                                    currentPet?.pet_id
+                                        ? "Escribe un comentario..."
                                         : "Selecciona una mascota para comentar"
                                 }
                             />
@@ -246,8 +254,8 @@ export default function PostCard({ post: initialPost, onPostDeleted }) {
                     {displayedComments.length > 0 && (
                         <div className="mt-4 space-y-4">
                             {displayedComments.map(comment => (
-                                <Comment 
-                                    key={comment.comment_id} 
+                                <Comment
+                                    key={comment.comment_id}
                                     comment={comment}
                                     onDelete={handleDeleteComment}
                                     isOwner={comment.user_id === user?.user_id}
@@ -257,8 +265,8 @@ export default function PostCard({ post: initialPost, onPostDeleted }) {
                     )}
 
                     {sortedComments.length > 3 && (
-                        <button 
-                            onClick={() => setShowAllComments(!showAllComments)} 
+                        <button
+                            onClick={() => setShowAllComments(!showAllComments)}
                             className="text-sm text-[#509ca2] mt-4 hover:text-[#509ca2]/80"
                         >
                             {showAllComments ? 'Ver menos comentarios' : `Ver ${sortedComments.length - 3} comentarios más`}
@@ -268,9 +276,9 @@ export default function PostCard({ post: initialPost, onPostDeleted }) {
             </div>
 
             {/* Modales */}
-            <EditPostModal 
-                isOpen={isEditing} 
-                onClose={() => setIsEditing(false)} 
+            <EditPostModal
+                isOpen={isEditing}
+                onClose={() => setIsEditing(false)}
                 post={post}
                 onSuccess={(updatedPost) => {
                     setPost(updatedPost);
@@ -278,12 +286,20 @@ export default function PostCard({ post: initialPost, onPostDeleted }) {
                 }}
             />
 
-            <DeletePostModal 
+            <DeletePostModal
                 isOpen={isDeleteModalOpen}
                 onClose={() => setIsDeleteModalOpen(false)}
                 onConfirm={handleDelete}
                 isDeleting={isDeleting}
             />
+
+            <SharePostModal
+                isOpen={isShareModalOpen}
+                onClose={() => setIsShareModalOpen(false)}
+                post={post}
+            />
         </>
     );
+
+    
 }

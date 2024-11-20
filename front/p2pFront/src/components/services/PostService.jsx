@@ -11,9 +11,14 @@ export const postService = {
                 }
             });
 
-            // Solo procesamos las URLs de las imágenes, dejamos los comentarios tal cual vienen
             const processedPosts = response.data.map(post => ({
                 ...post,
+                pet_name: post.pet_name,
+                pet_picture: post.pet_picture,
+                comments: post.comments?.map(comment => ({
+                    ...comment,
+                    pet_name: comment.pet_name
+                })) || [],
                 media_urls: post.media_urls ? post.media_urls.map(url => getMediaUrl(url)) : []
             }));
 
@@ -27,11 +32,11 @@ export const postService = {
     getPostById: async (postId) => {
         try {
             const response = await axiosInstance.get(`/posts/${postId}`);
-            
+
             return {
                 ...response.data,
-                media_urls: response.data.media_urls ? 
-                    response.data.media_urls.map(url => getMediaUrl(url)) : 
+                media_urls: response.data.media_urls ?
+                    response.data.media_urls.map(url => getMediaUrl(url)) :
                     []
             };
         } catch (error) {
@@ -47,6 +52,11 @@ export const postService = {
             formData.append('location', postData.location || '');
             formData.append('pet_id', postData.pet_id);
 
+            // Agregar campos de geolocalización
+            if (postData.latitude) formData.append('latitude', postData.latitude);
+            if (postData.longitude) formData.append('longitude', postData.longitude);
+            if (postData.location_name) formData.append('location_name', postData.location_name);
+
             if (postData.files && postData.files.length > 0) {
                 postData.files.forEach(file => {
                     formData.append('files', file);
@@ -59,16 +69,28 @@ export const postService = {
                 },
             });
 
-            // Procesar las URLs de las imágenes en la respuesta
-            if (response.data.media_urls) {
-                response.data.media_urls = response.data.media_urls.map(url => 
-                    getMediaUrl(url)
-                );
-            }
-
             return response.data;
         } catch (error) {
             console.error('Error al crear post:', error);
+            throw error;
+        }
+    },
+
+    getNearbyPosts: async (latitude, longitude, radius = 10, skip = 0, limit = 10) => {
+        try {
+            const response = await axiosInstance.get('/posts/nearby', {
+                params: {
+                    latitude,
+                    longitude,
+                    radius_km: radius,
+                    skip,
+                    limit
+                }
+            });
+
+            return response.data;
+        } catch (error) {
+            console.error('Error obteniendo posts cercanos:', error);
             throw error;
         }
     },
@@ -78,7 +100,7 @@ export const postService = {
         try {
             const mediaFormData = new FormData();
             mediaFormData.append('file', file);
-    
+
             const response = await axiosInstance.post(
                 `/posts/${postId}/media`,
                 mediaFormData,
@@ -88,7 +110,7 @@ export const postService = {
                     }
                 }
             );
-    
+
             return response.data;
         } catch (error) {
             console.error('Error al subir archivo:', error);
@@ -126,8 +148,8 @@ export const postService = {
             // Procesar todas las URLs al final
             return {
                 ...updatedPost,
-                media_urls: updatedPost.media_urls ? 
-                    updatedPost.media_urls.map(url => getMediaUrl(url)) : 
+                media_urls: updatedPost.media_urls ?
+                    updatedPost.media_urls.map(url => getMediaUrl(url)) :
                     []
             };
         } catch (error) {
@@ -137,24 +159,24 @@ export const postService = {
     },
 
 
-    deletePost : async (postId) => {
+    deletePost: async (postId) => {
         try {
             console.log('Intentando eliminar post:', postId);
             const response = await axiosInstance.delete(`/posts/${postId}`);
-            
+
             console.log('Respuesta del servidor:', response);
-    
+
             if (response.status === 204 || response.status === 200) {
                 return true;
             }
-            
+
             return response.data;
         } catch (error) {
             // Log detallado del error
             console.error('Error completo:', error);
             console.error('Estado de la respuesta:', error.response?.status);
             console.error('Datos del error:', error.response?.data);
-    
+
             if (error.response?.status === 404) {
                 throw new Error('La publicación no existe o ya fue eliminada');
             }
@@ -188,7 +210,7 @@ export const postService = {
     getMyPosts: async (params = {}) => {
         try {
             const { skip = 0, limit = 10, pet_id } = params;
-            
+
             const queryParams = {
                 skip,
                 limit,
@@ -246,7 +268,7 @@ export const postService = {
             throw error;
         }
     },
-    
+
     deleteReaction: async (reactionId) => {
         try {
             await axiosInstance.delete(`/posts/reactions/${reactionId}`);
@@ -256,7 +278,7 @@ export const postService = {
             throw error;
         }
     },
-    
+
     toggleReaction: async (postId, existingReactionId = null, petId) => {
         try {
             if (existingReactionId) {
@@ -266,9 +288,9 @@ export const postService = {
             } else {
                 // Si no existe una reacción, la creamos
                 const response = await postService.createReaction(postId, petId);
-                return { 
-                    liked: true, 
-                    reactionId: response.reaction_id 
+                return {
+                    liked: true,
+                    reactionId: response.reaction_id
                 };
             }
         } catch (error) {
@@ -285,7 +307,7 @@ export const postService = {
                     limit
                 }
             });
-    
+
             // Asegurarnos de que la respuesta tenga el formato correcto
             const trends = response.data.map(trend => ({
                 id: trend.id || String(Math.random()), // Fallback para ID si no existe
@@ -293,12 +315,41 @@ export const postService = {
                 total_interactions: trend.total_interactions || 0,
                 post_count: trend.post_count || 0
             }));
-    
+
             return trends;
         } catch (error) {
             console.error('Error al obtener las tendencias:', error);
             throw error; // Relanzamos el error para que el componente pueda manejarlo
         }
     },
+
+    sharePost: async (originalPostId, postData) => {
+        try {
+            const response = await axiosInstance.post(`/posts/${originalPostId}/share`, {
+                content: postData.content,
+                pet_id: postData.pet_id,
+                original_post_id: originalPostId
+            });
     
+            return response.data;
+        } catch (error) {
+            console.error('Error al compartir post:', error);
+            throw error;
+        }
+    },
+
+    getShares: async (postId, params = {}) => {
+        try {
+            const response = await axiosInstance.get(`/posts/${postId}/shares`, {
+                params: {
+                    ...params
+                }
+            });
+
+            return response.data;
+        } catch (error) {
+            console.error('Error obteniendo shares:', error);
+            throw error;
+        }
+    },
 };
