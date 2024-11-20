@@ -3,6 +3,7 @@ import { Alert, AlertTitle, AlertDescription } from '../ui/alert';
 import { AuthService } from '../services/auth.service';
 import { AlertTriangle, CheckCircle } from 'lucide-react';
 import '../styles/PasswordRecovery.css';
+import MesaDeTrabajo53 from '../../assets/icons/Mesa de trabajo 53.png';
 
 const PasswordRecovery = () => {
     const [email, setEmail] = useState('');
@@ -40,6 +41,7 @@ const PasswordRecovery = () => {
                 {alert && (
                     <Alert 
                         variant={alert.type}
+                        className={alert ? "show" : ""}
                     >
                         {alert.type === 'destructive' ? (
                             <AlertTriangle className="h-4 w-4" />
@@ -71,6 +73,10 @@ const PasswordRecovery = () => {
                         {isLoading ? 'Enviando...' : 'Enviar Enlace'}
                     </button>
                 </form>
+                    {/* Sección del logo */}
+                    <div className="logo-container">
+                        <img src={MesaDeTrabajo53} alt="Logo"/>
+                </div>
             </div>
         </div>
     );
