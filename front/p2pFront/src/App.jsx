@@ -45,7 +45,8 @@ function App() {
               <Route path="/pets" element={<PetProfiles />} />
               <Route path="/petProfile" element={<PetProfile />} />
               <Route path="/createVirtualPet" element={<CreateVirtualPet />} />
-              <Route path="/userProfile" element={<UserProfile />} />
+              {/* <Route path="/userProfile" element={<UserProfile />} /> */}
+              <Route path="/userProfile/:user_id" element={<UserProfile />} />
             </Route>
           </Route>
           {/* Ruta del dashboard (solo admin) */}

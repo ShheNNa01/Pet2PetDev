@@ -1,142 +1,170 @@
-import React, { useState, useEffect } from "react";
-import { Camera, Edit, MapPin, Settings, PawPrintIcon as Paw, User } from "lucide-react";
+import React, { useState } from "react";
+import { Camera, Edit, PawPrintIcon, User } from "lucide-react";
 
-const backgroundEmojis = ["🐶", "🐱", "🐰", "🐦", "🐹", "🐠", "🦜", "🐢"];
+const UserProfile = () => {
+  const [coverImage, setCoverImage] = useState(null);
+  const [profileImage, setProfileImage] = useState(null);
 
-export default function UserProfile() {
-  const [bgEmoji, setBgEmoji] = useState(backgroundEmojis[0]);
+  // Información del usuario con datos adicionales
+  const user = {
+    name: "Sarah Johnson", 
+    firstName: "Alvaro",
+    lastName: "Johnson Gonzalez",
+    username: "@pawsome_sarah",
+    bio: "Orgullosa de ser mamá de dos perritos 🐶 y un gatito 🐱",
+    city: "Medellín 🏙️", 
+    country: "Colombia ✨", 
+    // followers: 1234,
+    // following: 856,
+    coverPhoto: "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80",
+    profilePhoto: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80",
+    pets: [
+      {
+        name: "Luna",
+        type: "Perro",
+        breed: "Pug",  
+        photo: "https://images.unsplash.com/photo-1517849845537-4d257902454a?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80",
+        followers: 856,
+      },
+      {
+        name: "Milo",
+        type: "Gato",
+        breed: "Siamese", 
+        photo: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80",
+        followers: 743,
+      },
+      {
+        name: "Teox",
+        type: "Perro",
+        breed: "Pastor Collie", 
+        photo: "https://images.unsplash.com/photo-1587300003388-59208cc962cb?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80",
+        followers: 921,
+      }
+    ]
+  };
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setBgEmoji(
-        backgroundEmojis[Math.floor(Math.random() * backgroundEmojis.length)]
-      );
-    }, 5000); // Cambia cada 5 segundos
+  const handleCoverChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setCoverImage(URL.createObjectURL(file));
+    }
+  };
 
-    return () => clearInterval(interval);
-  }, []);
+  const handleProfileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setProfileImage(URL.createObjectURL(file));
+    }
+  };
 
   return (
-    <div className="min-h-screen bg-[#eeede8] p-4 md:p-8 relative overflow-hidden">
-      {/* Fondo dinámico */}
-      <div
-        className="absolute inset-0 opacity-10 flex flex-wrap justify-center items-center overflow-hidden"
-        aria-hidden="true"
-      >
-        {Array.from({ length: 100 }).map((_, i) => (
-          <span
-            key={i}
-            className="text-6xl m-4 animate-float"
-            style={{ animationDelay: `${i * 0.1}s` }}
-          >
-            {bgEmoji}
-          </span>
-        ))}
-      </div>
-
-      {/* Tarjeta de Perfil */}
-      <div className="mx-auto max-w-4xl bg-white relative z-10 rounded-lg shadow-lg overflow-hidden">
-        <div className="relative h-48 md:h-64 bg-[#509be2]">
-          <img
-            alt="Cover"
-            className="h-full w-full object-cover mix-blend-overlay"
-            src="/placeholder.svg?height=300&width=800"
+    <div className="max-w-4xl mx-auto pb-12">
+      {/* Foto de portada */}
+      <div className="relative h-80">
+        <img
+          src={coverImage || user.coverPhoto}
+          alt="Foto de portada"
+          className="w-full h-full object-cover"
+        />
+        <label className="absolute bottom-4 right-4 bg-white p-2 rounded-full shadow-lg cursor-pointer">
+          <Camera size={24} className="text-[#509ca2]" />
+          <input 
+            type="file" 
+            accept="image/*"
+            onChange={handleCoverChange}
+            className="absolute inset-0 opacity-0 cursor-pointer"
           />
-          <button className="absolute bottom-4 right-4 bg-white/80 hover:bg-white p-2 rounded-full shadow">
-            <Camera className="h-4 w-4 text-[#d55b49]" />
-          </button>
+        </label>
+      </div>
+
+      {/* Información del usuario */}
+      <div className="relative px-6 -mt-24">
+        <div className="flex flex-col items-center gap-6">
+          {/* Foto de perfil */}
+          <div className="relative">
+            <img
+              src={profileImage || user.profilePhoto}
+              alt={user.name}
+              className="w-48 h-48 rounded-full border-4 border-white object-cover shadow-lg"
+            />
+            <label className="absolute bottom-4 right-4 bg-white p-2 rounded-full shadow-lg cursor-pointer">
+              <Camera size={20} className="text-[#509ca2]" />
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleProfileChange}
+                className="absolute inset-0 opacity-0 cursor-pointer"
+              />
+            </label>
+          </div>
+
+          {/* Información adicional del usuario */}
+          <div className="flex-1 text-center">
+          <h1 className="text-3xl font-bold">{user.firstName} {user.lastName}</h1>
+          <p className="text-[#509ca2] font-medium">{user.username}</p>
+          <p className="mt-2 text-gray-600">{user.bio}</p>
+          <p className="mt-2 text-gray-600">Ciudad: {user.city}</p>
+          <p className="mt-2 text-gray-600">País: {user.country}</p>
+
+          {/* Mostrar seguidores y seguidos
+          <div className="mt-6 flex justify-center gap-10">
+            <div className="text-[#d55b49] text-3xl font-bold">
+              <p>{user.followers}</p>
+              <p className="text-gray-600 text-lg">Seguidores</p>
+            </div>
+            <div className="text-[#d55b49] text-3xl font-bold">
+              <p>{user.following}</p>
+              <p className="text-gray-600 text-lg">Seguidos</p>
+            </div>
+          </div> */}
         </div>
 
-        <div className="relative px-4 pb-4 md:px-6">
-          <div className="absolute -top-12 h-24 w-24 border-4 border-white rounded-full overflow-hidden">
-            <img
-              alt="User"
-              src="/placeholder.svg?height=120&width=120"
-              className="h-full w-full object-cover"
-            />
-          </div>
-          <div className="ml-24 mt-4 md:ml-36">
-            <div className="flex items-start justify-between">
-              <div>
-                <h1 className="text-2xl font-bold text-[#1a1a1a]">
-                  María González
-                </h1>
-                <div className="flex items-center gap-2 text-sm text-[#509be2]">
-                  <MapPin className="h-4 w-4" />
-                  <span>Barcelona, España</span>
-                </div>
-              </div>
-              <div className="flex gap-2">
-                <button className="border-[#d55b49] text-[#d55b49] hover:bg-[#d55b49] hover:text-white px-4 py-2 rounded shadow">
-                  <Edit className="mr-2 h-4 w-4" />
-                  Editar Perfil
-                </button>
-                <button className="text-[#509be2] hover:bg-[#509be2]/10 p-2 rounded-full shadow">
-                  <Settings className="h-4 w-4" />
-                </button>
-              </div>
-            </div>
-
-            <p className="mt-4 text-gray-600">
-              Amante de los animales 🐾 | Voluntaria en refugio local | Madre de
-              3 perritos adorables
-            </p>
-
-            <div className="mt-4 flex gap-4">
-              <div className="text-center">
-                <div className="font-bold text-[#d55b49] text-xl">128</div>
-                <div className="text-sm text-[#509be2]">Seguidores</div>
-              </div>
-              <div className="text-center">
-                <div className="font-bold text-[#d55b49] text-xl">84</div>
-                <div className="text-sm text-[#509be2]">Siguiendo</div>
-              </div>
-              <div className="text-center">
-                <div className="font-bold text-[#d55b49] text-xl">3</div>
-                <div className="text-sm text-[#509be2]">Mascotas</div>
-              </div>
-            </div>
+          {/* Botón para editar perfil */}
+          <div className="mt-4 w-full flex justify-center">
+            <button className="btn-primary flex items-center gap-2 bg-[#509ca2] text-white py-2 px-4 rounded-lg shadow-lg hover:bg-[#4a8e97] transition-all duration-300">
+              <Edit /> Editar perfil
+            </button>
           </div>
         </div>
       </div>
 
-      {/* Tabs */}
-      <div className="mx-auto max-w-4xl mt-6 bg-white relative z-10 rounded-lg shadow-lg overflow-hidden">
-        <div className="p-4">
-          <div className="grid w-full grid-cols-2 gap-4">
-            <button className="bg-[#d55b49] text-white px-4 py-2 rounded shadow">
-              <Paw className="mr-2 h-4 w-4" />
-              Mis Mascotas
-            </button>
-            <button className="bg-[#509be2] text-white px-4 py-2 rounded shadow">
-              <User className="mr-2 h-4 w-4" />
-              Información Completa
-            </button>
-          </div>
-
-          {/* Contenido de mascotas */}
-          <div className="mt-4 grid gap-4 md:grid-cols-3">
-            {[1, 2, 3].map((pet) => (
-              <div
-                key={pet}
-                className="overflow-hidden bg-white hover:shadow-lg transition-shadow duration-300 rounded-lg"
-              >
-                <img
-                  alt={`Pet ${pet}`}
-                  className="h-48 w-full object-cover"
-                  src="/placeholder.svg?height=200&width=300"
-                />
-                <div className="p-4">
-                  <h3 className="font-bold text-[#1a1a1a]">Luna {pet}</h3>
-                  <p className="mt-2 text-sm text-[#d55b49]">
-                    {pet} años • Golden Retriever
-                  </p>
+      {/* Sección de mascotas */}
+      <div className="mt-12">
+        <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
+          <PawPrintIcon className="text-[#d55b49]" /> Mis mascotas
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {user.pets.map((pet, index) => (
+            <div
+              key={index}
+              className="pet-card relative bg-white rounded-lg overflow-hidden shadow-lg transform transition-transform hover:scale-105 hover:shadow-xl cursor-pointer"
+              style={{
+                transition: "all 0.3s ease",
+                boxShadow: "0 4px 10px rgba(213, 91, 73, 0.6)", 
+                border: "2px solid #d55b49" 
+              }}
+              onClick={() => alert(`Hiciste clic en el perfil de ${pet.name}`)}
+            >
+              <img
+                src={pet.photo}
+                alt={pet.name}
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-4">
+                <h3 className="text-xl font-bold">{pet.name}</h3>
+                <p className="text-[#509ca2]">{pet.type}</p>
+                <p className="text-gray-600">Raza: {pet.breed}</p>
+                <div className="flex items-center gap-2 mt-2 text-gray-600">
+                  <User />
+                  <span>{pet.followers} seguidores</span>
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
   );
-}
+};
+
+export default UserProfile;
