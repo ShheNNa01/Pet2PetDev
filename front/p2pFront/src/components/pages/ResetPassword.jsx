@@ -6,34 +6,131 @@ import { Alert, AlertTitle, AlertDescription } from '../ui/alert';
 import { AuthService } from '../services/auth.service';
 import Logo from '../../assets/icons/Mesa de trabajo 55.png';
 
-// Componente de input de contraseña con toggle
-const PasswordInput = ({ label, value, onChange, placeholder }) => {
+// Componente de input de contraseña con validación y requisitos
+const PasswordInput = ({ label, value, onChange, placeholder, error, showRequirements = false }) => {
     const [showPassword, setShowPassword] = useState(false);
+    const [isFocused, setIsFocused] = useState(false);
+
+    const requirements = [
+        {
+            text: "Mínimo 8 caracteres",
+            met: value.length >= 8,
+            regex: value.length >= 8
+        },
+        {
+            text: "Una mayúscula",
+            met: /[A-Z]/.test(value),
+            regex: /[A-Z]/.test(value)
+        },
+        {
+            text: "Una minúscula",
+            met: /[a-z]/.test(value),
+            regex: /[a-z]/.test(value)
+        },
+        {
+            text: "Un número",
+            met: /[0-9]/.test(value),
+            regex: /[0-9]/.test(value)
+        },
+        {
+            text: "Un carácter especial",
+            met: /[^A-Za-z0-9]/.test(value),
+            regex: /[^A-Za-z0-9]/.test(value)
+        }
+    ];
+
+    const getStrengthPercentage = () => {
+        const metCount = requirements.filter(req => req.met).length;
+        return (metCount / requirements.length) * 100;
+    };
+
+    const getStrengthColor = (percentage) => {
+        if (percentage === 100) return 'bg-green-500';
+        if (percentage >= 80) return 'bg-blue-500';
+        if (percentage >= 50) return 'bg-yellow-500';
+        return 'bg-red-500';
+    };
+
+    const strengthPercentage = getStrengthPercentage();
+    const strengthColor = getStrengthColor(strengthPercentage);
 
     return (
-        <div className="space-y-2">
+        <div className="space-y-2 w-full">
             <label className="block text-sm font-medium text-gray-700">
                 {label}
             </label>
-            <div className="relative">
+            <div className="relative group">
                 <input
                     type={showPassword ? "text" : "password"}
                     value={value}
                     onChange={onChange}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#509ca2] focus:border-transparent transition-all bg-white/50 backdrop-blur-sm pr-10"
+                    onFocus={() => setIsFocused(true)}
+                    onBlur={() => setIsFocused(false)}
+                    className={`
+                        w-full px-4 py-3 rounded-lg
+                        border transition-all duration-200
+                        bg-white/50 backdrop-blur-sm
+                        ${error 
+                            ? 'border-red-500 focus:ring-red-200' 
+                            : isFocused 
+                                ? 'border-[#509ca2] ring-2 ring-[#509ca2]/20' 
+                                : 'border-gray-300 hover:border-[#509ca2]/50'
+                        }
+                        focus:outline-none focus:border-[#509ca2]
+                        pr-10 placeholder-gray-400
+                    `}
                     placeholder={placeholder}
                 />
-                <div 
-                    className="absolute inset-y-0 right-0 flex items-center pr-2 cursor-pointer"
+                <button
+                    type="button"
                     onClick={() => setShowPassword(!showPassword)}
+                    className={`
+                        absolute right-2 top-1/2 -translate-y-1/2
+                        p-2 rounded-full transition-all duration-200
+                        ${isFocused ? 'text-[#509ca2]' : 'text-gray-400'}
+                        hover:bg-[#509ca2]/10
+                    `}
                 >
                     {showPassword ? (
-                        <Eye className="h-5 w-5 text-gray-400 hover:text-gray-500" />
+                        <Eye className="h-5 w-5" />
                     ) : (
-                        <EyeOff className="h-5 w-5 text-gray-400 hover:text-gray-500" />
+                        <EyeOff className="h-5 w-5" />
                     )}
-                </div>
+                </button>
             </div>
+
+            {error && (
+                <p className="text-sm text-red-500 mt-1">{error}</p>
+            )}
+
+            {showRequirements && value.length > 0 && (
+                <div className="mt-4 space-y-4">
+                    {/* Barra de progreso */}
+                    <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+                        <div 
+                            className={`h-full transition-all duration-300 ${strengthColor}`}
+                            style={{ width: `${strengthPercentage}%` }}
+                        />
+                    </div>
+
+                    {/* Requisitos */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                        {requirements.map((requirement, index) => (
+                            <div 
+                                key={index}
+                                className={`flex items-center space-x-2 text-sm ${
+                                    requirement.met ? 'text-green-600' : 'text-gray-500'
+                                }`}
+                            >
+                                <Check className={`h-4 w-4 ${
+                                    requirement.met ? 'text-green-500' : 'text-gray-300'
+                                }`} />
+                                <span>{requirement.text}</span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
@@ -58,14 +155,25 @@ const ResetPassword = () => {
     }, [token]);
 
     const validatePasswords = () => {
-        if (passwords.newPassword.length < 8) {
-            setError('La contraseña debe tener al menos 8 caracteres');
+        // Validar requisitos de contraseña
+        const requirements = [
+            passwords.newPassword.length >= 8,
+            /[A-Z]/.test(passwords.newPassword),
+            /[a-z]/.test(passwords.newPassword),
+            /[0-9]/.test(passwords.newPassword),
+            /[^A-Za-z0-9]/.test(passwords.newPassword)
+        ];
+
+        if (!requirements.every(Boolean)) {
+            setError('La contraseña debe cumplir con todos los requisitos');
             return false;
         }
+
         if (passwords.newPassword !== passwords.confirmPassword) {
             setError('Las contraseñas no coinciden');
             return false;
         }
+
         return true;
     };
 
@@ -130,6 +238,8 @@ const ResetPassword = () => {
                                         newPassword: e.target.value
                                     }))}
                                     placeholder="Ingresa tu nueva contraseña"
+                                    error={error && error.includes('requisitos') ? error : ''}
+                                    showRequirements={true}
                                 />
 
                                 <PasswordInput
@@ -140,6 +250,8 @@ const ResetPassword = () => {
                                         confirmPassword: e.target.value
                                     }))}
                                     placeholder="Confirma tu nueva contraseña"
+                                    error={error && error.includes('coinciden') ? error : ''}
+                                    showRequirements={false}
                                 />
                             </div>
 
