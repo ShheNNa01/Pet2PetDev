@@ -1,6 +1,15 @@
 import React, { useState } from 'react';
 import { usePet } from '../context/PetContext';
 import { postService } from '../services/PostService';
+import { 
+    Dialog,
+    DialogContent,
+    DialogHeader,
+    DialogTitle,
+} from '../ui/dialog';
+import { Textarea } from '../ui/textarea';
+import { Button } from '../ui/button';
+import { Alert, AlertDescription } from '../ui/alert';
 
 export default function SharePostModal({ isOpen, onClose, post }) {
     const { currentPet } = usePet();
@@ -13,7 +22,6 @@ export default function SharePostModal({ isOpen, onClose, post }) {
             alert('Por favor, selecciona una mascota antes de compartir');
             return;
         }
-
         setIsSharing(true);
         try {
             await postService.sharePost(post.post_id, {
@@ -30,38 +38,52 @@ export default function SharePostModal({ isOpen, onClose, post }) {
         }
     };
 
-    if (!isOpen) return null;
-
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <div className="bg-white rounded-lg max-w-lg w-full p-6">
-                <h2 className="text-xl font-semibold mb-4">Compartir publicación</h2>
-                <form onSubmit={handleShare}>
-                    <textarea
-                        className="w-full border rounded-lg p-3 mb-4"
-                        placeholder="Agrega un comentario a tu compartido..."
+        <Dialog open={isOpen} onOpenChange={onClose}>
+            <DialogContent className="sm:max-w-lg">
+                <DialogHeader>
+                    <DialogTitle className="text-[#d55b49] text-xl font-semibold">
+                        Compartir publicación
+                    </DialogTitle>
+                </DialogHeader>
+
+                <form onSubmit={handleShare} className="space-y-6">
+                    <Textarea
                         value={content}
                         onChange={(e) => setContent(e.target.value)}
+                        placeholder="¿Qué piensas sobre esta publicación? 🐾"
                         rows={4}
+                        className="focus-visible:ring-[#509ca2]"
                     />
-                    <div className="flex justify-end gap-2">
-                        <button
+
+                    {!currentPet?.pet_id && (
+                        <Alert variant="destructive">
+                            <AlertDescription>
+                                Por favor, selecciona una mascota antes de compartir
+                            </AlertDescription>
+                        </Alert>
+                    )}
+
+                    <div className="flex justify-end gap-3">
+                        <Button
                             type="button"
+                            variant="outline"
                             onClick={onClose}
-                            className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg"
+                            className="hover:text-[#509ca2] hover:border-[#509ca2]"
                         >
                             Cancelar
-                        </button>
-                        <button
+                        </Button>
+                        <Button
                             type="submit"
                             disabled={isSharing || !currentPet?.pet_id}
-                            className="px-4 py-2 bg-[#509ca2] text-white rounded-lg hover:bg-[#509ca2]/90 disabled:opacity-50"
+                            className="bg-[#509ca2] hover:bg-[#d55b49] active:bg-[#509ca2] 
+                                        transition-colors duration-200 disabled:hover:bg-[#509ca2]"
                         >
                             {isSharing ? 'Compartiendo...' : 'Compartir'}
-                        </button>
+                        </Button>
                     </div>
                 </form>
-            </div>
-        </div>
+            </DialogContent>
+        </Dialog>
     );
 }
