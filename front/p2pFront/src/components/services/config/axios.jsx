@@ -1,7 +1,7 @@
 // src/components/services/config/axios.jsx
 import axios from 'axios';
 
-const isDevelopment = import.meta.env.MODE === 'development';
+const isDevelopment = import.meta.env.MODE === 'deployment';
 const BASE_URL = isDevelopment 
     ? 'http://localhost:8000/api/v1'
     : 'https://pet2petbackdeploy-production.up.railway.app/api/v1';
